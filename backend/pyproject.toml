@@ -111,7 +111,7 @@ combine-as-imports = true
 branch = true
 omit = [
   ".venv/*",
-  "*/migrations/*",
+  "**/migrations/**",
   "*/admin.py",
   "*/apps.py",
   "manage.py",
