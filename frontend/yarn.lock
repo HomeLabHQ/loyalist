@@ -10050,13 +10050,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-image-picker-editor@npm:^1.3.3":
-  version: 1.3.3
-  resolution: "react-image-picker-editor@npm:1.3.3"
+"react-image-picker-editor@npm:^1.3.4":
+  version: 1.3.4
+  resolution: "react-image-picker-editor@npm:1.3.4"
   peerDependencies:
-    react: ^18.2.0
-    react-dom: ^18.2.0
-  checksum: a4d92bbb15f91db1376d06e296abb059f424ccaa869a42da84efff96e87ba2987f44759aa423ac9a429fb4d3da21a7e69f61fde76f8163a8194bfd67fe973c22
+    react: ^17.0.2
+  checksum: c57ded912dfd48848d1686bfd6e08b199b95498d540dc3f5e3b3831b2572752d2eda5f17b2379fd52ac4711b407beeefae205235b94ca60cf746b1945dfef037
   languageName: node
   linkType: hard
 
@@ -10549,7 +10548,7 @@ __metadata:
     prop-types: "npm:^15.8.1"
     react: "npm:^18.2.0"
     react-dom: "npm:^18.2.0"
-    react-image-picker-editor: "npm:^1.3.3"
+    react-image-picker-editor: "npm:^1.3.4"
     react-redux: "npm:^9.1.0"
     react-router-dom: "npm:^6.22.3"
     storybook: "npm:^8.0.5"
