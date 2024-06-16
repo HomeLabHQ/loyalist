@@ -1,0 +1,133 @@
+[tool.poetry]
+authors = ["Oleksandr Korol <zibertua@gmail.com>"]
+description = ""
+name = "backend"
+readme = "README.md"
+version = "0.1.0"
+
+[tool.poetry.dependencies]
+Django = "^5.0.2"
+celery = {extras = ["redis"], version = "^5.3.6"}
+celery-redbeat = "^2.2.0"
+django-cors-headers = "^4.2.0"
+django-extensions = "^3.2.3"
+django-filter = "^24.2"
+django-storages = "^1.14.2"
+django-stubs = {extras = ["compatible-mypy"], version = "^5.0.2"}
+django-stubs-ext = "^5.0.2"
+djangorestframework = "^3.15.0"
+djangorestframework-simplejwt = "^5.3.0"
+djangorestframework-stubs = {extras = ["compatible-mypy"], version = "^3.15.0"}
+drf-spectacular = "^0.27.1"
+gunicorn = "^21.2.0"
+pillow = "^10.2.0"
+psycopg = {extras = ["binary"], version = "^3.1.13"}
+python = "^3.12"
+rest-social-auth = "^8.3.0"
+uvicorn = {extras = ["standard"], version = "^0.29.0"}
+
+[tool.poetry.group.dev.dependencies]
+djlint = "^1.34.1"
+mypy = "^1.10.0"
+ruff = "^0.4.8"
+
+[tool.poetry.group.test.dependencies]
+coverage = {extras = ["toml"], version = "^7.2.7"}
+factory_boy = "^3.3.0"
+
+[tool.poetry.group.docs.dependencies]
+mkdocs = "^1.5.3"
+mkdocs-awesome-pages-plugin = "^2.9.2"
+mkdocs-graphviz = "^1.5.3"
+mkdocs-material = "^9.5.6"
+mkdocstrings = "^0.24.0"
+
+[build-system]
+build-backend = "poetry.core.masonry.api"
+requires = ["poetry-core"]
+
+[tool.ruff]
+line-length = 120
+target-version = "py312"
+# Exclude a variety of commonly ignored directories.
+exclude = [
+  ".git",
+  ".mypy_cache",
+  ".ruff_cache",
+  ".venv",
+  "__pypackages__",
+  "_build",
+  "buck-out",
+  "migrations",
+  "dist",
+  ".venv",
+  ".conf",
+  "asgi.py",
+]
+[tool.ruff.lint]
+extend-select = ["I"]
+ignore = [
+  "ANN",
+  "D",
+  "PT009",
+  "B904",
+  "S101",
+  "ARG001",
+  "ARG002",
+  "G004",
+  "EM102",
+  "TRY003",
+  "TRY401",
+  "EM101",
+  "S311",
+  "S107",
+  "S105",
+  "N802",
+  "TCH001",
+  "TCH002",
+  "PTH",
+  "RUF012",
+]
+select = ["ALL"]
+
+per-file-ignores = {}
+# Allow unused variables when underscore-prefixed.
+dummy-variable-rgx = "^(_+|(_+[a-zA-Z0-9_]*[a-zA-Z0-9]+?))$"
+[tool.ruff.lint.mccabe]
+# Unlike Flake8, default to a complexity level of 10.
+max-complexity = 10
+
+[tool.ruff.format]
+# Like Black, use double quotes for strings.
+indent-style = "space"
+line-ending = "auto"
+quote-style = "double"
+skip-magic-trailing-comma = false
+
+[tool.ruff.lint.isort]
+combine-as-imports = true
+
+[tool.coverage.run]
+branch = true
+omit = [
+  ".venv/*",
+  "*/migrations/*",
+  "*/admin.py",
+  "*/apps.py",
+  "manage.py",
+  "*/settings.py",
+  "*/asgi.py",
+  "*/wsgi.py",
+  "tests.py",
+]
+
+[tool.coverage.report]
+show_missing = true
+skip_empty = true
+sort = "cover"
+
+[tool.mypy]
+plugins = ["mypy_django_plugin.main", "mypy_drf_plugin.main"]
+
+[tool.django-stubs]
+django_settings_module = "core.settings"

@@ -1,0 +1,8 @@
+api_changes:
+  - "docs/schema.yml"
+no_tests:
+  - all: ["!**/tests.py", "!**/**/tests.py"]
+documentation:
+  - "**/*.md"
+db_schema:
+  - "docs/database/database.md"
