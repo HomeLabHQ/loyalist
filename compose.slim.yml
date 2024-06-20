@@ -4,14 +4,14 @@ x-service: &service
     context: ./
   env_file:
     - .env
-  image: remembrancer/backend-${ENVIRONMENT}
+  image: ${COMPOSE_PROJECT_NAME}/backend-${ENVIRONMENT}
 services:
   api:
     <<: *service
-    container_name: remembrancer-api-${ENVIRONMENT}
+    container_name: ${COMPOSE_PROJECT_NAME}-api-${ENVIRONMENT}
     command:
       - prod
-    image: remembrancer/backend-${ENVIRONMENT}
+    image: ${COMPOSE_PROJECT_NAME}/backend-${ENVIRONMENT}
     volumes:
       - attachments:/code/attachments/
   celery:
@@ -20,7 +20,7 @@ services:
       - redis
     command: celery worker -l INFO -Q django
   caddy:
-    container_name: remembrancer-caddy-${ENVIRONMENT}
+    container_name: ${COMPOSE_PROJECT_NAME}-caddy-${ENVIRONMENT}
     build:
       dockerfile: ./docker/caddy/Dockerfile
       context: ./

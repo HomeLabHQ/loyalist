@@ -10,7 +10,7 @@ from cards.models import LoyaltyCard
 from cards.tests.factories import LoyaltyCardFactory
 
 
-class StoreViewSetTest(CRUDTestCase, TestCase):
+class CardViewSetTest(CRUDTestCase, TestCase):
     base_view = "cards:loyalty-cards"
     queryset = LoyaltyCard.objects.all()
     item_count = 100

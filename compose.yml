@@ -4,12 +4,12 @@ x-service: &service
     context: ./
   env_file:
     - .env
-  image: remembrancer/backend-${ENVIRONMENT}
+  image: ${COMPOSE_PROJECT_NAME}/backend-${ENVIRONMENT}
 
 services:
   api:
     <<: *service
-    container_name: remembrancer-api-${ENVIRONMENT}
+    container_name: ${COMPOSE_PROJECT_NAME}-api-${ENVIRONMENT}
     command:
       - prod
     volumes:
@@ -24,7 +24,7 @@ services:
     command: celery worker -l INFO -Q django
   db:
     image: postgres:alpine3.18
-    container_name: remembrancer-db-${ENVIRONMENT}
+    container_name: ${COMPOSE_PROJECT_NAME}-db-${ENVIRONMENT}
     restart: unless-stopped
     env_file:
       - .env
@@ -36,7 +36,7 @@ services:
       timeout: 5s
       retries: 5
   caddy:
-    container_name: remembrancer-caddy-${ENVIRONMENT}
+    container_name: ${COMPOSE_PROJECT_NAME}-caddy-${ENVIRONMENT}
     build:
       dockerfile: ./docker/caddy/Dockerfile
       context: ./
