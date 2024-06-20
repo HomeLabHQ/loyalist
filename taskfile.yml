@@ -3,6 +3,8 @@ tasks:
   deploy:
       cmds:
         - git pull
+        - export INFISICAL_TOKEN=$(infisical login --client-id $INFISICAL_CLIENT_ID --client-secret $INFISICAL_CLIENT_SECRET --domain $INFISICAL_DOMAIN --silent --plain --method universal-auth)
+        - infisical export  --projectId 65f5ce2b6291a6b1cb549734 --domain $INFISICAL_DOMAIN --env production > .env
         - docker compose -f compose.slim.yml  build
         - docker compose -f compose.slim.yml  up -d
   env.development:
