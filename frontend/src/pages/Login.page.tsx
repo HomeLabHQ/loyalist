@@ -1,11 +1,10 @@
-import { Notifications } from '@mantine/notifications';
+import classes from './Login.module.css';
 import LoginForm from '@/components/auth/LoginForm';
 
 export function LoginPage() {
   return (
-    <>
-      <Notifications position="top-right" zIndex={1000} autoClose={2000} />
+    <div className={classes.content}>
       <LoginForm />
-    </>
+    </div>
   );
 }

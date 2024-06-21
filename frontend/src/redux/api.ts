@@ -1,5 +1,5 @@
 import { baseApi as api } from './baseApi';
-export const addTagTypes = ['auth', 'events', 'image-upload'] as const;
+export const addTagTypes = ['auth', 'image-upload', 'loyalty-cards', 'stores'] as const;
 const injectedRtkApi = api
   .enhanceEndpoints({
     addTagTypes,
@@ -82,47 +82,68 @@ const injectedRtkApi = api
         }),
         invalidatesTags: ['auth'],
       }),
-      eventsList: build.query<EventsListApiResponse, EventsListApiArg>({
-        query: (queryArg) => ({
-          url: `/api/events/`,
-          params: { page: queryArg.page, page_size: queryArg.pageSize },
-        }),
-        providesTags: ['events'],
-      }),
-      eventsCreate: build.mutation<EventsCreateApiResponse, EventsCreateApiArg>({
-        query: (queryArg) => ({ url: `/api/events/`, method: 'POST', body: queryArg.eventRequest }),
-        invalidatesTags: ['events'],
-      }),
-      eventsRetrieve: build.query<EventsRetrieveApiResponse, EventsRetrieveApiArg>({
-        query: (queryArg) => ({ url: `/api/events/${queryArg.id}/` }),
-        providesTags: ['events'],
-      }),
-      eventsUpdate: build.mutation<EventsUpdateApiResponse, EventsUpdateApiArg>({
-        query: (queryArg) => ({
-          url: `/api/events/${queryArg.id}/`,
-          method: 'PUT',
-          body: queryArg.eventRequest,
-        }),
-        invalidatesTags: ['events'],
-      }),
-      eventsPartialUpdate: build.mutation<
-        EventsPartialUpdateApiResponse,
-        EventsPartialUpdateApiArg
-      >({
-        query: (queryArg) => ({
-          url: `/api/events/${queryArg.id}/`,
-          method: 'PATCH',
-          body: queryArg.patchedEventRequest,
-        }),
-        invalidatesTags: ['events'],
-      }),
-      eventsDestroy: build.mutation<EventsDestroyApiResponse, EventsDestroyApiArg>({
-        query: (queryArg) => ({ url: `/api/events/${queryArg.id}/`, method: 'DELETE' }),
-        invalidatesTags: ['events'],
-      }),
       imageUploadCreate: build.mutation<ImageUploadCreateApiResponse, ImageUploadCreateApiArg>({
         query: (queryArg) => ({ url: `/api/image-upload/`, method: 'POST', body: queryArg.body }),
         invalidatesTags: ['image-upload'],
+      }),
+      loyaltyCardsList: build.query<LoyaltyCardsListApiResponse, LoyaltyCardsListApiArg>({
+        query: (queryArg) => ({
+          url: `/api/loyalty-cards/`,
+          params: { page: queryArg.page, page_size: queryArg.pageSize },
+        }),
+        providesTags: ['loyalty-cards'],
+      }),
+      loyaltyCardsCreate: build.mutation<LoyaltyCardsCreateApiResponse, LoyaltyCardsCreateApiArg>({
+        query: (queryArg) => ({
+          url: `/api/loyalty-cards/`,
+          method: 'POST',
+          body: queryArg.loyaltyCardRequest,
+        }),
+        invalidatesTags: ['loyalty-cards'],
+      }),
+      loyaltyCardsRetrieve: build.query<
+        LoyaltyCardsRetrieveApiResponse,
+        LoyaltyCardsRetrieveApiArg
+      >({
+        query: (queryArg) => ({ url: `/api/loyalty-cards/${queryArg.id}/` }),
+        providesTags: ['loyalty-cards'],
+      }),
+      loyaltyCardsUpdate: build.mutation<LoyaltyCardsUpdateApiResponse, LoyaltyCardsUpdateApiArg>({
+        query: (queryArg) => ({
+          url: `/api/loyalty-cards/${queryArg.id}/`,
+          method: 'PUT',
+          body: queryArg.loyaltyCardRequest,
+        }),
+        invalidatesTags: ['loyalty-cards'],
+      }),
+      loyaltyCardsPartialUpdate: build.mutation<
+        LoyaltyCardsPartialUpdateApiResponse,
+        LoyaltyCardsPartialUpdateApiArg
+      >({
+        query: (queryArg) => ({
+          url: `/api/loyalty-cards/${queryArg.id}/`,
+          method: 'PATCH',
+          body: queryArg.patchedLoyaltyCardRequest,
+        }),
+        invalidatesTags: ['loyalty-cards'],
+      }),
+      loyaltyCardsDestroy: build.mutation<
+        LoyaltyCardsDestroyApiResponse,
+        LoyaltyCardsDestroyApiArg
+      >({
+        query: (queryArg) => ({ url: `/api/loyalty-cards/${queryArg.id}/`, method: 'DELETE' }),
+        invalidatesTags: ['loyalty-cards'],
+      }),
+      storesList: build.query<StoresListApiResponse, StoresListApiArg>({
+        query: (queryArg) => ({
+          url: `/api/stores/`,
+          params: { page: queryArg.page, page_size: queryArg.pageSize },
+        }),
+        providesTags: ['stores'],
+      }),
+      storesRetrieve: build.query<StoresRetrieveApiResponse, StoresRetrieveApiArg>({
+        query: (queryArg) => ({ url: `/api/stores/${queryArg.id}/` }),
+        providesTags: ['stores'],
       }),
     }),
     overrideExisting: false,
@@ -160,42 +181,50 @@ export type AuthVerifyCreateApiResponse = unknown;
 export type AuthVerifyCreateApiArg = {
   tokenVerifyRequest: TokenVerifyRequestWrite;
 };
-export type EventsListApiResponse = /** status 200  */ PaginatedBaseEventListRead;
-export type EventsListApiArg = {
+export type ImageUploadCreateApiResponse = /** status 200  */ ImageUploadRead;
+export type ImageUploadCreateApiArg = {
+  body: Blob;
+};
+export type LoyaltyCardsListApiResponse = /** status 200  */ PaginatedBaseLoyaltyCardListRead;
+export type LoyaltyCardsListApiArg = {
   /** A page number within the paginated result set. */
   page?: number;
   /** Number of results to return per page. */
   pageSize?: number;
 };
-export type EventsCreateApiResponse = /** status 201  */ EventRead;
-export type EventsCreateApiArg = {
-  eventRequest: EventRequest;
+export type LoyaltyCardsCreateApiResponse = /** status 201  */ LoyaltyCardRead;
+export type LoyaltyCardsCreateApiArg = {
+  loyaltyCardRequest: LoyaltyCardRequest;
 };
-export type EventsRetrieveApiResponse = /** status 200  */ EventRead;
-export type EventsRetrieveApiArg = {
-  /** A unique integer value identifying this events. */
+export type LoyaltyCardsRetrieveApiResponse = /** status 200  */ LoyaltyCardRead;
+export type LoyaltyCardsRetrieveApiArg = {
+  id: string;
+};
+export type LoyaltyCardsUpdateApiResponse = /** status 200  */ LoyaltyCardRead;
+export type LoyaltyCardsUpdateApiArg = {
+  id: string;
+  loyaltyCardRequest: LoyaltyCardRequest;
+};
+export type LoyaltyCardsPartialUpdateApiResponse = /** status 200  */ LoyaltyCardRead;
+export type LoyaltyCardsPartialUpdateApiArg = {
+  id: string;
+  patchedLoyaltyCardRequest: PatchedLoyaltyCardRequest;
+};
+export type LoyaltyCardsDestroyApiResponse = unknown;
+export type LoyaltyCardsDestroyApiArg = {
+  id: string;
+};
+export type StoresListApiResponse = /** status 200  */ PaginatedBaseStoreListRead;
+export type StoresListApiArg = {
+  /** A page number within the paginated result set. */
+  page?: number;
+  /** Number of results to return per page. */
+  pageSize?: number;
+};
+export type StoresRetrieveApiResponse = /** status 200  */ StoreRead;
+export type StoresRetrieveApiArg = {
+  /** A unique integer value identifying this Store. */
   id: number;
-};
-export type EventsUpdateApiResponse = /** status 200  */ EventRead;
-export type EventsUpdateApiArg = {
-  /** A unique integer value identifying this events. */
-  id: number;
-  eventRequest: EventRequest;
-};
-export type EventsPartialUpdateApiResponse = /** status 200  */ EventRead;
-export type EventsPartialUpdateApiArg = {
-  /** A unique integer value identifying this events. */
-  id: number;
-  patchedEventRequest: PatchedEventRequest;
-};
-export type EventsDestroyApiResponse = unknown;
-export type EventsDestroyApiArg = {
-  /** A unique integer value identifying this events. */
-  id: number;
-};
-export type ImageUploadCreateApiResponse = /** status 200  */ ImageUploadRead;
-export type ImageUploadCreateApiArg = {
-  body: Blob;
 };
 export type JwtAuthResponse = {
   access: string;
@@ -277,65 +306,80 @@ export type TokenVerifyRequest = {};
 export type TokenVerifyRequestWrite = {
   token: string;
 };
-export type BaseEvent = {
+export type BaseLoyaltyCard = {
   title: string;
-  color?: string;
-  is_public?: boolean;
-  date: string;
 };
-export type BaseUser = {
-  email: string;
-  first_name: string;
-  last_name: string;
-};
-export type BaseEventRead = {
+export type BaseLoyaltyCardRead = {
   id: number;
   title: string;
-  color?: string;
-  is_public?: boolean;
-  date: string;
-  author: BaseUser;
 };
-export type PaginatedBaseEventList = {
+export type PaginatedBaseLoyaltyCardList = {
   count: number;
   next?: string | null;
   previous?: string | null;
-  results: BaseEvent[];
+  results: BaseLoyaltyCard[];
 };
-export type PaginatedBaseEventListRead = {
+export type PaginatedBaseLoyaltyCardListRead = {
   count: number;
   next?: string | null;
   previous?: string | null;
-  results: BaseEventRead[];
+  results: BaseLoyaltyCardRead[];
 };
-export type Event = {
+export type LoyaltyCard = {
   title: string;
-  color?: string;
-  is_public?: boolean;
-  date: string;
   description?: string;
+  code: string;
+  balance?: string;
 };
-export type EventRead = {
+export type LoyaltyCardRead = {
   id: number;
   title: string;
-  color?: string;
-  is_public?: boolean;
-  date: string;
-  author: BaseUser;
   description?: string;
+  code: string;
+  balance?: string;
 };
-export type EventRequest = {
+export type LoyaltyCardRequest = {
   title: string;
-  color?: string;
-  is_public?: boolean;
-  date: string;
   description?: string;
+  code: string;
+  balance?: string;
 };
-export type PatchedEventRequest = {
+export type PatchedLoyaltyCardRequest = {
   title?: string;
-  color?: string;
-  is_public?: boolean;
-  date?: string;
+  description?: string;
+  code?: string;
+  balance?: string;
+};
+export type BaseStore = {
+  title: string;
+  logo?: string | null;
+};
+export type BaseStoreRead = {
+  id: number;
+  title: string;
+  logo?: string | null;
+};
+export type PaginatedBaseStoreList = {
+  count: number;
+  next?: string | null;
+  previous?: string | null;
+  results: BaseStore[];
+};
+export type PaginatedBaseStoreListRead = {
+  count: number;
+  next?: string | null;
+  previous?: string | null;
+  results: BaseStoreRead[];
+};
+export type Store = {
+  title: string;
+  logo?: string | null;
+  description?: string;
+};
+export type StoreRead = {
+  id: number;
+  title: string;
+  logo?: string | null;
   description?: string;
 };
 export const {
@@ -348,11 +392,13 @@ export const {
   useAuthSocialLoginsRetrieveQuery,
   useAuthSocialJwtPairCreateMutation,
   useAuthVerifyCreateMutation,
-  useEventsListQuery,
-  useEventsCreateMutation,
-  useEventsRetrieveQuery,
-  useEventsUpdateMutation,
-  useEventsPartialUpdateMutation,
-  useEventsDestroyMutation,
   useImageUploadCreateMutation,
+  useLoyaltyCardsListQuery,
+  useLoyaltyCardsCreateMutation,
+  useLoyaltyCardsRetrieveQuery,
+  useLoyaltyCardsUpdateMutation,
+  useLoyaltyCardsPartialUpdateMutation,
+  useLoyaltyCardsDestroyMutation,
+  useStoresListQuery,
+  useStoresRetrieveQuery,
 } = injectedRtkApi;

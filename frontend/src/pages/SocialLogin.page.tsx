@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
-import { Notifications, notifications } from '@mantine/notifications';
+import { notifications } from '@mantine/notifications';
 import { Container, Paper, Title } from '@mantine/core';
 import { upperFirst } from '@mantine/hooks';
 import { useAuthSocialJwtPairCreateMutation } from '@/redux/api';
@@ -34,9 +34,7 @@ export default function SocialLoginPage() {
   return (
     <Container size={800} my={40}>
       <Title ta="center">Signup confirmation for social {upperFirst(provider ?? '')}</Title>
-      <Paper shadow="md" radius="md">
-        <Notifications position="top-right" zIndex={1000} autoClose={2000} />
-      </Paper>
+      <Paper shadow="md" radius="md"></Paper>
     </Container>
   );
 }

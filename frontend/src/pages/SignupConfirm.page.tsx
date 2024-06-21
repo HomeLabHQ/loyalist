@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { Notifications, notifications } from '@mantine/notifications';
+import { notifications } from '@mantine/notifications';
 import { ActionIcon, Container, Paper, Title } from '@mantine/core';
 import { IconLogin } from '@tabler/icons-react';
 import { useAuthRegisterConfirmCreateMutation } from '@/redux/api';
@@ -29,7 +29,6 @@ export default function SignupConfirmPage() {
     <Container size={800} my={40}>
       <Title ta="center">Signup confirmation</Title>
       <Paper shadow="md" radius="md">
-        <Notifications position="top-right" zIndex={1000} autoClose={2000} />{' '}
         {isError && (
           <h1>
             I’m sorry, but the signup confirmation link you provided is not valid. Please

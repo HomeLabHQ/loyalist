@@ -1,0 +1,9 @@
+.content {
+  max-width: rem(500px);
+  margin: auto;
+  height: 100%;
+  @media (max-width: $mantine-breakpoint-md) {
+    max-width: 100%;
+    margin-right: 0;
+  }
+}

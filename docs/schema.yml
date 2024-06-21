@@ -237,158 +237,6 @@ paths:
       responses:
         '200':
           description: No response body
-  /api/events/:
-    get:
-      operationId: events_list
-      parameters:
-      - name: page
-        required: false
-        in: query
-        description: A page number within the paginated result set.
-        schema:
-          type: integer
-      - name: page_size
-        required: false
-        in: query
-        description: Number of results to return per page.
-        schema:
-          type: integer
-      tags:
-      - events
-      security:
-      - jwtAuth: []
-      responses:
-        '200':
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/PaginatedBaseEventList'
-          description: ''
-    post:
-      operationId: events_create
-      tags:
-      - events
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/EventRequest'
-          application/x-www-form-urlencoded:
-            schema:
-              $ref: '#/components/schemas/EventRequest'
-          multipart/form-data:
-            schema:
-              $ref: '#/components/schemas/EventRequest'
-        required: true
-      security:
-      - jwtAuth: []
-      responses:
-        '201':
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Event'
-          description: ''
-  /api/events/{id}/:
-    get:
-      operationId: events_retrieve
-      parameters:
-      - in: path
-        name: id
-        schema:
-          type: integer
-        description: A unique integer value identifying this events.
-        required: true
-      tags:
-      - events
-      security:
-      - jwtAuth: []
-      responses:
-        '200':
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Event'
-          description: ''
-    put:
-      operationId: events_update
-      parameters:
-      - in: path
-        name: id
-        schema:
-          type: integer
-        description: A unique integer value identifying this events.
-        required: true
-      tags:
-      - events
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/EventRequest'
-          application/x-www-form-urlencoded:
-            schema:
-              $ref: '#/components/schemas/EventRequest'
-          multipart/form-data:
-            schema:
-              $ref: '#/components/schemas/EventRequest'
-        required: true
-      security:
-      - jwtAuth: []
-      responses:
-        '200':
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Event'
-          description: ''
-    patch:
-      operationId: events_partial_update
-      parameters:
-      - in: path
-        name: id
-        schema:
-          type: integer
-        description: A unique integer value identifying this events.
-        required: true
-      tags:
-      - events
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/PatchedEventRequest'
-          application/x-www-form-urlencoded:
-            schema:
-              $ref: '#/components/schemas/PatchedEventRequest'
-          multipart/form-data:
-            schema:
-              $ref: '#/components/schemas/PatchedEventRequest'
-      security:
-      - jwtAuth: []
-      responses:
-        '200':
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Event'
-          description: ''
-    delete:
-      operationId: events_destroy
-      parameters:
-      - in: path
-        name: id
-        schema:
-          type: integer
-        description: A unique integer value identifying this events.
-        required: true
-      tags:
-      - events
-      security:
-      - jwtAuth: []
-      responses:
-        '204':
-          description: No response body
   /api/image-upload/:
     post:
       operationId: image_upload_create
@@ -414,9 +262,205 @@ paths:
               schema:
                 $ref: '#/components/schemas/ImageUpload'
           description: ''
+  /api/loyalty-cards/:
+    get:
+      operationId: loyalty_cards_list
+      parameters:
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      - name: page_size
+        required: false
+        in: query
+        description: Number of results to return per page.
+        schema:
+          type: integer
+      tags:
+      - loyalty-cards
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedBaseLoyaltyCardList'
+          description: ''
+    post:
+      operationId: loyalty_cards_create
+      tags:
+      - loyalty-cards
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LoyaltyCardRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/LoyaltyCardRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/LoyaltyCardRequest'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LoyaltyCard'
+          description: ''
+  /api/loyalty-cards/{id}/:
+    get:
+      operationId: loyalty_cards_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+      tags:
+      - loyalty-cards
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LoyaltyCard'
+          description: ''
+    put:
+      operationId: loyalty_cards_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+      tags:
+      - loyalty-cards
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LoyaltyCardRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/LoyaltyCardRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/LoyaltyCardRequest'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LoyaltyCard'
+          description: ''
+    patch:
+      operationId: loyalty_cards_partial_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+      tags:
+      - loyalty-cards
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedLoyaltyCardRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedLoyaltyCardRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedLoyaltyCardRequest'
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LoyaltyCard'
+          description: ''
+    delete:
+      operationId: loyalty_cards_destroy
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+      tags:
+      - loyalty-cards
+      security:
+      - jwtAuth: []
+      responses:
+        '204':
+          description: No response body
+  /api/stores/:
+    get:
+      operationId: stores_list
+      parameters:
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      - name: page_size
+        required: false
+        in: query
+        description: Number of results to return per page.
+        schema:
+          type: integer
+      tags:
+      - stores
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedBaseStoreList'
+          description: ''
+  /api/stores/{id}/:
+    get:
+      operationId: stores_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this Store.
+        required: true
+      tags:
+      - stores
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Store'
+          description: ''
 components:
   schemas:
-    BaseEvent:
+    BaseLoyaltyCard:
       type: object
       properties:
         id:
@@ -425,62 +469,25 @@ components:
         title:
           type: string
           maxLength: 255
-        color:
-          type: string
-          maxLength: 7
-        is_public:
-          type: boolean
-        date:
-          type: string
-          format: date
-        author:
-          allOf:
-          - $ref: '#/components/schemas/BaseUser'
-          readOnly: true
       required:
-      - author
-      - date
       - id
       - title
-    BaseUser:
+    BaseStore:
       type: object
       properties:
-        email:
+        id:
+          type: integer
+          readOnly: true
+        title:
           type: string
-          format: email
-          title: Email address
           maxLength: 255
-        first_name:
+        logo:
           type: string
-          maxLength: 150
-        last_name:
-          type: string
-          maxLength: 150
+          format: uri
+          nullable: true
       required:
-      - email
-      - first_name
-      - last_name
-    BaseUserRequest:
-      type: object
-      properties:
-        email:
-          type: string
-          format: email
-          minLength: 1
-          title: Email address
-          maxLength: 255
-        first_name:
-          type: string
-          minLength: 1
-          maxLength: 150
-        last_name:
-          type: string
-          minLength: 1
-          maxLength: 150
-      required:
-      - email
-      - first_name
-      - last_name
+      - id
+      - title
     CustomTokenObtainPairRequest:
       type: object
       properties:
@@ -495,55 +502,6 @@ components:
       required:
       - email
       - password
-    Event:
-      type: object
-      properties:
-        id:
-          type: integer
-          readOnly: true
-        title:
-          type: string
-          maxLength: 255
-        color:
-          type: string
-          maxLength: 7
-        is_public:
-          type: boolean
-        date:
-          type: string
-          format: date
-        author:
-          allOf:
-          - $ref: '#/components/schemas/BaseUser'
-          readOnly: true
-        description:
-          type: string
-      required:
-      - author
-      - date
-      - id
-      - title
-    EventRequest:
-      type: object
-      properties:
-        title:
-          type: string
-          minLength: 1
-          maxLength: 255
-        color:
-          type: string
-          minLength: 1
-          maxLength: 7
-        is_public:
-          type: boolean
-        date:
-          type: string
-          format: date
-        description:
-          type: string
-      required:
-      - date
-      - title
     ImageUpload:
       type: object
       properties:
@@ -586,6 +544,48 @@ components:
       required:
       - access
       - refresh
+    LoyaltyCard:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        title:
+          type: string
+          maxLength: 255
+        description:
+          type: string
+        code:
+          type: string
+          maxLength: 255
+        balance:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,8}(?:\.\d{0,2})?$
+      required:
+      - code
+      - id
+      - title
+    LoyaltyCardRequest:
+      type: object
+      properties:
+        title:
+          type: string
+          minLength: 1
+          maxLength: 255
+        description:
+          type: string
+        code:
+          type: string
+          minLength: 1
+          maxLength: 255
+        balance:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,8}(?:\.\d{0,2})?$
+      required:
+      - code
+      - title
     OAuth2InputRequest:
       type: object
       properties:
@@ -600,7 +600,7 @@ components:
           minLength: 1
       required:
       - code
-    PaginatedBaseEventList:
+    PaginatedBaseLoyaltyCardList:
       type: object
       required:
       - count
@@ -622,25 +622,47 @@ components:
         results:
           type: array
           items:
-            $ref: '#/components/schemas/BaseEvent'
-    PatchedEventRequest:
+            $ref: '#/components/schemas/BaseLoyaltyCard'
+    PaginatedBaseStoreList:
+      type: object
+      required:
+      - count
+      - results
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=4
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=2
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/BaseStore'
+    PatchedLoyaltyCardRequest:
       type: object
       properties:
         title:
           type: string
           minLength: 1
           maxLength: 255
-        color:
-          type: string
-          minLength: 1
-          maxLength: 7
-        is_public:
-          type: boolean
-        date:
-          type: string
-          format: date
         description:
           type: string
+        code:
+          type: string
+          minLength: 1
+          maxLength: 255
+        balance:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,8}(?:\.\d{0,2})?$
     PatchedUserRequest:
       type: object
       description: |-
@@ -711,6 +733,24 @@ components:
         google_oauth2:
           type: string
           format: uri
+    Store:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        title:
+          type: string
+          maxLength: 255
+        logo:
+          type: string
+          format: uri
+          nullable: true
+        description:
+          type: string
+      required:
+      - id
+      - title
     TokenRefresh:
       type: object
       properties:

@@ -5,7 +5,6 @@ import SignupConfirmPage from '@/pages/SignupConfirm.page';
 import SocialLoginPage from '@/pages/SocialLogin.page';
 import LandingPage from '@/pages/Landing.page';
 import { HomePage } from '@/pages/Home.page';
-import EventPage from '@/pages/Event.page';
 import ProfilePage from '@/pages/Profile.page';
 
 type ProtectedRouteProps = {
@@ -37,22 +36,6 @@ const router = createBrowserRouter([
     element: (
       <ProtectedRoute>
         <HomePage />
-      </ProtectedRoute>
-    ),
-  },
-  {
-    path: '/events/new',
-    element: (
-      <ProtectedRoute>
-        <EventPage />
-      </ProtectedRoute>
-    ),
-  },
-  {
-    path: '/events/:id',
-    element: (
-      <ProtectedRoute>
-        <EventPage />
       </ProtectedRoute>
     ),
   },
