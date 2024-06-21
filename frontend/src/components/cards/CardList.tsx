@@ -1,17 +1,15 @@
 import { Center, Grid, Pagination, Paper } from '@mantine/core';
 import { useState } from 'react';
-import { useEventsListQuery } from '@/redux/api';
-import EventItem from './EventItem';
+import { useLoyaltyCardsListQuery } from '@/redux/api';
 import { defaultPageSize } from '@/settings/constants';
 
-function EventList() {
+function CardList() {
   const [activePage, setPage] = useState(1);
-  const { data } = useEventsListQuery({ page: activePage, pageSize: defaultPageSize });
+  const { data } = useLoyaltyCardsListQuery({ page: activePage, pageSize: defaultPageSize });
   return (
     <Paper p="lg">
       <Grid justify="center" align="stretch">
-        {data?.results.map((event) => <EventItem key={event.id} event={event} />)}
-        <EventItem />
+        {data?.results.map((card) => <></>)}
       </Grid>
       {data && data.count > defaultPageSize ? (
         <Center>
@@ -25,4 +23,4 @@ function EventList() {
     </Paper>
   );
 }
-export default EventList;
+export default CardList;

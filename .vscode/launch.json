@@ -8,7 +8,7 @@
     },
     {
       "name": "fe+be+client",
-      "configurations": ["be-server", "fe-server", "client"],
+      "configurations": ["be", "fe", "client"],
       "stopAll": true
     }
   ],

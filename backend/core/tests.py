@@ -1,7 +1,6 @@
 import io
 import random
 import typing
-from abc import ABC
 from unittest import SkipTest
 
 from authentication.models import User

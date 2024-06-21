@@ -1,16 +1,22 @@
 import { Image, Container, Title, Button, Group, Text, List, ThemeIcon, rem } from '@mantine/core';
-import { IconCheck } from '@tabler/icons-react';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import { IconBrandGithub, IconCheck } from '@tabler/icons-react';
+import classes from './Hero.module.css';
+import image from '@/assets/loyalty-card.jpg';
 
 export function Hero() {
+  const navigate = useNavigate();
   return (
-    <Container p="lg" size="md">
-      <div>
-        <div>
-          <Title>Remembrancer - event countdown app</Title>
+    <Container size="md">
+      <div className={classes.inner}>
+        <div className={classes.content}>
+          <Title>
+            A <span>modern</span> Loyalty cards <br /> management app
+          </Title>
           <Text c="dimmed" mt="md">
-            Stay ahead and never miss an important moment again. Countdown to your upcoming events,
-            big or small, with ease.
+            With our app, you can easily scan and store all your loyalty cards, points, and rewards
+            in one convenient location on your phone. No more fumbling through your wallet or
+            forgetting your cards at home - everything you need is right at your fingertips.
           </Text>
           <List
             mt={30}
@@ -23,25 +29,35 @@ export function Hero() {
             }
           >
             <List.Item>
-              <b>Any number of events</b> – Add any number of events
+              <b>Any type of codes</b> – Supports various type of codes(QR, barcode, etc.)
             </List.Item>
             <List.Item>
-              <b>Social logins</b> – Login with Google or LinkedIn
+              <b>Free and open source</b> – Loyalty cards management app is free and open source,
+              and hosted for your convenience by me
             </List.Item>
             <List.Item>
-              <b>Free and open source</b> – all source code are available on GitHub, so you can poke
-              around and maybe suggest an feature
+              <b>Dark mode support</b>
+            </List.Item>
+            <List.Item>
+              <b>One click login</b> - Login via Google, LinkedIn or the old school way with email
             </List.Item>
           </List>
           <Group mt={30}>
-            <Link to="/login">
-              <Button radius="xl" size="md">
-                Get started
-              </Button>
-            </Link>
+            <Button radius="xl" size="md" onClick={() => navigate('/login')}>
+              Signup
+            </Button>
+            <Button
+              rightSection={<IconBrandGithub />}
+              component="a"
+              href="https://github.com/HomeLabHQ/loyalist"
+              radius="xl"
+              size="md"
+            >
+              Source code
+            </Button>
           </Group>
         </div>
-        <Image />
+        <Image src={image} className={classes.image} />
       </div>
     </Container>
   );

@@ -42,11 +42,11 @@ export default function LoginForm() {
       auth({ customTokenObtainPairRequest: { email: values.email, password: values.password } })
         .unwrap()
         .then(() => {
-          notifications.show({ message: 'Login successful', color: 'green' });
+          notifications.show({ title: 'Success', message: 'Login successful', color: 'green' });
           navigate('/dashboard/');
         })
         .catch((error) => {
-          notifications.show({ message: JSON.stringify(error.data), color: 'red' });
+          notifications.show({ title: 'Error', message: error.data.detail, color: 'red' });
         });
     }
     if (type === 'register') {
@@ -60,36 +60,30 @@ export default function LoginForm() {
       })
         .unwrap()
         .then(() => {
-          notifications.show({ message: 'Register successful', color: 'green' });
+          notifications.show({ title: 'Success', message: 'Register successful', color: 'green' });
           navigate('/');
         })
         .catch((error) => {
-          notifications.show({ message: JSON.stringify(error.data), color: 'red' });
+          notifications.show({ title: 'Error', message: error.data.detail, color: 'red' });
         });
     }
   };
   return (
     <Container size={420} my={40}>
-      <Title ta="center">Welcome back!</Title>
+      <Title ta="center">Welcome to Loyalist</Title>
       <Paper withBorder shadow="md" p={30} mt={30} radius="md">
         <Title ta="center" size="sm">
           Login with
         </Title>
         <Group justify="center" p="sm">
           <Button
+            component="a"
+            href={data?.linkedin_openidconnect ?? ''}
             leftSection={<IconBrandLinkedin />}
-            onClick={() => {
-              window.location.href = data?.linkedin_openidconnect ?? '';
-            }}
           >
             LinkedIn
           </Button>
-          <Button
-            leftSection={<IconBrandGoogle />}
-            onClick={() => {
-              window.location.href = data?.google_oauth2 ?? '';
-            }}
-          >
+          <Button component="a" href={data?.google_oauth2 ?? ''} leftSection={<IconBrandGoogle />}>
             Google
           </Button>
         </Group>
@@ -118,7 +112,7 @@ export default function LoginForm() {
           <TextInput
             {...form.getInputProps('email')}
             label="Email"
-            placeholder="you@mantine.dev"
+            placeholder="you@loyalist.dev"
             required
           />
           <PasswordInput

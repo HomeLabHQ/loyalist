@@ -386,6 +386,14 @@ digraph model_graph {
     
     
       <TR><TD ALIGN="LEFT" BORDER="0">
+      <FONT COLOR="#7B7B7B" FACE="Roboto">avatar</FONT>
+      </TD><TD ALIGN="LEFT">
+      <FONT COLOR="#7B7B7B" FACE="Roboto">ImageField</FONT>
+      </TD></TR>
+    
+    
+    
+      <TR><TD ALIGN="LEFT" BORDER="0">
       <FONT FACE="Roboto">email</FONT>
       </TD><TD ALIGN="LEFT">
       <FONT FACE="Roboto">EmailField</FONT>
@@ -403,6 +411,14 @@ digraph model_graph {
     
       <TR><TD ALIGN="LEFT" BORDER="0">
       <FONT FACE="Roboto">is_active</FONT>
+      </TD><TD ALIGN="LEFT">
+      <FONT FACE="Roboto">BooleanField</FONT>
+      </TD></TR>
+    
+    
+    
+      <TR><TD ALIGN="LEFT" BORDER="0">
+      <FONT FACE="Roboto">is_notifications_enabled</FONT>
       </TD><TD ALIGN="LEFT">
       <FONT FACE="Roboto">BooleanField</FONT>
       </TD></TR>
@@ -806,44 +822,18 @@ digraph model_graph {
       >]
 
   }
-  subgraph cluster_events {
+  subgraph cluster_stores {
     label=<
           <TABLE BORDER="0" CELLBORDER="0" CELLSPACING="0">
           <TR><TD COLSPAN="2" CELLPADDING="4" ALIGN="CENTER">
           <FONT FACE="Roboto" COLOR="Black" POINT-SIZE="10">
-          <B>events</B>
+          <B>stores</B>
           </FONT>
           </TD></TR>
           </TABLE>
           >
     color=olivedrab4
     style="rounded"
-  
-    core_models_TimeStampedModel [label=<
-      <TABLE BGCOLOR="white" BORDER="1" CELLBORDER="0" CELLSPACING="0">
-      <TR><TD COLSPAN="2" CELLPADDING="5" ALIGN="CENTER" BGCOLOR="#1b563f">
-      <FONT FACE="Roboto" COLOR="white" POINT-SIZE="10"><B>
-      TimeStampedModel
-      </B></FONT></TD></TR>
-    
-    
-      <TR><TD ALIGN="LEFT" BORDER="0">
-      <FONT COLOR="#7B7B7B" FACE="Roboto">created_at</FONT>
-      </TD><TD ALIGN="LEFT">
-      <FONT COLOR="#7B7B7B" FACE="Roboto">DateTimeField</FONT>
-      </TD></TR>
-    
-    
-    
-      <TR><TD ALIGN="LEFT" BORDER="0">
-      <FONT COLOR="#7B7B7B" FACE="Roboto">updated_at</FONT>
-      </TD><TD ALIGN="LEFT">
-      <FONT COLOR="#7B7B7B" FACE="Roboto">DateTimeField</FONT>
-      </TD></TR>
-    
-    
-      </TABLE>
-      >]
   
     core_models_TitleDescriptionModel [label=<
       <TABLE BGCOLOR="white" BORDER="1" CELLBORDER="0" CELLSPACING="0">
@@ -871,11 +861,11 @@ digraph model_graph {
       </TABLE>
       >]
   
-    events_models_Event [label=<
+    stores_models_Store [label=<
       <TABLE BGCOLOR="white" BORDER="1" CELLBORDER="0" CELLSPACING="0">
       <TR><TD COLSPAN="2" CELLPADDING="5" ALIGN="CENTER" BGCOLOR="#1b563f">
       <FONT FACE="Roboto" COLOR="white" POINT-SIZE="10"><B>
-      Event<BR/>&lt;<FONT FACE="Roboto"><I>TitleDescriptionModel,TimeStampedModel</I></FONT>&gt;
+      Store<BR/>&lt;<FONT FACE="Roboto"><I>TitleDescriptionModel</I></FONT>&gt;
       </B></FONT></TD></TR>
     
     
@@ -896,25 +886,131 @@ digraph model_graph {
     
     
       <TR><TD ALIGN="LEFT" BORDER="0">
-      <FONT FACE="Roboto">color</FONT>
+      <FONT COLOR="#7B7B7B" FACE="Roboto"><I>description</I></FONT>
+      </TD><TD ALIGN="LEFT">
+      <FONT COLOR="#7B7B7B" FACE="Roboto"><I>TextField</I></FONT>
+      </TD></TR>
+    
+    
+    
+      <TR><TD ALIGN="LEFT" BORDER="0">
+      <FONT FACE="Roboto">is_verified</FONT>
+      </TD><TD ALIGN="LEFT">
+      <FONT FACE="Roboto">BooleanField</FONT>
+      </TD></TR>
+    
+    
+    
+      <TR><TD ALIGN="LEFT" BORDER="0">
+      <FONT COLOR="#7B7B7B" FACE="Roboto">logo</FONT>
+      </TD><TD ALIGN="LEFT">
+      <FONT COLOR="#7B7B7B" FACE="Roboto">ImageField</FONT>
+      </TD></TR>
+    
+    
+    
+      <TR><TD ALIGN="LEFT" BORDER="0">
+      <FONT FACE="Roboto"><I>title</I></FONT>
+      </TD><TD ALIGN="LEFT">
+      <FONT FACE="Roboto"><I>CharField</I></FONT>
+      </TD></TR>
+    
+    
+    
+      <TR><TD ALIGN="LEFT" BORDER="0">
+      <FONT COLOR="#7B7B7B" FACE="Roboto">website</FONT>
+      </TD><TD ALIGN="LEFT">
+      <FONT COLOR="#7B7B7B" FACE="Roboto">URLField</FONT>
+      </TD></TR>
+    
+    
+      </TABLE>
+      >]
+
+  }
+  subgraph cluster_cards {
+    label=<
+          <TABLE BORDER="0" CELLBORDER="0" CELLSPACING="0">
+          <TR><TD COLSPAN="2" CELLPADDING="4" ALIGN="CENTER">
+          <FONT FACE="Roboto" COLOR="Black" POINT-SIZE="10">
+          <B>cards</B>
+          </FONT>
+          </TD></TR>
+          </TABLE>
+          >
+    color=olivedrab4
+    style="rounded"
+  
+    core_models_TitleDescriptionModel [label=<
+      <TABLE BGCOLOR="white" BORDER="1" CELLBORDER="0" CELLSPACING="0">
+      <TR><TD COLSPAN="2" CELLPADDING="5" ALIGN="CENTER" BGCOLOR="#1b563f">
+      <FONT FACE="Roboto" COLOR="white" POINT-SIZE="10"><B>
+      TitleDescriptionModel<BR/>&lt;<FONT FACE="Roboto"><I>TitleModel,DescriptionModel</I></FONT>&gt;
+      </B></FONT></TD></TR>
+    
+    
+      <TR><TD ALIGN="LEFT" BORDER="0">
+      <FONT COLOR="#7B7B7B" FACE="Roboto"><I>description</I></FONT>
+      </TD><TD ALIGN="LEFT">
+      <FONT COLOR="#7B7B7B" FACE="Roboto"><I>TextField</I></FONT>
+      </TD></TR>
+    
+    
+    
+      <TR><TD ALIGN="LEFT" BORDER="0">
+      <FONT FACE="Roboto"><I>title</I></FONT>
+      </TD><TD ALIGN="LEFT">
+      <FONT FACE="Roboto"><I>CharField</I></FONT>
+      </TD></TR>
+    
+    
+      </TABLE>
+      >]
+  
+    cards_models_LoyaltyCard [label=<
+      <TABLE BGCOLOR="white" BORDER="1" CELLBORDER="0" CELLSPACING="0">
+      <TR><TD COLSPAN="2" CELLPADDING="5" ALIGN="CENTER" BGCOLOR="#1b563f">
+      <FONT FACE="Roboto" COLOR="white" POINT-SIZE="10"><B>
+      LoyaltyCard<BR/>&lt;<FONT FACE="Roboto"><I>TitleDescriptionModel</I></FONT>&gt;
+      </B></FONT></TD></TR>
+    
+    
+      <TR><TD ALIGN="LEFT" BORDER="0">
+      <FONT FACE="Roboto"><B>id</B></FONT>
+      </TD><TD ALIGN="LEFT">
+      <FONT FACE="Roboto"><B>BigAutoField</B></FONT>
+      </TD></TR>
+    
+    
+    
+      <TR><TD ALIGN="LEFT" BORDER="0">
+      <FONT FACE="Roboto"><B>author</B></FONT>
+      </TD><TD ALIGN="LEFT">
+      <FONT FACE="Roboto"><B>ForeignKey (id)</B></FONT>
+      </TD></TR>
+    
+    
+    
+      <TR><TD ALIGN="LEFT" BORDER="0">
+      <FONT FACE="Roboto"><B>store</B></FONT>
+      </TD><TD ALIGN="LEFT">
+      <FONT FACE="Roboto"><B>ForeignKey (id)</B></FONT>
+      </TD></TR>
+    
+    
+    
+      <TR><TD ALIGN="LEFT" BORDER="0">
+      <FONT FACE="Roboto">balance</FONT>
+      </TD><TD ALIGN="LEFT">
+      <FONT FACE="Roboto">DecimalField</FONT>
+      </TD></TR>
+    
+    
+    
+      <TR><TD ALIGN="LEFT" BORDER="0">
+      <FONT FACE="Roboto">code</FONT>
       </TD><TD ALIGN="LEFT">
       <FONT FACE="Roboto">CharField</FONT>
-      </TD></TR>
-    
-    
-    
-      <TR><TD ALIGN="LEFT" BORDER="0">
-      <FONT COLOR="#7B7B7B" FACE="Roboto"><I>created_at</I></FONT>
-      </TD><TD ALIGN="LEFT">
-      <FONT COLOR="#7B7B7B" FACE="Roboto"><I>DateTimeField</I></FONT>
-      </TD></TR>
-    
-    
-    
-      <TR><TD ALIGN="LEFT" BORDER="0">
-      <FONT FACE="Roboto">date</FONT>
-      </TD><TD ALIGN="LEFT">
-      <FONT FACE="Roboto">DateField</FONT>
       </TD></TR>
     
     
@@ -923,6 +1019,14 @@ digraph model_graph {
       <FONT COLOR="#7B7B7B" FACE="Roboto"><I>description</I></FONT>
       </TD><TD ALIGN="LEFT">
       <FONT COLOR="#7B7B7B" FACE="Roboto"><I>TextField</I></FONT>
+      </TD></TR>
+    
+    
+    
+      <TR><TD ALIGN="LEFT" BORDER="0">
+      <FONT FACE="Roboto">format</FONT>
+      </TD><TD ALIGN="LEFT">
+      <FONT FACE="Roboto">CharField</FONT>
       </TD></TR>
     
     
@@ -939,14 +1043,6 @@ digraph model_graph {
       <FONT FACE="Roboto"><I>title</I></FONT>
       </TD><TD ALIGN="LEFT">
       <FONT FACE="Roboto"><I>CharField</I></FONT>
-      </TD></TR>
-    
-    
-    
-      <TR><TD ALIGN="LEFT" BORDER="0">
-      <FONT COLOR="#7B7B7B" FACE="Roboto"><I>updated_at</I></FONT>
-      </TD><TD ALIGN="LEFT">
-      <FONT COLOR="#7B7B7B" FACE="Roboto"><I>DateTimeField</I></FONT>
       </TD></TR>
     
     
@@ -1018,13 +1114,38 @@ digraph model_graph {
   core_models_TitleDescriptionModel -> core_models_DescriptionModel
   [label=" abstract\ninheritance"] [arrowhead=empty, arrowtail=none, dir=both];
 
-  events_models_Event -> authentication_models_User
-  [label=" author (events)"] [arrowhead=none, arrowtail=dot, dir=both];
+  stores_models_Store -> authentication_models_User
+  [label=" author (stores)"] [arrowhead=none, arrowtail=dot, dir=both];
 
-  events_models_Event -> core_models_TitleDescriptionModel
+  stores_models_Store -> core_models_TitleDescriptionModel
   [label=" abstract\ninheritance"] [arrowhead=empty, arrowtail=none, dir=both];
 
-  events_models_Event -> core_models_TimeStampedModel
+  core_models_TitleModel [label=<
+  <TABLE BGCOLOR="white" BORDER="0" CELLBORDER="0" CELLSPACING="0">
+  <TR><TD COLSPAN="2" CELLPADDING="4" ALIGN="CENTER" BGCOLOR="#1b563f">
+  <FONT FACE="Roboto" POINT-SIZE="12" COLOR="white">TitleModel</FONT>
+  </TD></TR>
+  </TABLE>
+  >]
+  core_models_TitleDescriptionModel -> core_models_TitleModel
+  [label=" abstract\ninheritance"] [arrowhead=empty, arrowtail=none, dir=both];
+  core_models_DescriptionModel [label=<
+  <TABLE BGCOLOR="white" BORDER="0" CELLBORDER="0" CELLSPACING="0">
+  <TR><TD COLSPAN="2" CELLPADDING="4" ALIGN="CENTER" BGCOLOR="#1b563f">
+  <FONT FACE="Roboto" POINT-SIZE="12" COLOR="white">DescriptionModel</FONT>
+  </TD></TR>
+  </TABLE>
+  >]
+  core_models_TitleDescriptionModel -> core_models_DescriptionModel
+  [label=" abstract\ninheritance"] [arrowhead=empty, arrowtail=none, dir=both];
+
+  cards_models_LoyaltyCard -> authentication_models_User
+  [label=" author (loyalty_cards)"] [arrowhead=none, arrowtail=dot, dir=both];
+
+  cards_models_LoyaltyCard -> stores_models_Store
+  [label=" store (loyalty_cards)"] [arrowhead=none, arrowtail=dot, dir=both];
+
+  cards_models_LoyaltyCard -> core_models_TitleDescriptionModel
   [label=" abstract\ninheritance"] [arrowhead=empty, arrowtail=none, dir=both];
 
 
