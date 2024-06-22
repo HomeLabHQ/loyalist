@@ -26,5 +26,5 @@ class LoyaltyCardViewSet(
                 *BaseLoyaltyCardSerializer.Meta.fields,
             )
         return LoyaltyCard.objects.filter(Q(is_public=True) | Q(author=self.request.user)).only(
-            *BaseLoyaltyCardSerializer.Meta.fields,
+            *LoyaltyCardSerializer.Meta.fields,
         )

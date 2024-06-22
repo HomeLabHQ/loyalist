@@ -1,16 +1,16 @@
 import { useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { notifications } from '@mantine/notifications';
-import { ActionIcon, Container, Paper, Title } from '@mantine/core';
-import { IconLogin } from '@tabler/icons-react';
 import { useAuthRegisterConfirmCreateMutation } from '@/redux/api';
+import LoginForm from '@/components/auth/LoginForm';
+import classes from '@/pages/Login.module.css';
 
 export default function SignupConfirmPage() {
   const location = useLocation();
   const navigate = useNavigate();
   const searchParams = new URLSearchParams(location.search);
   const token = searchParams.get('token');
-  const [confirm, { isError }] = useAuthRegisterConfirmCreateMutation();
+  const [confirm] = useAuthRegisterConfirmCreateMutation();
 
   useEffect(() => {
     if (token) {
@@ -26,19 +26,8 @@ export default function SignupConfirmPage() {
     }
   }, []);
   return (
-    <Container size={800} my={40}>
-      <Title ta="center">Signup confirmation</Title>
-      <Paper shadow="md" radius="md">
-        {isError && (
-          <h1>
-            I’m sorry, but the signup confirmation link you provided is not valid. Please
-            double-check the link and try again.Or try to login/register again{' '}
-            <ActionIcon component="a" href="/login" variant="filled" size="sm">
-              <IconLogin />
-            </ActionIcon>
-          </h1>
-        )}
-      </Paper>
-    </Container>
+    <div className={classes.content}>
+      <LoginForm />
+    </div>
   );
 }
