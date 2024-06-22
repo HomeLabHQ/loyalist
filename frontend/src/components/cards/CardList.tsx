@@ -9,7 +9,7 @@ function CardList() {
   return (
     <Paper p="lg">
       <Grid justify="center" align="stretch">
-        {data?.results.map((card) => <></>)}
+        {data?.results.map(() => <></>)}
       </Grid>
       {data && data.count > defaultPageSize ? (
         <Center>

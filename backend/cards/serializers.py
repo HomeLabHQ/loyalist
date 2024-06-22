@@ -14,4 +14,4 @@ class BaseLoyaltyCardSerializer(serializers.ModelSerializer[LoyaltyCard]):
 
 class LoyaltyCardSerializer(serializers.ModelSerializer[LoyaltyCard]):
     class Meta(BaseLoyaltyCardSerializer.Meta):
-        fields = (*BaseLoyaltyCardSerializer.Meta.fields, "description", "code", "balance")
+        fields = (*BaseLoyaltyCardSerializer.Meta.fields, "description", "code", "balance", "format")

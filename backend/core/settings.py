@@ -101,8 +101,8 @@ REST_FRAMEWORK = {
     "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
 }
 SPECTACULAR_SETTINGS = {
-    "TITLE": "Remembrancer api",
-    "DESCRIPTION": "app to manage events and time to them",
+    "TITLE": "Loyalist api",
+    "DESCRIPTION": "Loyalty card management and sharing platform",
     "VERSION": "1.0.0",
     "ENUM_GENERATE_CHOICE_DESCRIPTION": True,
     "SERVE_INCLUDE_SCHEMA": False,

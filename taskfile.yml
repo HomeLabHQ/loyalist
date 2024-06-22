@@ -68,7 +68,7 @@ tasks:
       - poetry -C backend run ruff  format --config ./backend/pyproject.toml
       - cd frontend && yarn run lint
     silent: true
-  init:be:
+  init.be:
     cmds:
       - poetry -C backend run python ./backend/manage.py createsuperuser --no-input
     silent: true
