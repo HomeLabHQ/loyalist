@@ -57,9 +57,6 @@ SOCIAL_AUTH_PIPELINE = (
     "social_core.pipeline.social_auth.associate_user",
     "social_core.pipeline.social_auth.load_extra_data",
 )
-SHELL_PLUS_IMPORTS = [
-    "from mixer.backend.django import mixer",
-]
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",

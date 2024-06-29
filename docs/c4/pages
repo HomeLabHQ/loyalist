@@ -1,3 +1,4 @@
 nav:
-  - System: system.md
-  - Container: container.md
+
+- System: system.md
+- Container: container.md

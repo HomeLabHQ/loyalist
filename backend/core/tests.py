@@ -25,32 +25,6 @@ class Colors(TextChoices):
     UNDERLINE = "\033[4m"
 
 
-class BaseAPITest(APITestCase):
-    def create(self, email="test@mail.com", password="qwerty123456", first_name="John", last_name="Snow"):
-        user: User = User.objects.create_user(
-            email=email,
-            password=password,
-            first_name=first_name,
-            last_name=last_name,
-        )
-        user.is_active = True
-        user.save()
-
-        return user
-
-    def create_and_login(self, email="test@mail.com", password="qwerty123456", first_name="John", last_name="Snow"):
-        user: User = self.create(email=email, password=password, first_name=first_name, last_name=last_name)
-        self.authorize(user)
-        return user
-
-    def authorize(self, user, **additional_headers):
-        token = AccessToken.for_user(user)
-        self.client.credentials(HTTP_AUTHORIZATION=f"{api_settings.AUTH_HEADER_TYPES[0]} {token}", **additional_headers)
-
-    def logout(self, **additional_headers):
-        self.client.credentials(**additional_headers)
-
-
 class CustomClient(APIClient):
     def request(self, **request):
         print(f"{Colors.BOLD}{Colors.WARNING} {request.get('REQUEST_METHOD')}:{Colors.END} {request.get('PATH_INFO')}")  # noqa: T201
@@ -69,6 +43,32 @@ class BaseTestCase:
             f"{Colors.BOLD}{Colors.BLUE} {class_name}{Colors.END} -> {Colors.GREEN}{method_name}{Colors.END}",
         )
         super()._callTestMethod(method)
+
+
+class BaseAPITest(BaseTestCase, APITestCase):
+    def create(self, email="test@mail.com", password="qwerty123456", first_name="John", last_name="Snow"):
+        user: User = User.objects.create_user(
+            email=email,
+            password=password,
+            first_name=first_name,
+            last_name=last_name,
+        )
+        user.is_active = True
+        user.save(update_fields=["is_active"])
+
+        return user
+
+    def create_and_login(self, email="test@mail.com", password="qwerty123456", first_name="John", last_name="Snow"):
+        user: User = self.create(email=email, password=password, first_name=first_name, last_name=last_name)
+        self.authorize(user)
+        return user
+
+    def authorize(self, user, **additional_headers):
+        token = AccessToken.for_user(user)
+        self.client.credentials(HTTP_AUTHORIZATION=f"{api_settings.AUTH_HEADER_TYPES[0]} {token}", **additional_headers)
+
+    def logout(self, **additional_headers):
+        self.client.credentials(**additional_headers)
 
 
 class CRUDTestCase(BaseTestCase):

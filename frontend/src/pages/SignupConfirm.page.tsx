@@ -17,7 +17,7 @@ export default function SignupConfirmPage() {
       confirm({ signUpConfirmRequest: { token } })
         .unwrap()
         .then(() => {
-          navigate('/dashboard/');
+          navigate('/home/');
           notifications.show({ message: 'Confirmation successful', color: 'green' });
         })
         .catch((error) => {

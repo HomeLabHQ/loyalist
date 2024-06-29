@@ -60,7 +60,7 @@ export function UserMenu() {
           <Menu.Target>
             <UnstyledButton className={cx(classes.user, { [classes.userActive]: userMenuOpened })}>
               <Group gap={7}>
-                <Avatar alt={profile?.first_name} radius="xl" size={20}>
+                <Avatar alt={profile?.first_name} radius="xl" src={profile?.avatar?.url} size={20}>
                   {profile?.first_name.toUpperCase().charAt(0)}
                   {profile?.last_name.toUpperCase().charAt(0)}
                 </Avatar>

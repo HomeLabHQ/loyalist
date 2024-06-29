@@ -3,6 +3,8 @@ from core.tasks import send_email
 from core.tokens import TokenGenerator
 from core.utils import create_url
 from django.conf import settings
+from django.contrib.auth.password_validation import validate_password
+from django.core.exceptions import ValidationError
 from django.db import transaction
 from django.utils.http import urlsafe_base64_decode, urlsafe_base64_encode
 from rest_framework import serializers
@@ -128,7 +130,7 @@ class SignUpConfirmSerializer(serializers.Serializer):
     def activate_user(self):
         user = User.objects.get(email=self.validated_data["email"])
         user.is_active = True
-        user.save()
+        user.save(update_fields=["is_active"])
 
 
 class SocialLinksSerializer(serializers.Serializer):
@@ -152,3 +154,38 @@ class JWTPairSerializer(JWTBaseSerializer):
 
     def get_refresh(self, obj) -> str:
         return str(self.get_token_instance())
+
+
+class PasswordSerializer(serializers.Serializer):
+    new_password = serializers.CharField(required=True)
+    confirmed_password = serializers.CharField(required=True)
+
+    def validate_new_password(self, value):
+        validate_password(value)
+        return value
+
+    def validate(self, data):
+        new_password = data["new_password"]
+        confirmed_password = data["confirmed_password"]
+        if new_password != confirmed_password:
+            raise serializers.ValidationError("The two password fields didn't match.")
+        return data
+
+
+class ChangePasswordSerializer(PasswordSerializer):
+    """Serializer for password change endpoint."""
+
+    old_password = serializers.CharField(required=True)
+
+    def validate_old_password(self, value):
+        # * For users with social auth
+        if not self.instance.has_usable_password():
+            return value
+        if not self.instance.check_password(value):
+            raise ValidationError("Wrong current password.")
+        return value
+
+    def update(self, instance: User, validated_data):
+        self.instance.set_password(validated_data.get("new_password"))
+        self.instance.save()
+        return self.instance

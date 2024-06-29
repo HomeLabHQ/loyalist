@@ -32,7 +32,7 @@ const router = createBrowserRouter([
     element: <ProfilePage />,
   },
   {
-    path: '/dashboard',
+    path: '/home',
     element: (
       <ProtectedRoute>
         <HomePage />

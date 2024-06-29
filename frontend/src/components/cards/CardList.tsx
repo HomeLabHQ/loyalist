@@ -2,6 +2,7 @@ import { Center, Grid, Pagination, Paper } from '@mantine/core';
 import { useState } from 'react';
 import { useLoyaltyCardsListQuery } from '@/redux/api';
 import { defaultPageSize } from '@/settings/constants';
+import CardItem from './CardItem';
 
 function CardList() {
   const [activePage, setPage] = useState(1);
@@ -9,7 +10,7 @@ function CardList() {
   return (
     <Paper p="lg">
       <Grid justify="center" align="stretch">
-        {data?.results.map(() => <></>)}
+        {data?.results.map((card) => <CardItem key={card.id} card={card} />)}
       </Grid>
       {data && data.count > defaultPageSize ? (
         <Center>

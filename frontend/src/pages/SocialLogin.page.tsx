@@ -24,7 +24,7 @@ export default function SocialLoginPage() {
         .unwrap()
         .then(() => {
           notifications.show({ message: 'Confirmation successful', color: 'green' });
-          navigate('/dashboard/');
+          navigate('/home/');
         })
         .catch((error) => {
           notifications.show({ message: JSON.stringify(error.data), color: 'red' });
