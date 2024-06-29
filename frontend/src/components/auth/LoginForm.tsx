@@ -43,7 +43,7 @@ export default function LoginForm() {
         .unwrap()
         .then(() => {
           notifications.show({ title: 'Success', message: 'Login successful', color: 'green' });
-          navigate('/dashboard/');
+          navigate('/home/');
         })
         .catch((error) => {
           notifications.show({ title: 'Error', message: error.data.detail, color: 'red' });

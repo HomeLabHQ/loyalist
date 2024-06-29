@@ -1,13 +1,15 @@
+from core.tasks import send_email
 from django.conf import settings
 from django.contrib.auth.base_user import AbstractBaseUser
 from django.contrib.auth.models import AnonymousUser
 from django.utils.http import urlsafe_base64_decode
 from drf_spectacular.utils import OpenApiResponse, extend_schema, extend_schema_view
-from rest_framework import mixins, permissions
+from rest_framework import mixins, permissions, status
 from rest_framework.exceptions import force_str
 from rest_framework.generics import CreateAPIView, GenericAPIView
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
+from rest_framework.views import APIView
 from rest_framework.viewsets import GenericViewSet
 from rest_framework_simplejwt.serializers import (
     TokenRefreshSerializer,
@@ -22,6 +24,7 @@ from social_core.backends.linkedin import LinkedinOpenIdConnect
 
 from authentication.models import User
 from authentication.serializers import (
+    ChangePasswordSerializer,
     CustomTokenObtainPairSerializer,
     JWTAuthResponseSerializer,
     JWTPairSerializer,
@@ -106,3 +109,23 @@ class SocialLoginsView(GenericAPIView):
 @extend_schema(request=OAuth2InputSerializer)
 class SocialJWTPairUserAuthView(SimpleJWTAuthMixin, BaseSocialAuthView):
     serializer_class = JWTPairSerializer
+
+
+@extend_schema_view(post=extend_schema(responses=None))
+class UpdatePasswordView(APIView):
+    """An endpoint for password updating"""
+
+    serializer_class = ChangePasswordSerializer
+
+    def post(self, request, *args, **kwargs) -> Response:
+        serializer = self.serializer_class(instance=self.request.user, data=request.data)
+        serializer.is_valid(raise_exception=True)
+        template = "notifications/password_updated.html"
+        send_email.delay(
+            subject="Your password has been updated",
+            template=template,
+            recipients=[self.request.user.email],
+            context={},
+        )
+        serializer.save()
+        return Response(status=status.HTTP_204_NO_CONTENT)

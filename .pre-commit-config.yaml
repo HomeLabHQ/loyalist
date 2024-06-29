@@ -23,8 +23,3 @@ repos:
         entry: task lint
         language: system
         pass_filenames: false
-      - id: erd
-        name: erd
-        entry: task erd
-        language: system
-        pass_filenames: false

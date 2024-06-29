@@ -1,8 +1,8 @@
 openapi: 3.0.3
 info:
-  title: Remembrancer api
+  title: Loyalist api
   version: 1.0.0
-  description: app to manage events and time to them
+  description: Loyalty card management and sharing platform
 paths:
   /api/auth/:
     post:
@@ -31,11 +31,60 @@ paths:
               schema:
                 $ref: '#/components/schemas/JWTAuthResponse'
           description: ''
+  /api/auth/password/update/:
+    post:
+      operationId: auth_password_update_create
+      description: An endpoint for password updating
+      tags:
+      - auth
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ChangePasswordRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/ChangePasswordRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/ChangePasswordRequest'
+        required: true
+      security:
+      - jwtAuth: []
+      - {}
+      responses:
+        '200':
+          description: No response body
   /api/auth/profile/:
     get:
       operationId: auth_profile_retrieve
       tags:
       - auth
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+          description: ''
+    put:
+      operationId: auth_profile_update
+      tags:
+      - auth
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/UserRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/UserRequest'
+        required: true
       security:
       - jwtAuth: []
       responses:
@@ -488,6 +537,23 @@ components:
       required:
       - id
       - title
+    ChangePasswordRequest:
+      type: object
+      description: Serializer for password change endpoint.
+      properties:
+        new_password:
+          type: string
+          minLength: 1
+        confirmed_password:
+          type: string
+          minLength: 1
+        old_password:
+          type: string
+          minLength: 1
+      required:
+      - confirmed_password
+      - new_password
+      - old_password
     CustomTokenObtainPairRequest:
       type: object
       properties:
@@ -502,6 +568,16 @@ components:
       required:
       - email
       - password
+    FormatEnum:
+      enum:
+      - CODE_128
+      - CODABAR
+      - QR_CODE
+      type: string
+      description: |-
+        * `CODE_128` - CODE 128
+        * `CODABAR` - CODABAR
+        * `QR_CODE` - QR CODE
     ImageUpload:
       type: object
       properties:
@@ -562,6 +638,8 @@ components:
           type: string
           format: decimal
           pattern: ^-?\d{0,8}(?:\.\d{0,2})?$
+        format:
+          $ref: '#/components/schemas/FormatEnum'
       required:
       - code
       - id
@@ -583,6 +661,8 @@ components:
           type: string
           format: decimal
           pattern: ^-?\d{0,8}(?:\.\d{0,2})?$
+        format:
+          $ref: '#/components/schemas/FormatEnum'
       required:
       - code
       - title
@@ -663,6 +743,8 @@ components:
           type: string
           format: decimal
           pattern: ^-?\d{0,8}(?:\.\d{0,2})?$
+        format:
+          $ref: '#/components/schemas/FormatEnum'
     PatchedUserRequest:
       type: object
       description: |-
@@ -797,6 +879,36 @@ components:
         avatar:
           allOf:
           - $ref: '#/components/schemas/ImageUpload'
+          nullable: true
+        is_notifications_enabled:
+          type: boolean
+      required:
+      - email
+      - first_name
+      - last_name
+    UserRequest:
+      type: object
+      description: |-
+        Parent serializer for ones that have models with File fields.
+        This serializer will return ``None`` if the field is empty.
+      properties:
+        email:
+          type: string
+          format: email
+          minLength: 1
+          title: Email address
+          maxLength: 255
+        first_name:
+          type: string
+          minLength: 1
+          maxLength: 150
+        last_name:
+          type: string
+          minLength: 1
+          maxLength: 150
+        avatar:
+          allOf:
+          - $ref: '#/components/schemas/ImageUploadRequest'
           nullable: true
         is_notifications_enabled:
           type: boolean

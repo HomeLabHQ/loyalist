@@ -14,9 +14,28 @@ const injectedRtkApi = api
         }),
         invalidatesTags: ['auth'],
       }),
+      authPasswordUpdateCreate: build.mutation<
+        AuthPasswordUpdateCreateApiResponse,
+        AuthPasswordUpdateCreateApiArg
+      >({
+        query: (queryArg) => ({
+          url: `/api/auth/password/update/`,
+          method: 'POST',
+          body: queryArg.changePasswordRequest,
+        }),
+        invalidatesTags: ['auth'],
+      }),
       authProfileRetrieve: build.query<AuthProfileRetrieveApiResponse, AuthProfileRetrieveApiArg>({
         query: () => ({ url: `/api/auth/profile/` }),
         providesTags: ['auth'],
+      }),
+      authProfileUpdate: build.mutation<AuthProfileUpdateApiResponse, AuthProfileUpdateApiArg>({
+        query: (queryArg) => ({
+          url: `/api/auth/profile/`,
+          method: 'PUT',
+          body: queryArg.userRequest,
+        }),
+        invalidatesTags: ['auth'],
       }),
       authProfilePartialUpdate: build.mutation<
         AuthProfilePartialUpdateApiResponse,
@@ -153,8 +172,16 @@ export type AuthCreateApiResponse = /** status 200  */ JwtAuthResponse;
 export type AuthCreateApiArg = {
   customTokenObtainPairRequest: CustomTokenObtainPairRequestWrite;
 };
+export type AuthPasswordUpdateCreateApiResponse = unknown;
+export type AuthPasswordUpdateCreateApiArg = {
+  changePasswordRequest: ChangePasswordRequest;
+};
 export type AuthProfileRetrieveApiResponse = /** status 200  */ UserRead;
 export type AuthProfileRetrieveApiArg = void;
+export type AuthProfileUpdateApiResponse = /** status 200  */ UserRead;
+export type AuthProfileUpdateApiArg = {
+  userRequest: UserRequest;
+};
 export type AuthProfilePartialUpdateApiResponse = /** status 200  */ UserRead;
 export type AuthProfilePartialUpdateApiArg = {
   patchedUserRequest: PatchedUserRequest;
@@ -235,6 +262,11 @@ export type CustomTokenObtainPairRequestWrite = {
   email: string;
   password: string;
 };
+export type ChangePasswordRequest = {
+  new_password: string;
+  confirmed_password: string;
+  old_password: string;
+};
 export type ImageUpload = {
   name: string;
 };
@@ -258,6 +290,13 @@ export type UserRead = {
 };
 export type ImageUploadRequest = {
   name: string;
+};
+export type UserRequest = {
+  email: string;
+  first_name: string;
+  last_name: string;
+  avatar?: ImageUploadRequest | null;
+  is_notifications_enabled?: boolean;
 };
 export type PatchedUserRequest = {
   email?: string;
@@ -325,11 +364,13 @@ export type PaginatedBaseLoyaltyCardListRead = {
   previous?: string | null;
   results: BaseLoyaltyCardRead[];
 };
+export type FormatEnum = 'CODE_128' | 'CODABAR' | 'QR_CODE';
 export type LoyaltyCard = {
   title: string;
   description?: string;
   code: string;
   balance?: string;
+  format?: FormatEnum;
 };
 export type LoyaltyCardRead = {
   id: number;
@@ -337,18 +378,21 @@ export type LoyaltyCardRead = {
   description?: string;
   code: string;
   balance?: string;
+  format?: FormatEnum;
 };
 export type LoyaltyCardRequest = {
   title: string;
   description?: string;
   code: string;
   balance?: string;
+  format?: FormatEnum;
 };
 export type PatchedLoyaltyCardRequest = {
   title?: string;
   description?: string;
   code?: string;
   balance?: string;
+  format?: FormatEnum;
 };
 export type BaseStore = {
   title: string;
@@ -384,7 +428,9 @@ export type StoreRead = {
 };
 export const {
   useAuthCreateMutation,
+  useAuthPasswordUpdateCreateMutation,
   useAuthProfileRetrieveQuery,
+  useAuthProfileUpdateMutation,
   useAuthProfilePartialUpdateMutation,
   useAuthRefreshCreateMutation,
   useAuthRegisterCreateMutation,
