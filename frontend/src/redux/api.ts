@@ -287,6 +287,7 @@ export type UserRead = {
   last_name: string;
   avatar?: ImageUploadRead | null;
   is_notifications_enabled?: boolean;
+  has_password: boolean;
 };
 export type ImageUploadRequest = {
   name: string;

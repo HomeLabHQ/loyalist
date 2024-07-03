@@ -81,10 +81,14 @@ class User(AbstractBaseUser, PermissionsMixin):
         stores: Manager[Store]
 
     @property
-    def full_name(self):
+    def full_name(self) -> str:
         return f"{self.first_name} {self.last_name}"
 
-    def __str__(self):
+    @property
+    def has_password(self) -> bool:
+        return self.has_usable_password()
+
+    def __str__(self) -> str:
         return f"{self.pk}, {self.email}"
 
     def has_perm(self, perm, obj=None):

@@ -11339,15 +11339,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-image-picker-editor@npm:^1.3.4":
-  version: 1.3.4
-  resolution: "react-image-picker-editor@npm:1.3.4"
-  peerDependencies:
-    react: ^17.0.2
-  checksum: 10c0/c57ded912dfd48848d1686bfd6e08b199b95498d540dc3f5e3b3831b2572752d2eda5f17b2379fd52ac4711b407beeefae205235b94ca60cf746b1945dfef037
-  languageName: node
-  linkType: hard
-
 "react-is@npm:18.1.0":
   version: 18.1.0
   resolution: "react-is@npm:18.1.0"
@@ -11843,7 +11834,6 @@ __metadata:
     prop-types: "npm:^15.8.1"
     react: "npm:^18.3.1"
     react-dom: "npm:^18.3.1"
-    react-image-picker-editor: "npm:^1.3.4"
     react-redux: "npm:^9.1.2"
     react-router-dom: "npm:^6.23.1"
     storybook: "npm:^8.1.10"

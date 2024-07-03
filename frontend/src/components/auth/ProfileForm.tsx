@@ -1,16 +1,35 @@
 import { useForm } from '@mantine/form';
-import { Button, Card, Grid, Group, TextInput, Text, Stack, Fieldset, Modal } from '@mantine/core';
+import {
+  Button,
+  Card,
+  Grid,
+  Group,
+  TextInput,
+  Text,
+  Fieldset,
+  Modal,
+  Tooltip,
+  Image,
+  Container,
+} from '@mantine/core';
 import { useNavigate } from 'react-router-dom';
 import { useDisclosure } from '@mantine/hooks';
 import { IconLock } from '@tabler/icons-react';
-import { PatchedUserRequest, UserRead, useAuthProfilePartialUpdateMutation } from '@/redux/api';
-import ImageUploader from '@/components/shared/ImageUploader';
-import classes from './ProfileForm.module.css';
+import { Dropzone, IMAGE_MIME_TYPE } from '@mantine/dropzone';
+import { useState } from 'react';
+import {
+  PatchedUserRequest,
+  UserRead,
+  useAuthProfilePartialUpdateMutation,
+  useImageUploadCreateMutation,
+} from '@/redux/api';
 import PasswordChangeForm from '@/components/auth/PasswordChangeForm';
 
 export default function ProfileForm(props: Readonly<{ user: UserRead }>) {
   const [update] = useAuthProfilePartialUpdateMutation();
+  const [createImage] = useImageUploadCreateMutation();
   const navigate = useNavigate();
+  const [placeholder, setPlaceholder] = useState(props.user?.avatar?.url);
   const [opened, { open, close }] = useDisclosure(false);
   const form = useForm<PatchedUserRequest>({
     initialValues: structuredClone(props.user),
@@ -40,7 +59,6 @@ export default function ProfileForm(props: Readonly<{ user: UserRead }>) {
           >
             Profile
           </Text>
-          <Text lineClamp={4}></Text>
           <form
             onSubmit={form.onSubmit((values) => {
               handleSubmit(values);
@@ -48,33 +66,44 @@ export default function ProfileForm(props: Readonly<{ user: UserRead }>) {
           >
             <Fieldset legend="Personal information">
               <Grid>
-                <Grid.Col span={6}>
-                  <Group py="md">
-                    <TextInput
-                      autoFocus
-                      mb="md"
-                      label="First Name"
-                      {...form.getInputProps('first_name')}
-                    />
-                    <TextInput
-                      autoFocus
-                      mb="md"
-                      label="Last Name"
-                      {...form.getInputProps('last_name')}
-                    />
-                  </Group>
-                </Grid.Col>
-                <Grid.Col span={6}>
-                  <Stack>
-                    <Text>Profile picture</Text>
-                    <div className={classes.avatar}>
-                      <ImageUploader
-                        setImage={form.setValues}
-                        field="avatar"
-                        placeholder={props.user.avatar?.url}
+                <Grid.Col span={7}>
+                  <Container py="md">
+                    <TextInput mb="md" label="First Name" {...form.getInputProps('first_name')} />
+                    <TextInput mb="md" label="Last Name" {...form.getInputProps('last_name')} />
+                    <Tooltip
+                      events={{
+                        hover: !props.user.has_password,
+                        focus: !props.user.has_password,
+                        touch: !props.user.has_password,
+                      }}
+                      label="You can't  change your email if you don't have a password(logged via OAuth providers)"
+                    >
+                      <TextInput
+                        label="Your email"
+                        placeholder="Your email"
+                        {...form.getInputProps('email')}
+                        disabled={!props.user.has_password}
                       />
-                    </div>
-                  </Stack>
+                    </Tooltip>
+                  </Container>
+                </Grid.Col>
+                <Grid.Col span={5}>
+                  <Dropzone
+                    accept={IMAGE_MIME_TYPE}
+                    onDrop={(file) => {
+                      createImage({
+                        body: file[0],
+                      })
+                        .unwrap()
+                        .then((data) => {
+                          form.setValues({ avatar: data });
+                          setPlaceholder(data.url);
+                        });
+                    }}
+                  >
+                    <Text ta="center">Profile picture</Text>
+                  </Dropzone>
+                  {placeholder && <Image src={placeholder} />}
                 </Grid.Col>
               </Grid>
             </Fieldset>
@@ -88,8 +117,8 @@ export default function ProfileForm(props: Readonly<{ user: UserRead }>) {
               Change password
             </Button>
           </Fieldset>
-          <Group justify="end">
-            <Button mb="xs" type="submit">
+          <Group py="md" justify="end">
+            <Button mb="xs" onClick={() => handleSubmit(form.values)}>
               Update Profile
             </Button>
             <Button mb="xs" color="red" onClick={() => navigate('/home/')}>

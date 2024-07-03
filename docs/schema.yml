@@ -882,9 +882,13 @@ components:
           nullable: true
         is_notifications_enabled:
           type: boolean
+        has_password:
+          type: boolean
+          readOnly: true
       required:
       - email
       - first_name
+      - has_password
       - last_name
     UserRequest:
       type: object

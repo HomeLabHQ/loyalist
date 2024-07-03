@@ -98,7 +98,7 @@ class UserSerializer(ModelFileSerializer):
     avatar = ImageUploadSerializer(required=False, allow_null=True)
 
     class Meta(BaseUserSerializer.Meta):
-        fields = (*BaseUserSerializer.Meta.fields, "avatar", "is_notifications_enabled")
+        fields = (*BaseUserSerializer.Meta.fields, "avatar", "is_notifications_enabled", "has_password")
 
     def validate_avatar(self, avatar) -> str:
         if avatar:
