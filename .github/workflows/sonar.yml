@@ -31,11 +31,11 @@ jobs:
         env:
             SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
             SONAR_HOST_URL: https://sonarcloud.io
-        run: docker create --name sonar -e SONAR_TOKEN -e SONAR_HOST_URL sonarsource/sonar-scanner-cli
+        run: docker create --name sonar -e ${SONAR_TOKEN} -e ${SONAR_HOST_URL} sonarsource/sonar-scanner-cli
       - name: Add files
         run: docker cp /home/runner/work/loyalist/loyalist/. sonar:/usr/src/.
       - name: Run sonar
-        run: docker start sonar
+        run: docker start -i sonar
       - name: Docker cleanup
         run: |
           docker stop sonar
