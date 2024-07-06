@@ -27,10 +27,17 @@ jobs:
       - name: Test for coverage
         run: poetry -C backend run coverage run --rcfile=./backend/pyproject.toml backend/manage.py test backend &&
           poetry -C backend run coverage xml --rcfile=./backend/pyproject.toml
-      - name: Upload coverage to Codecov
-        run: echo $PWD
       - name: SonarCloud Scan
         env:
             SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
             SONAR_HOST_URL: https://sonarcloud.io
-        run: docker run --rm -v /home/runner/work/loyalist/loyalist:/usr/src -e SONAR_TOKEN -e SONAR_HOST_URL -e ENVIRONMENT -e GITHUB_TOKEN -e GITHUB_REPOSITORY -e GITHUB_WORKSPACE sonarsource/sonar-scanner-cli
+        run:  |
+          docker run -it --name sonar sonarsource/sonar-scanner-cli -e SONAR_TOKEN -e SONAR_HOST_URL
+          docker cp /home/runner/work/loyalist/loyalist/. sonar:/usr/src/.
+          docker run -ti sonar sh
+          docker start sonar
+      - name: Docker cleanup
+        run: |
+          docker stop sonar
+          docker rm sonar
+          docker system prune -f
