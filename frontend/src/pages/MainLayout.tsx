@@ -2,7 +2,7 @@ import { ActionIcon, AppShell, Group, Text } from '@mantine/core';
 import { ReactNode } from 'react';
 import { UserMenu } from '@/components/shared/UserMenu';
 import { Footer } from '@/components/shared/Footer';
-import image from '@/assets/app-logo.png';
+import image from '@/assets/app-logo.jpg';
 import classes from './MainLayout.module.css';
 import { Navigation } from '@/components/shared/Navigation';
 

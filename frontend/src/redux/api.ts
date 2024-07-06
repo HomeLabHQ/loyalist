@@ -225,21 +225,21 @@ export type LoyaltyCardsCreateApiArg = {
 };
 export type LoyaltyCardsRetrieveApiResponse = /** status 200  */ LoyaltyCardRead;
 export type LoyaltyCardsRetrieveApiArg = {
-  id: string;
+  id: number;
 };
 export type LoyaltyCardsUpdateApiResponse = /** status 200  */ LoyaltyCardRead;
 export type LoyaltyCardsUpdateApiArg = {
-  id: string;
+  id: number;
   loyaltyCardRequest: LoyaltyCardRequest;
 };
 export type LoyaltyCardsPartialUpdateApiResponse = /** status 200  */ LoyaltyCardRead;
 export type LoyaltyCardsPartialUpdateApiArg = {
-  id: string;
+  id: number;
   patchedLoyaltyCardRequest: PatchedLoyaltyCardRequest;
 };
 export type LoyaltyCardsDestroyApiResponse = unknown;
 export type LoyaltyCardsDestroyApiArg = {
-  id: string;
+  id: number;
 };
 export type StoresListApiResponse = /** status 200  */ PaginatedBaseStoreListRead;
 export type StoresListApiArg = {

@@ -370,7 +370,7 @@ paths:
       - in: path
         name: id
         schema:
-          type: string
+          type: integer
         required: true
       tags:
       - loyalty-cards
@@ -389,7 +389,7 @@ paths:
       - in: path
         name: id
         schema:
-          type: string
+          type: integer
         required: true
       tags:
       - loyalty-cards
@@ -420,7 +420,7 @@ paths:
       - in: path
         name: id
         schema:
-          type: string
+          type: integer
         required: true
       tags:
       - loyalty-cards
@@ -450,7 +450,7 @@ paths:
       - in: path
         name: id
         schema:
-          type: string
+          type: integer
         required: true
       tags:
       - loyalty-cards

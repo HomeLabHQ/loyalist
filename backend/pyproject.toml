@@ -1,5 +1,5 @@
 [tool.poetry]
-authors = ["Oleksandr Korol <zibertua@gmail.com>"]
+authors = ["Oleksandr Korol <korol.oleksandr.work@gmail.com>"]
 description = ""
 name = "backend"
 readme = "README.md"
