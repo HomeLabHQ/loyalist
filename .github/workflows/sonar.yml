@@ -27,21 +27,23 @@ jobs:
       - name: Test for coverage
         run: poetry -C backend run coverage run --rcfile=./backend/pyproject.toml backend/manage.py test backend &&
           poetry -C backend run coverage xml --rcfile=./backend/pyproject.toml
-      - uses: actions/checkout@v4
-        with:
-          # Disabling shallow clones is recommended for improving the relevancy of reporting
-          fetch-depth: 0
-      - name: Set abs-path file
-        run: |
-          echo "${{ github.workspace }}" >> abs-path
-          cat abs-path
-      - name: SonarQube Scan
-        uses: sonarsource/sonarqube-scan-action@v2.3.0
-        env:
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-          SONAR_HOST_URL: https://sonarcloud.io
-        with:
-          args: >
-            -Dsonar.projectBaseDir=./loyalist
-            -Dsonar.exclusions=docs/**
-            -Dsonar.python.coverage.reportPaths=coverage.xml
+      - name: SonarCloud Scan
+        run: docker run --rm -v $PWD:/usr/src -e SONAR_TOKEN -e SONAR_HOST_URL -e ENVIRONMENT -e GITHUB_TOKEN -e GITHUB_REPOSITORY -e GITHUB_WORKSPACE sonarsource/sonar-scanner-cli:4.5.0.332
+      # - uses: actions/checkout@v4
+      #   with:
+      #     # Disabling shallow clones is recommended for improving the relevancy of reporting
+      #     fetch-depth: 0
+      # - name: Set abs-path file
+      #   run: |
+      #     echo "${{ github.workspace }}" >> abs-path
+      #     cat abs-path
+      # - name: SonarQube Scan
+      #   uses: sonarsource/sonarqube-scan-action@v2.3.0
+      #   env:
+      #     SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+      #     SONAR_HOST_URL: https://sonarcloud.io
+      #   with:
+      #     args: >
+      #       -Dsonar.projectBaseDir=./loyalist
+      #       -Dsonar.exclusions=docs/**
+      #       -Dsonar.python.coverage.reportPaths=coverage.xml
