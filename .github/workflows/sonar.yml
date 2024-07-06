@@ -31,6 +31,10 @@ jobs:
         with:
           # Disabling shallow clones is recommended for improving the relevancy of reporting
           fetch-depth: 0
+      - name: Set abs-path file
+        run: |
+          echo "${{ github.workspace }}" >> abs-path
+          cat abs-path
       - name: SonarQube Scan
         uses: sonarsource/sonarqube-scan-action@v2.3.0
         env:
