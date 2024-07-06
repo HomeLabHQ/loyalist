@@ -4,6 +4,7 @@ description = ""
 name = "backend"
 readme = "README.md"
 version = "0.1.0"
+package-mode = false
 
 [tool.poetry.dependencies]
 Django = "^5.0.2"
