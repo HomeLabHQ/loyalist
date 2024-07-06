@@ -25,8 +25,7 @@ jobs:
       - name: Install dependencies
         run: poetry -C backend install --with test
       - name: Test for coverage
-        run: poetry -C backend run coverage run --rcfile=./backend/pyproject.toml backend/manage.py test backend &&
-          poetry -C backend run coverage xml --rcfile=./backend/pyproject.toml
+        run: poetry -C backend run coverage xml --rcfile=./backend/pyproject.toml
       - name: Create docker image
         env:
             SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
@@ -36,8 +35,10 @@ jobs:
         if: success() || failure()
         run: docker cp /home/runner/work/loyalist/loyalist/. sonar:/usr/src/.
       - name: Run sonar
+        if: success() || failure()
         run: docker start sonar
       - name: Docker cleanup
+        if: success() || failure()
         run: |
           docker stop sonar
           docker rm sonar
