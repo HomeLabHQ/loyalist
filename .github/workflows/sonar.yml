@@ -2,7 +2,7 @@ name: SonarCloud
 on:
   push:
     branches:
-      - check/sonarqube
+      - main
       - dev
 jobs:
   sonarcloud:
