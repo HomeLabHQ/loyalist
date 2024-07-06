@@ -27,6 +27,8 @@ jobs:
       - name: Test for coverage
         run: poetry -C backend run coverage run --rcfile=./backend/pyproject.toml backend/manage.py test backend &&
           poetry -C backend run coverage xml --rcfile=./backend/pyproject.toml
+      - name: Upload coverage to Codecov
+        run: echo $PWD
       - name: SonarCloud Scan
         env:
             SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
