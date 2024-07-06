@@ -32,9 +32,8 @@ jobs:
             SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
             SONAR_HOST_URL: https://sonarcloud.io
         run:  |
-          docker run -it --name sonar sonarsource/sonar-scanner-cli -e SONAR_TOKEN -e SONAR_HOST_URL
+          docker run --name sonar sonarsource/sonar-scanner-cli -e SONAR_TOKEN -e SONAR_HOST_URL
           docker cp /home/runner/work/loyalist/loyalist/. sonar:/usr/src/.
-          docker run -ti sonar sh
           docker start sonar
       - name: Docker cleanup
         run: |
