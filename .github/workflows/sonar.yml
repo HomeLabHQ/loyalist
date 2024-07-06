@@ -38,5 +38,6 @@ jobs:
           SONAR_HOST_URL: https://sonarcloud.io
         with:
           args: >
+            -Dsonar.projectBaseDir=/home/runner/work
             -Dsonar.exclusions=docs/**
             -Dsonar.python.coverage.reportPaths=coverage.xml
