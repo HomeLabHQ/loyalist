@@ -33,4 +33,4 @@ jobs:
         env:
             SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
             SONAR_HOST_URL: https://sonarcloud.io
-        run: docker run --rm -v ./:/usr/src -e SONAR_TOKEN -e SONAR_HOST_URL -e ENVIRONMENT -e GITHUB_TOKEN -e GITHUB_REPOSITORY -e GITHUB_WORKSPACE sonarsource/sonar-scanner-cli
+        run: docker run --rm -v /home/runner/work/loyalist/loyalist:/usr/src -e SONAR_TOKEN -e SONAR_HOST_URL -e ENVIRONMENT -e GITHUB_TOKEN -e GITHUB_REPOSITORY -e GITHUB_WORKSPACE sonarsource/sonar-scanner-cli
