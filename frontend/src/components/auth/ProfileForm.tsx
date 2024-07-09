@@ -21,6 +21,7 @@ import {
   PatchedUserRequest,
   UserRead,
   useAuthProfilePartialUpdateMutation,
+  useFileCleanupCreateMutation,
   useImageUploadCreateMutation,
 } from '@/redux/api';
 import PasswordChangeForm from '@/components/auth/PasswordChangeForm';
@@ -28,6 +29,8 @@ import PasswordChangeForm from '@/components/auth/PasswordChangeForm';
 export default function ProfileForm(props: Readonly<{ user: UserRead }>) {
   const [update] = useAuthProfilePartialUpdateMutation();
   const [createImage] = useImageUploadCreateMutation();
+  const [cleanup] = useFileCleanupCreateMutation();
+  const [pendingImage, setPendingImage] = useState('');
   const navigate = useNavigate();
   const [placeholder, setPlaceholder] = useState(props.user?.avatar?.url);
   const [opened, { open, close }] = useDisclosure(false);
@@ -96,6 +99,10 @@ export default function ProfileForm(props: Readonly<{ user: UserRead }>) {
                       })
                         .unwrap()
                         .then((data) => {
+                          if (pendingImage) {
+                            cleanup({ imageUploadRequest: { name: pendingImage } }).unwrap();
+                          }
+                          setPendingImage(data.name);
                           form.setValues({ avatar: data });
                           setPlaceholder(data.url);
                         });

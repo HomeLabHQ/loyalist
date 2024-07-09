@@ -10,3 +10,14 @@ class ImageUploadParser(FileUploadParser):
     def get_filename(self, stream, media_type, parser_context) -> str:
         ext = settings.IMAGE_DEFAULT_EXTENSION
         return f"{filename_generator()}.{ext}"
+
+
+class CustomFileUploadParser(FileUploadParser):
+    media_type = "*/*"
+
+    def get_filename(self, stream, media_type, parser_context):
+        try:
+            ext = parser_context["kwargs"]["extension"]
+            return f"{filename_generator()}.{ext.lower()}"
+        except KeyError:
+            pass

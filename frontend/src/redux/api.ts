@@ -1,5 +1,12 @@
 import { baseApi as api } from './baseApi';
-export const addTagTypes = ['auth', 'image-upload', 'loyalty-cards', 'stores'] as const;
+export const addTagTypes = [
+  'auth',
+  'file-cleanup',
+  'file-upload',
+  'image-upload',
+  'loyalty-cards',
+  'stores',
+] as const;
 const injectedRtkApi = api
   .enhanceEndpoints({
     addTagTypes,
@@ -100,6 +107,22 @@ const injectedRtkApi = api
           body: queryArg.tokenVerifyRequest,
         }),
         invalidatesTags: ['auth'],
+      }),
+      fileCleanupCreate: build.mutation<FileCleanupCreateApiResponse, FileCleanupCreateApiArg>({
+        query: (queryArg) => ({
+          url: `/api/file-cleanup/`,
+          method: 'POST',
+          body: queryArg.imageUploadRequest,
+        }),
+        invalidatesTags: ['file-cleanup'],
+      }),
+      fileUploadCreate: build.mutation<FileUploadCreateApiResponse, FileUploadCreateApiArg>({
+        query: (queryArg) => ({
+          url: `/api/file-upload/${queryArg.extension}/`,
+          method: 'POST',
+          body: queryArg.body,
+        }),
+        invalidatesTags: ['file-upload'],
       }),
       imageUploadCreate: build.mutation<ImageUploadCreateApiResponse, ImageUploadCreateApiArg>({
         query: (queryArg) => ({ url: `/api/image-upload/`, method: 'POST', body: queryArg.body }),
@@ -207,6 +230,15 @@ export type AuthSocialJwtPairCreateApiArg = {
 export type AuthVerifyCreateApiResponse = unknown;
 export type AuthVerifyCreateApiArg = {
   tokenVerifyRequest: TokenVerifyRequestWrite;
+};
+export type FileCleanupCreateApiResponse = unknown;
+export type FileCleanupCreateApiArg = {
+  imageUploadRequest: ImageUploadRequest;
+};
+export type FileUploadCreateApiResponse = /** status 200  */ ImageUploadRead;
+export type FileUploadCreateApiArg = {
+  extension: string;
+  body: Blob;
 };
 export type ImageUploadCreateApiResponse = /** status 200  */ ImageUploadRead;
 export type ImageUploadCreateApiArg = {
@@ -439,6 +471,8 @@ export const {
   useAuthSocialLoginsRetrieveQuery,
   useAuthSocialJwtPairCreateMutation,
   useAuthVerifyCreateMutation,
+  useFileCleanupCreateMutation,
+  useFileUploadCreateMutation,
   useImageUploadCreateMutation,
   useLoyaltyCardsListQuery,
   useLoyaltyCardsCreateMutation,

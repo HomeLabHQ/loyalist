@@ -286,6 +286,54 @@ paths:
       responses:
         '200':
           description: No response body
+  /api/file-cleanup/:
+    post:
+      operationId: file_cleanup_create
+      tags:
+      - file-cleanup
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ImageUploadRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/ImageUploadRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/ImageUploadRequest'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '204':
+          description: No response body
+  /api/file-upload/{extension}/:
+    post:
+      operationId: file_upload_create
+      description: Upload File to server
+      parameters:
+      - in: path
+        name: extension
+        schema:
+          type: string
+        required: true
+      tags:
+      - file-upload
+      requestBody:
+        content:
+          content:
+            schema:
+              format: binary
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ImageUpload'
+          description: ''
   /api/image-upload/:
     post:
       operationId: image_upload_create
@@ -303,7 +351,6 @@ paths:
               format: binary
       security:
       - jwtAuth: []
-      - {}
       responses:
         '200':
           content:
