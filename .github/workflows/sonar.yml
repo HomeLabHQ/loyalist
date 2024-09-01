@@ -22,7 +22,7 @@ jobs:
         run: curl -LsSf https://astral.sh/uv/install.sh | sh
       - name: Install dependencies
         working-directory: backend
-        run: uv sync --with test
+        run: uv sync --extra test
       - name: Test for coverage
         working-directory: backend
         run: uv  run coverage run  backend/manage.py test &&
