@@ -25,7 +25,8 @@ jobs:
         run: uv sync --extra test
       - name: Test for coverage
         working-directory: backend
-        run: uv  run coverage run  backend/manage.py test &&
+        run: |
+          uv  run coverage run  manage.py test &&
           uv  run coverage xml
       - name: Create docker image
         env:
