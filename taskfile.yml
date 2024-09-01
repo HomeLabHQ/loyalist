@@ -1,74 +1,94 @@
 version: "3"
+dotenv: [".env"]
 tasks:
+  manage:
+    dir: backend
+    cmds:
+      - uv run manage.py {{.CLI_ARGS}}
   deploy:
-      cmds:
-        - git pull
-        - export INFISICAL_TOKEN=$(infisical login --client-id $INFISICAL_CLIENT_ID --client-secret $INFISICAL_CLIENT_SECRET --domain $INFISICAL_DOMAIN --silent --plain --method universal-auth)
-        - infisical export  --projectId 6674652cdf71e8b052b811f3 --domain $INFISICAL_DOMAIN --env production > .env
-        - docker compose -f compose.slim.yml  build
-        - docker compose -f compose.slim.yml  up -d
+    cmds:
+      - git pull
+      - export INFISICAL_TOKEN=$(infisical login --client-id $INFISICAL_CLIENT_ID --client-secret $INFISICAL_CLIENT_SECRET --domain $INFISICAL_DOMAIN --silent --plain --method universal-auth)
+      - infisical export  --projectId 6674652cdf71e8b052b811f3 --domain $INFISICAL_DOMAIN --env production > .env
+      - docker compose -f compose.slim.yml  build
+      - docker compose -f compose.slim.yml  up -d
   env.development:
     cmds:
       - infisical export  -e development >.env
   env.production:
     cmds:
       - infisical export  -e production >.env
-  manage:
-    cmds:
-      - poetry -C backend run ./backend/manage.py {{.CLI_ARGS}}
   install:
     cmds:
-      - cd backend && poetry install
+      - cd backend && uv sync --all-extras
       - cd frontend && yarn install
     silent: true
   update:
     cmds:
-      - cd backend && poetry update
+      - cd backend && uv lock --upgrade
       - cd frontend && yarn up
     silent: true
   up.dev:
     cmds:
       - docker compose -f compose.dev.yml --env-file .env up -d
     silent: true
+  backup.db:
+    cmds:
+      - docker exec -t ${COMPOSE_PROJECT_NAME}-db-${ENVIRONMENT} pg_dump -c -U ${POSTGRES_USER} > $HOME/backups/dump_`date +%Y-%m-%d"_"%H`.sql
+  restore.db:
+    - cat  $HOME/backups/{{.CLI_ARGS}} | docker exec -i ${COMPOSE_PROJECT_NAME}-db-${ENVIRONMENT} psql -U ${POSTGRES_USER}
+  backup.files:
+    cmds:
+      - docker run --rm --volumes-from ${COMPOSE_PROJECT_NAME}-api-${ENVIRONMENT}  -v $HOME/backups:/backup ${COMPOSE_PROJECT_NAME}/backend-${ENVIRONMENT} bash -c "tar cvf /backup/backup_$(date +%Y%m%d%H).tar /code/attachments/";
+  restore.files:
+    cmds:
+      - docker run --rm --volumes-from ${COMPOSE_PROJECT_NAME}-api-${ENVIRONMENT} -v $HOME/backups:/backup ${COMPOSE_PROJECT_NAME}/backend-${ENVIRONMENT} bash -c "cd /code/attachments/ && tar xvf /backup/{{.CLI_ARGS}} --strip 1"
   up.docs:
     cmds:
-      - mkdocs serve -a 0.0.0.0:2000
+      - docker compose -f compose.dev.yml --env-file .env up docs -d
   down.dev:
     cmds:
       - docker compose -f compose.dev.yml --env-file .env down --remove-orphans
     silent: true
   shell:
+    dir: backend
     cmds:
-      - poetry -C backend run ./backend/manage.py shell_plus
+      - uv run manage.py shell_plus
     silent: true
   db:
+    dir: backend
     cmds:
-      - poetry -C backend run python ./backend/manage.py makemigrations
-      - poetry -C backend run python ./backend/manage.py migrate
+      - uv run python manage.py makemigrations
+      - uv run python manage.py migrate
     silent: true
   api:
+    dir: backend
     cmds:
-      - poetry -C backend run ./backend/manage.py spectacular --color --file ./docs/schema.yml
-      - cd frontend && yarn run api
+      - uv run manage.py spectacular --color --file ../docs/schema.yml
+      - cd ../frontend && yarn run api
   coverage:
+    dir: backend
     cmds:
-      - poetry -C backend run coverage  run --rcfile=./backend/pyproject.toml backend/manage.py test backend 
-      - poetry -C backend run coverage report -m  --rcfile=./backend/pyproject.toml
+      - uv run coverage  run  manage.py test
+      - uv run coverage report -m
     silent: true
   erd:
+    dir: backend
     cmds:
-      - poetry -C backend run ./backend/manage.py graph_models -a  -g  -o docs/database/database.dot
+      - uv run manage.py graph_models -a  -g  -o ../docs/database/database.dot
       - mv docs/database/database.dot docs/database/database.md
       - sed -i '' '1s/^/```dot\n/' docs/database/database.md && echo '```' >> docs/database/database.md
       - "sed -i '' '/^ *.. Created: .*/d' docs/database/database.md"
     silent: true
   lint:
+    dir: backend
     cmds:
-      - poetry -C backend run ruff check . --fix --config ./backend/pyproject.toml
-      - poetry -C backend run ruff  format --config ./backend/pyproject.toml
-      - cd frontend && yarn run lint
+      - uv run ruff check . --fix
+      - uv run ruff  format
+      - cd ../frontend && yarn run lint
     silent: true
   init.be:
+    dir: backend
     cmds:
-      - poetry -C backend run python ./backend/manage.py createsuperuser --no-input
+      - uv run python manage.py createsuperuser --no-input
     silent: true

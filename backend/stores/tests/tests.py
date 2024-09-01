@@ -1,11 +1,11 @@
 import typing
 
 import factory
-from authentication.models import User
-from core.tests import CRUDTestCase
 from django.test import TestCase
 from django.urls import reverse
 
+from authentication.models import User
+from core.tests import CRUDTestCase
 from stores.models import Store
 from stores.tests.factories import StoreFactory
 

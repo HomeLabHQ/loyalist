@@ -1,4 +1,3 @@
-from core.tasks import send_email
 from django.conf import settings
 from django.contrib.auth.base_user import AbstractBaseUser
 from django.contrib.auth.models import AnonymousUser
@@ -34,6 +33,7 @@ from authentication.serializers import (
     SocialLoginSerializer,
     UserSerializer,
 )
+from core.tasks import send_email
 
 
 @extend_schema_view(post=extend_schema(responses=OpenApiResponse(JWTAuthResponseSerializer)))

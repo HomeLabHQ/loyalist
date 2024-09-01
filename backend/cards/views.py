@@ -1,4 +1,3 @@
-from core.mixins import ListSerializerMixin
 from django.db.models import Q
 from drf_spectacular.utils import OpenApiParameter, extend_schema, extend_schema_view
 from rest_framework import mixins, viewsets
@@ -6,6 +5,7 @@ from rest_framework.permissions import IsAuthenticated
 
 from cards.models import LoyaltyCard
 from cards.serializers import BaseLoyaltyCardSerializer, LoyaltyCardSerializer
+from core.mixins import ListSerializerMixin
 
 
 @extend_schema_view(

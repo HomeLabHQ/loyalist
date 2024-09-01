@@ -23,12 +23,11 @@ RUN apt-get update && \
 
 # Install uv
 COPY --from=ghcr.io/astral-sh/uv:latest /uv /bin/uv
-
 # Copy project requirement files here to ensure they will be cached.
 WORKDIR $PYSETUP_PATH
 COPY ./backend/uv.lock ./backend/pyproject.toml ./
 RUN --mount=type=cache,target=/root/.cache/uv \
-    uv sync --frozen --no-install-project
+    uv sync --frozen --no-install-project --extra docs
 
 ###############################################
 # Production Image
@@ -36,6 +35,7 @@ RUN --mount=type=cache,target=/root/.cache/uv \
 FROM python_base AS production
 COPY --from=builder_base $PYSETUP_PATH $PYSETUP_PATH
 WORKDIR $PYSETUP_PATH
-COPY ./backend $PYSETUP_PATH
-COPY ./docker/backend/entrypoint.sh $PYSETUP_PATH
+COPY ./docs $PYSETUP_PATH/docs
+COPY ./docker/docs $PYSETUP_PATH
+COPY ./docker/docs/entrypoint.sh $PYSETUP_PATH
 ENTRYPOINT [ "./entrypoint.sh" ]

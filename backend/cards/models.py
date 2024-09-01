@@ -1,13 +1,13 @@
 # Create your models here.
 
 
-from authentication.models import User
-from core.models import TitleDescriptionModel
 from django.db import models
 from django_stubs_ext.db.models import TypedModelMeta
-from stores.models import Store
 
+from authentication.models import User
 from cards.constants import CodeFormat
+from core.models import TitleDescriptionModel
+from stores.models import Store
 
 
 class LoyaltyCard(TitleDescriptionModel):

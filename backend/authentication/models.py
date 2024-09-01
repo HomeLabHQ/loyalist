@@ -8,8 +8,9 @@ from django.utils.translation import gettext_lazy as _
 from django_stubs_ext.db.models import TypedModelMeta
 
 if TYPE_CHECKING:
-    from cards.models import LoyaltyCard
     from django.db.models import Manager
+
+    from cards.models import LoyaltyCard
     from stores.models import Store
 
 

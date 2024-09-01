@@ -1,6 +1,7 @@
 import six
-from authentication.models import User
 from django.contrib.auth.tokens import PasswordResetTokenGenerator
+
+from authentication.models import User
 
 
 class _TokenGenFactory(PasswordResetTokenGenerator):

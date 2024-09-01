@@ -1,13 +1,13 @@
 from unittest.mock import Mock, patch
 
-from core.tests import BaseAPITest, BaseTestCase
-from core.tokens import TokenGenerator
 from django.urls import reverse
 from django.utils.encoding import force_bytes
 from django.utils.http import urlsafe_base64_encode
 from rest_framework_simplejwt.tokens import AccessToken, RefreshToken
 
 from authentication.models import User
+from core.tests import BaseAPITest, BaseTestCase
+from core.tokens import TokenGenerator
 
 
 class APITestObtainJSONWebToken(BaseAPITest, BaseTestCase):

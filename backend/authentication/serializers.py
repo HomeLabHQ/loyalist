@@ -1,7 +1,3 @@
-from core.serializers import ImageUploadSerializer, ModelFileSerializer
-from core.tasks import send_email
-from core.tokens import TokenGenerator
-from core.utils import create_url
 from django.conf import settings
 from django.contrib.auth.password_validation import validate_password
 from django.core.exceptions import ValidationError
@@ -14,6 +10,10 @@ from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from rest_social_auth.serializers import JWTBaseSerializer
 
 from authentication.models import User
+from core.serializers import ImageUploadSerializer, ModelFileSerializer
+from core.tasks import send_email
+from core.tokens import TokenGenerator
+from core.utils import create_url
 
 
 class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):

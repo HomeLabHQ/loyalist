@@ -1,4 +1,12 @@
 services:
+  docs:
+    extends:
+      file: compose.yml
+      service: docs
+    ports:
+      - "2000:2000"
+    command:
+      - serve
   db:
     extends:
       file: compose.yml
@@ -11,11 +19,12 @@ services:
       timeout: 5s
       retries: 5
   redis:
-    image: redis:latest
+    extends:
+      file: compose.yml
+      service: redis
     ports:
       - "6379:6379"
-    volumes:
-      - redis_data:/data
 volumes:
   postgres_data:
   redis_data:
+  docs:

@@ -1,13 +1,13 @@
 import typing
 
 import factory
-from authentication.models import User
-from core.tests import CRUDTestCase
 from django.test import TestCase
 from django.urls import reverse
 
+from authentication.models import User
 from cards.models import LoyaltyCard
 from cards.tests.factories import LoyaltyCardFactory
+from core.tests import CRUDTestCase
 
 
 class CardViewSetTest(CRUDTestCase, TestCase):

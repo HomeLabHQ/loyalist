@@ -1,13 +1,15 @@
 from typing import TYPE_CHECKING
 
-from authentication.models import User
-from core.models import TitleDescriptionModel
 from django.db import models
 from django_stubs_ext.db.models import TypedModelMeta
 
+from authentication.models import User
+from core.models import TitleDescriptionModel
+
 if TYPE_CHECKING:
-    from cards.models import LoyaltyCard
     from django.db.models import Manager
+
+    from cards.models import LoyaltyCard
 
 
 class Store(TitleDescriptionModel):

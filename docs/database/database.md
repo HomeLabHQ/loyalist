@@ -506,9 +506,9 @@ digraph model_graph {
     
     
       <TR><TD ALIGN="LEFT" BORDER="0">
-      <FONT FACE="Roboto">extra_data</FONT>
+      <FONT COLOR="#7B7B7B" FACE="Roboto">extra_data</FONT>
       </TD><TD ALIGN="LEFT">
-      <FONT FACE="Roboto">JSONField</FONT>
+      <FONT COLOR="#7B7B7B" FACE="Roboto">JSONField</FONT>
       </TD></TR>
     
     
@@ -572,9 +572,9 @@ digraph model_graph {
     
     
       <TR><TD ALIGN="LEFT" BORDER="0">
-      <FONT FACE="Roboto"><I>extra_data</I></FONT>
+      <FONT COLOR="#7B7B7B" FACE="Roboto"><I>extra_data</I></FONT>
       </TD><TD ALIGN="LEFT">
-      <FONT FACE="Roboto"><I>JSONField</I></FONT>
+      <FONT COLOR="#7B7B7B" FACE="Roboto"><I>JSONField</I></FONT>
       </TD></TR>
     
     
