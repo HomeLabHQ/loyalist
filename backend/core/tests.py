@@ -37,14 +37,6 @@ class BaseTestCase:
     user = None
     client: CustomClient = None
 
-    def _callTestMethod(self, method):
-        class_name = self.__class__.__name__
-        method_name = method.__name__
-        print(  # noqa: T201
-            f"{Colors.BOLD}{Colors.BLUE} {class_name}{Colors.END} -> {Colors.GREEN}{method_name}{Colors.END}",
-        )
-        super()._callTestMethod(method)
-
 
 class BaseAPITest(BaseTestCase, APITestCase):
     def create(self, email="test@mail.com", password="qwerty123456", first_name="John", last_name="Snow"):
@@ -182,7 +174,7 @@ class CRUDTestCase(BaseTestCase):
         test_instance = self.queryset.first()
         resp = self.client.get(reverse(f"{self.base_view}-detail", args=(test_instance.pk,)))
         ser = resp.renderer_context.get("view").get_serializer_class()
-        serializer = ser(test_instance)
+        serializer = ser(test_instance, context={"request": resp.renderer_context.get("request")})
         self._check_data(serializer, test_instance, resp)
 
     def test_retrieve_not_allowed(self) -> None:
@@ -211,7 +203,7 @@ class CRUDTestCase(BaseTestCase):
         test_instance = self.queryset.first()
         resp = self.client.put(reverse(f"{self.base_view}-detail", args=(test_instance.id,)), data=self.fake_data)
         ser = resp.renderer_context.get("view").get_serializer_class()
-        serializer = ser(data=self.fake_data)
+        serializer = ser(data=self.fake_data, context={"request": resp.renderer_context.get("request")})
         serializer.is_valid(raise_exception=True)
         self._check_data(serializer, test_instance, resp)
 
@@ -230,7 +222,12 @@ class CRUDTestCase(BaseTestCase):
         payload = {**dict(list(self.fake_data.items())[:rand_index])}
         resp = self.client.patch(reverse(f"{self.base_view}-detail", args=(test_instance.id,)), data=payload)
         ser = resp.renderer_context.get("view").get_serializer_class()
-        serializer = ser(test_instance, data=payload, partial=True)
+        serializer = ser(
+            test_instance,
+            data=payload,
+            partial=True,
+            context={"request": resp.renderer_context.get("request")},
+        )
         serializer.is_valid(raise_exception=True)
         serializer.save()
         self._check_data(serializer, test_instance, resp)
@@ -277,7 +274,7 @@ class CRUDTestCase(BaseTestCase):
 
 
 class APITestImageUpload(BaseAPITest):
-    def setUp(self):
+    def setUp(self) -> None:
         self.create_and_login()
         self.url = reverse("image-upload")
         image = Image.new("RGB", (500, 500))
@@ -286,7 +283,7 @@ class APITestImageUpload(BaseAPITest):
             output.seek(0)
             self.file = output.getvalue()
 
-    def test_send_image_binary(self):
+    def test_send_image_binary(self) -> None:
         resp = self.client.post(self.url, content_type="image/jpeg", data=self.file)
         with default_storage.open(resp.data["name"]) as f:
             f.read()
@@ -295,6 +292,6 @@ class APITestImageUpload(BaseAPITest):
         self.assertIsNotNone(resp.data["name"])
         self.assertIsNotNone(resp.data["url"])
 
-    def test_send_wrong_data(self):
+    def test_send_wrong_data(self) -> None:
         resp = self.client.post(self.url, content_type="image/jpeg", data=b"fsdewrw")
         self.assertEqual(resp.status_code, 400)

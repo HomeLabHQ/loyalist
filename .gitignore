@@ -12,3 +12,4 @@ compose.override.yml
 frontend_old
 doc_site
 logs
+coverage.xml

@@ -9,7 +9,7 @@ tasks:
     cmds:
       - git pull
       - export INFISICAL_TOKEN=$(infisical login --client-id $INFISICAL_CLIENT_ID --client-secret $INFISICAL_CLIENT_SECRET --domain $INFISICAL_DOMAIN --silent --plain --method universal-auth)
-      - infisical export  --projectId 6674652cdf71e8b052b811f3 --domain $INFISICAL_DOMAIN --env production > .env
+      - infisical export --domain $INFISICAL_DOMAIN --env production > .env
       - docker compose -f compose.slim.yml  build
       - docker compose -f compose.slim.yml  up -d
   env.development:
@@ -69,7 +69,7 @@ tasks:
   coverage:
     dir: backend
     cmds:
-      - uv run coverage  run  manage.py test
+      - uv run coverage run manage.py test
       - uv run coverage report -m
     silent: true
   erd:

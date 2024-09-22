@@ -21,6 +21,28 @@ const injectedRtkApi = api
         }),
         invalidatesTags: ['auth'],
       }),
+      authPasswordForgetCreate: build.mutation<
+        AuthPasswordForgetCreateApiResponse,
+        AuthPasswordForgetCreateApiArg
+      >({
+        query: (queryArg) => ({
+          url: `/api/auth/password/forget/`,
+          method: 'POST',
+          body: queryArg.forgetPasswordRequest,
+        }),
+        invalidatesTags: ['auth'],
+      }),
+      authPasswordResetCreate: build.mutation<
+        AuthPasswordResetCreateApiResponse,
+        AuthPasswordResetCreateApiArg
+      >({
+        query: (queryArg) => ({
+          url: `/api/auth/password/reset/`,
+          method: 'POST',
+          body: queryArg.resetPasswordRequest,
+        }),
+        invalidatesTags: ['auth'],
+      }),
       authPasswordUpdateCreate: build.mutation<
         AuthPasswordUpdateCreateApiResponse,
         AuthPasswordUpdateCreateApiArg
@@ -195,6 +217,14 @@ export type AuthCreateApiResponse = /** status 200  */ JwtAuthResponse;
 export type AuthCreateApiArg = {
   customTokenObtainPairRequest: CustomTokenObtainPairRequestWrite;
 };
+export type AuthPasswordForgetCreateApiResponse = /** status 200  */ ForgetPassword;
+export type AuthPasswordForgetCreateApiArg = {
+  forgetPasswordRequest: ForgetPasswordRequest;
+};
+export type AuthPasswordResetCreateApiResponse = /** status 200  */ ResetPassword;
+export type AuthPasswordResetCreateApiArg = {
+  resetPasswordRequest: ResetPasswordRequest;
+};
 export type AuthPasswordUpdateCreateApiResponse = unknown;
 export type AuthPasswordUpdateCreateApiArg = {
   changePasswordRequest: ChangePasswordRequest;
@@ -293,6 +323,22 @@ export type CustomTokenObtainPairRequest = {};
 export type CustomTokenObtainPairRequestWrite = {
   email: string;
   password: string;
+};
+export type ForgetPassword = {
+  email: string;
+};
+export type ForgetPasswordRequest = {
+  email: string;
+};
+export type ResetPassword = {
+  new_password: string;
+  confirmed_password: string;
+  token: string;
+};
+export type ResetPasswordRequest = {
+  new_password: string;
+  confirmed_password: string;
+  token: string;
 };
 export type ChangePasswordRequest = {
   new_password: string;
@@ -461,6 +507,8 @@ export type StoreRead = {
 };
 export const {
   useAuthCreateMutation,
+  useAuthPasswordForgetCreateMutation,
+  useAuthPasswordResetCreateMutation,
   useAuthPasswordUpdateCreateMutation,
   useAuthProfileRetrieveQuery,
   useAuthProfileUpdateMutation,

@@ -26,7 +26,7 @@ version = "0.1.0"
 [project.optional-dependencies]
 dev = [
   "djlint>=1.35.2",
-  'ruff',
+  'ruff>=0.6.7',
 ]
 docs = [
   "mkdocs-awesome-pages-plugin>=2.9.3",

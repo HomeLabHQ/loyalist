@@ -129,6 +129,15 @@ export default function LoginForm() {
                 ? 'Already have an account? Login'
                 : "Don't have an account? Register"}
             </Anchor>
+            <Anchor
+              component="button"
+              type="button"
+              c="dimmed"
+              onClick={() => navigate('/password-forget')}
+              size="xs"
+            >
+              Forget password
+            </Anchor>
           </Group>
           <Button fullWidth mt="xl" type="submit">
             {upperFirst(type)}

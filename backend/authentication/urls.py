@@ -1,9 +1,11 @@
 from django.urls import path, re_path
 
 from authentication.views import (
+    ForgetPasswordView,
     ObtainJSONWebToken,
     ProfileViewSet,
     RefreshJSONWebToken,
+    ResetPasswordView,
     SignupConfirmView,
     SignUpView,
     SocialJWTPairUserAuthView,
@@ -24,6 +26,8 @@ urlpatterns = [
     ),
     path("register/", SignUpView.as_view(), name="auth-register"),
     path("password/update/", UpdatePasswordView.as_view(), name="password-update"),
+    path("password/forget/", ForgetPasswordView.as_view(), name="password-forget"),
+    path("password/reset/", ResetPasswordView.as_view(), name="password-reset"),
     path("register/confirm/", SignupConfirmView.as_view(), name="auth-confirm"),
     path("verify/", VerifyJSONWebToken.as_view(), name="auth-verify"),
     path("social-logins/", SocialLoginsView.as_view(), name="social-logins"),

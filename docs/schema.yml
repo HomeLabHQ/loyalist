@@ -31,6 +31,64 @@ paths:
               schema:
                 $ref: '#/components/schemas/JWTAuthResponse'
           description: ''
+  /api/auth/password/forget/:
+    post:
+      operationId: auth_password_forget_create
+      description: |-
+        An endpoint for forget password functionality
+        Need to send email
+      tags:
+      - auth
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ForgetPasswordRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/ForgetPasswordRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/ForgetPasswordRequest'
+        required: true
+      security:
+      - jwtAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ForgetPassword'
+          description: ''
+  /api/auth/password/reset/:
+    post:
+      operationId: auth_password_reset_create
+      description: An endpoint for password resetting complete
+      tags:
+      - auth
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ResetPasswordRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/ResetPasswordRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/ResetPasswordRequest'
+        required: true
+      security:
+      - jwtAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResetPassword'
+          description: ''
   /api/auth/password/update/:
     post:
       operationId: auth_password_update_create
@@ -615,6 +673,25 @@ components:
       required:
       - email
       - password
+    ForgetPassword:
+      type: object
+      description: Serializer for forget password endpoint
+      properties:
+        email:
+          type: string
+          format: email
+      required:
+      - email
+    ForgetPasswordRequest:
+      type: object
+      description: Serializer for forget password endpoint
+      properties:
+        email:
+          type: string
+          format: email
+          minLength: 1
+      required:
+      - email
     FormatEnum:
       enum:
       - CODE_128
@@ -818,6 +895,37 @@ components:
           nullable: true
         is_notifications_enabled:
           type: boolean
+    ResetPassword:
+      type: object
+      description: Serializer for reset password endpoint
+      properties:
+        new_password:
+          type: string
+        confirmed_password:
+          type: string
+        token:
+          type: string
+      required:
+      - confirmed_password
+      - new_password
+      - token
+    ResetPasswordRequest:
+      type: object
+      description: Serializer for reset password endpoint
+      properties:
+        new_password:
+          type: string
+          minLength: 1
+        confirmed_password:
+          type: string
+          minLength: 1
+        token:
+          type: string
+          minLength: 1
+      required:
+      - confirmed_password
+      - new_password
+      - token
     SignUpConfirmRequest:
       type: object
       properties:

@@ -189,3 +189,48 @@ class ChangePasswordSerializer(PasswordSerializer):
         self.instance.set_password(validated_data.get("new_password"))
         self.instance.save()
         return self.instance
+
+
+class ForgetPasswordSerializer(serializers.Serializer):
+    """Serializer for forget password endpoint"""
+
+    email = serializers.EmailField(required=True)
+
+    def validate(self, data):
+        if not User.objects.filter(email=data["email"]).exists():
+            raise serializers.ValidationError("User with this email doesn't exist")
+        return data
+
+    def send_by_email(self):
+        user = User.objects.get(email=self.data["email"])
+        token = f"{urlsafe_base64_encode(force_bytes(user.email))}.{TokenGenerator.make_token(user)}"
+        url = create_url(f"{settings.SITE_URL}/password-reset/", token)
+        send_email.delay(
+            subject="Reset Password Loyalist",
+            template="notifications/restore-password.email.html",
+            context={"url": url, "site_url": settings.SITE_URL},
+            recipients=[user.email],
+        )
+
+
+class ResetPasswordSerializer(PasswordSerializer):
+    """Serializer for reset password endpoint"""
+
+    token = serializers.CharField(required=True)
+
+    def validate_token(self, data):
+        try:
+            email_b64, token = data.split(".")
+            self.user = User.objects.get(email=urlsafe_base64_decode(email_b64).decode("utf-8"))
+        except ValueError:
+            raise serializers.ValidationError("Email is not valid base64 string")
+        except User.DoesNotExist:
+            raise serializers.ValidationError("User with this email doesn't exist")
+        if not TokenGenerator.check_token(self.user, token):
+            raise serializers.ValidationError("Token is invalid or expired")
+        return data
+
+    def create(self, validated_data):
+        self.user.set_password(validated_data.get("confirmed_password"))
+        self.user.save()
+        return self.user

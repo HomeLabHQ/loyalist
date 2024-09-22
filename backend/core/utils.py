@@ -7,6 +7,7 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.db.models import QuerySet
 from django.utils import timezone
 from PIL import Image
+from PIL.ImageFile import ImageFile
 from rest_framework import serializers
 from rest_framework.exceptions import ValidationError
 
@@ -33,16 +34,7 @@ def filename_generator() -> str:
 # region Files/Images
 
 
-def upload_to(_, filename) -> str:
-    """Use this function in models ``upload_to`` arguments.
-
-    This will rename image with ``filename_generator`` when image is uploaded.
-    """
-    ext = filename.split(".")[-1]
-    return f"{filename_generator()}.{ext}"
-
-
-def resize_image(image):
+def resize_image(image) -> ImageFile:
     """Resize image to max width and return it"""
     try:
         im = Image.open(image)
