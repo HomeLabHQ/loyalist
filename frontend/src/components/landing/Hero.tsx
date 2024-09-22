@@ -1,15 +1,25 @@
-import { Image, Container, Title, Button, Group, Text, List, ThemeIcon, rem } from '@mantine/core';
+import {
+  Image,
+  Container,
+  Title,
+  Button,
+  Group,
+  Text,
+  List,
+  ThemeIcon,
+  rem,
+  Grid,
+} from '@mantine/core';
 import { useNavigate } from 'react-router-dom';
 import { IconBrandGithub, IconCheck } from '@tabler/icons-react';
-import classes from './Hero.module.css';
 import image from '@/assets/loyalty-card.jpg';
 
 export function Hero() {
   const navigate = useNavigate();
   return (
-    <Container size="md">
-      <div className={classes.inner}>
-        <div className={classes.content}>
+    <Container size="md" p="md">
+      <Grid>
+        <Grid.Col span={{ base: 12, sm: 6 }}>
           <Title>
             A <span>modern</span> Loyalty cards <br /> management app
           </Title>
@@ -56,9 +66,11 @@ export function Hero() {
               Source code
             </Button>
           </Group>
-        </div>
-        <Image src={image} className={classes.image} />
-      </div>
+        </Grid.Col>
+        <Grid.Col span={{ base: 12, sm: 6 }}>
+          <Image src={image} />
+        </Grid.Col>
+      </Grid>
     </Container>
   );
 }

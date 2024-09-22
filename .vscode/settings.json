@@ -14,8 +14,7 @@
   "python.analysis.indexing": true,
   "python.analysis.extraPaths": ["${workspaceFolder}/backend"],
   "python.autoComplete.extraPaths": ["${workspaceFolder}/backend/.venv/", "${workspaceFolder}/backend"],
-  "python.analysis.include": ["${workspaceFolder}/backend/"],
-  "python.analysis.addImport.exactMatchOnly": true,
+  "python.analysis.include": ["${workspaceFolder}/backend"],
   "python.analysis.autoImportCompletions": true,
   "python.analysis.packageIndexDepths": [
     {
@@ -29,9 +28,5 @@
     "projectKey": "HomeLabHQ_loyalist"
   },
   "ruff.args": ["--line-length", "120", "--config=${workspaceFolder}/backend/pyproject.toml"],
-  "ruff.format.args": [
-    "--config",
-    "${workspaceFolder}/backend/pyproject.toml"
-  ],
   "python.analysis.typeCheckingMode": "off"
 }

@@ -38,9 +38,7 @@ services:
       retries: 5
   caddy:
     container_name: ${COMPOSE_PROJECT_NAME}-caddy-${ENVIRONMENT}
-    build:
-      dockerfile: ./docker/caddy/Dockerfile
-      context: ./
+    image: caddy:2.7.6
     env_file:
       - .env
     ports:
@@ -49,13 +47,14 @@ services:
       - static:/static
       - attachments:/attachments
       - docs:/docs
+      - frontend:/usr/share/web
       - ./docker/caddy/Caddyfile:/etc/caddy/Caddyfile
     depends_on:
       - api
-  redis:
-    image: redis:7.2.5
+  cache:
+    image: valkey/valkey:bookworm
     volumes:
-      - redis_data:/data
+      - cache_data:/data
   docs:
     build:
       dockerfile: ./docker/docs/Dockerfile
@@ -69,9 +68,20 @@ services:
     volumes:
       - ./docs:/code/docs
       - docs:/code/doc_site
+  frontend:
+    build:
+      dockerfile: ./docker/frontend/Dockerfile
+      context: ./
+    env_file:
+      - .env
+    image: ${COMPOSE_PROJECT_NAME}/frontend
+    container_name: ${COMPOSE_PROJECT_NAME}-frontend-${ENVIRONMENT}
+    volumes:
+      - frontend_data:/frontend/dist
 volumes:
   postgres_data:
   static:
   attachments:
   docs:
-  redis_data:
+  cache_data:
+  frontend_data:

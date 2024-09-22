@@ -18,13 +18,13 @@ services:
       interval: 10s
       timeout: 5s
       retries: 5
-  redis:
+  cache:
     extends:
       file: compose.yml
-      service: redis
+      service: cache
     ports:
       - "6379:6379"
 volumes:
   postgres_data:
-  redis_data:
+  cache_data:
   docs:

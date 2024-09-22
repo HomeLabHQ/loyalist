@@ -25,8 +25,10 @@ from authentication.models import User
 from authentication.serializers import (
     ChangePasswordSerializer,
     CustomTokenObtainPairSerializer,
+    ForgetPasswordSerializer,
     JWTAuthResponseSerializer,
     JWTPairSerializer,
+    ResetPasswordSerializer,
     SignUpConfirmSerializer,
     SignUpSerializer,
     SocialLinksSerializer,
@@ -127,5 +129,33 @@ class UpdatePasswordView(APIView):
             recipients=[self.request.user.email],
             context={},
         )
+        serializer.save()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
+
+class ForgetPasswordView(APIView):
+    """An endpoint for forget password functionality
+    Need to send email
+    """
+
+    serializer_class = ForgetPasswordSerializer
+    permission_classes = (permissions.AllowAny,)
+
+    def post(self, request, *args, **kwargs):
+        serializer = self.serializer_class(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        serializer.send_by_email()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
+
+class ResetPasswordView(APIView):
+    """An endpoint for password resetting complete"""
+
+    serializer_class = ResetPasswordSerializer
+    permission_classes = (permissions.AllowAny,)
+
+    def post(self, *args, **kwargs):
+        serializer = self.serializer_class(data=self.request.data)
+        serializer.is_valid(raise_exception=True)
         serializer.save()
         return Response(status=status.HTTP_204_NO_CONTENT)

@@ -6,6 +6,8 @@ import SocialLoginPage from '@/pages/SocialLogin.page';
 import LandingPage from '@/pages/Landing.page';
 import { HomePage } from '@/pages/Home.page';
 import ProfilePage from '@/pages/Profile.page';
+import ForgetPasswordPage from './pages/ForgetPassword.page';
+import ResetPasswordPage from './pages/ResetPassword.page';
 
 type ProtectedRouteProps = {
   children: React.ReactNode;
@@ -46,6 +48,14 @@ const router = createBrowserRouter([
   {
     path: '/signup/confirm',
     element: <SignupConfirmPage />,
+  },
+  {
+    path: '/password-reset',
+    element: <ResetPasswordPage />,
+  },
+  {
+    path: '/password-forget',
+    element: <ForgetPasswordPage />,
   },
   {
     path: '/social/:provider',
