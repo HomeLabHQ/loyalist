@@ -23,11 +23,11 @@ jobs:
           --health-timeout 5s
           --health-retries 5
         ports:
-          - 123:5432
+          - 5431:5432
       redis:
         image: valkey/valkey:alpine3.20
         ports:
-          - 321:6379
+          - 6378:6379
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -47,13 +47,13 @@ jobs:
           uv run coverage run  manage.py test &&
           uv run coverage xml
         env:
-          REDIS_URL: redis://localhost:321
+          REDIS_URL: redis://localhost:6378
           PUBLIC_API_SECRET_KEY: ${{ secrets.PUBLIC_API_SECRET_KEY }}
           POSTGRES_USER: test_user
           POSTGRES_PASSWORD: password
           POSTGRES_DB: db
           DB_HOST: localhost
-          DB_PORT: 123
+          DB_PORT: 5431
       - name: Create docker image
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
