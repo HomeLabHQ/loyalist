@@ -43,7 +43,7 @@ jobs:
         run: uv sync --extra test
       - name: Test for coverage
         run: |
-          uv run coverage run  /backnend/manage.py test &&
+          uv run coverage run  /backend/manage.py test &&
           uv run coverage xml
         env:
           REDIS_URL: redis://localhost:6378
