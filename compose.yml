@@ -47,7 +47,7 @@ services:
       - static:/static
       - attachments:/attachments
       - docs:/docs
-      - frontend:/usr/share/web
+      - frontend_data:/usr/share/web
       - ./docker/caddy/Caddyfile:/etc/caddy/Caddyfile
     depends_on:
       - api
