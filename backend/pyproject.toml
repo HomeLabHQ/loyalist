@@ -104,6 +104,8 @@ omit = [
   "*/wsgi.py",
   "tests.py",
 ]
+relative_files = true
+source = ["./"]
 
 [tool.coverage.report]
 show_missing = true
