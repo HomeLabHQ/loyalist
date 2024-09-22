@@ -21,7 +21,7 @@ services:
   celery:
     <<: *service
     depends_on:
-      - redis
+      - cache
     command: celery worker -l INFO -Q django
   db:
     image: postgres:alpine3.18
