@@ -69,8 +69,9 @@ tasks:
   coverage:
     dir: backend
     cmds:
-      - uv run coverage  run  manage.py test
+      - uv run coverage run  manage.py test
       - uv run coverage report -m
+      - uv run coverage xml
     silent: true
   erd:
     dir: backend

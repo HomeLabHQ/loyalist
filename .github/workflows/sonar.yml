@@ -54,6 +54,8 @@ jobs:
           POSTGRES_DB: db
           DB_HOST: localhost
           DB_PORT: 5431
+      - name: Replace path
+        run: sed -i -e "s/\/home/\/runner\/work\/loyalist\/loyalist\/g" ./backend/coverage.xml
       - name: Create docker image
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
