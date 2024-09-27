@@ -21,6 +21,10 @@ services:
     extends:
       file: compose.yml
       service: caddy
+  cache:
+    extends:
+      file: compose.yml
+      service: cache
   docs:
     extends:
       file: compose.yml
