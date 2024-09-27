@@ -13,7 +13,7 @@ tasks:
       - docker compose -f compose.slim.yml  up -d
   install:
     cmds:
-      - cd backend && uv sync --all-extras
+      - cd backend && uv sync --all-extras --frozen
       - cd frontend && yarn install
     silent: true
   update:
