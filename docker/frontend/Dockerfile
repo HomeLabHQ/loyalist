@@ -1,6 +1,7 @@
 FROM node:20-slim
 WORKDIR /frontend
-COPY ./frontend/package.json ./yarn.lock ./
+COPY ./frontend/package.json ./frontend/yarn.lock ./frontend/.yarnrc.yml ./
+COPY ./frontend/.yarn/releases/yarn-*.cjs  ./.yarn/releases/
 RUN yarn install && yarn cache clean
 COPY ./frontend/. ./
 ARG API_URL
