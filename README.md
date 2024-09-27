@@ -21,9 +21,9 @@ root
 Test12345
 ```
 
-<a href="https://docs.lolaylist.dufran.org/"><img src="https://img.shields.io/badge/doc-mkdocs-02a6f2?style=flat-square&logo=read-the-docs" alt="Documentation">
+<a href="https://docs.loyalist.dufran.org/"><img src="https://img.shields.io/badge/doc-mkdocs-02a6f2?style=flat-square&logo=read-the-docs" alt="Documentation">
 
-<a href="https://lolaylist.dufran.org/api/swagger-ui/"><img src="https://img.shields.io/badge/-Swagger-%23Clojure?style=for-the-badge&logo=swagger&logoColor=white" alt="API Docs"></a>
+<a href="https://loyalist.dufran.org/api/swagger-ui/"><img src="https://img.shields.io/badge/-Swagger-%23Clojure?style=for-the-badge&logo=swagger&logoColor=white" alt="API Docs"></a>
 
 Main goal of the project to manage and share loyalty card for various shops.
 
@@ -40,7 +40,7 @@ For local development you will need:
 
 - Python 3.12.0
 - Node 20.11.1
-  - Yarn 4.0.2
+  - Yarn 4.5.0
 
 Also strongly recommend using tools like nvm and pyenv for running specific versions of Python and Node for this project
 
@@ -59,7 +59,6 @@ For anyone who wants a try in on separate vm instance please use regular compose
 [linkedin-url]: https://linkedin.com/in/oleksandr-korol/
 [React.js]: https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB
 [React-url]: https://reactjs.org/
-[antd-url]: https://ant.design/
 [redux]: https://img.shields.io/badge/Redux%20toolkit-20232A?style=for-the-badge&logo=redux&logoColor=61DAFB
 [redux-url]: https://reactjs.org/
 [Vite]: https://img.shields.io/badge/Vite-20232A?style=for-the-badge&logo=vite&logoColor=61DAFB
