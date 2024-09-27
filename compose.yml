@@ -37,7 +37,7 @@ services:
         condition: service_completed_successfully
   caddy:
     container_name: ${COMPOSE_PROJECT_NAME}-caddy-${ENVIRONMENT}
-    image: caddy:2.7.6
+    image: caddy:2.8.4
     env_file:
       - .env
     ports:

@@ -1,12 +1,3 @@
-{$DOCS_URL} {
-	handle {
-		basicauth {
-			root {$CADDY_PASSWORD}
-		}
-		root * /docs
-		file_server
-	}
-}
 {$SITE_URL} {
 	@api path /api/* /admin/*
 	@docs path /api/schema/ /api/swagger-ui/
