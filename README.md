@@ -12,35 +12,29 @@
 
 # Loyalist
 
-## Project description <a href="https://homelabhq.github.io/loyalist/"><img src="https://img.shields.io/badge/doc-mkdocs-02a6f2?style=flat-square&logo=read-the-docs" alt="Documentation"></a>
+## Project description
+
+To access technical documentation and API documentation use
+
+```sh
+root
+Test12345
+```
+
+<a href="https://docs.lolaylist.dufran.org/"><img src="https://img.shields.io/badge/doc-mkdocs-02a6f2?style=flat-square&logo=read-the-docs" alt="Documentation">
+
+<a href="https://lolaylist.dufran.org/api/swagger-ui/"><img src="https://img.shields.io/badge/-Swagger-%23Clojure?style=for-the-badge&logo=swagger&logoColor=white" alt="API Docs"></a>
 
 Main goal of the project to manage and share loyalty card for various shops.
 
-<details>
-  <summary>Table of Contents</summary>
-  <ol>
-    <li>
-      <a href="#project-description">Project description</a>
-      <ul>
-        <li><a href="#built-with">Built With</a></li>
-      </ul>
-    </li>
-    <li>
-        <li><a href="#prerequisites">Prerequisites</a></li>
-    </li>
-  </ol>
-</details>
-
-### Built With
+## Built With
 
 [![Django][Django]][Django-url]
 [![React][React.js]][React-url]
 [![Redux][Redux]][Redux-url]
 [![Vite][Vite]][Vite-url]
 
-<p align="right"><a href="#readme-top">⬆️</a></p>
-
-### Prerequisites
+## Prerequisites
 
 For local development you will need:
 
@@ -51,6 +45,15 @@ For local development you will need:
 Also strongly recommend using tools like nvm and pyenv for running specific versions of Python and Node for this project
 
 > NOTE: Additionally install poetry self add poetry-dotenv-plugin to auto load env variables in shell and run command
+
+## Current production environment
+
+I'm using compose.slim.yml to run the project on bare metal homelab server, with couple of key things:
+
+- Each pet project have a separate port that is provided by `SERVICE_PORT` env variable
+- Caddy don't manage SSL certificates, i'm using cloudflare tunnel to manage DNS A records and host service behind strict NAT environment
+
+For anyone who wants a try in on separate vm instance please use regular compose.yml
 
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [linkedin-url]: https://linkedin.com/in/oleksandr-korol/
