@@ -83,6 +83,8 @@ services:
       context: ./
     env_file:
       - .env
+    command:
+      - build
     image: ${COMPOSE_PROJECT_NAME}/frontend
     container_name: ${COMPOSE_PROJECT_NAME}-frontend-${ENVIRONMENT}
     volumes:
