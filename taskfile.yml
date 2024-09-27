@@ -8,16 +8,9 @@ tasks:
   deploy:
     cmds:
       - git pull
-      - export INFISICAL_TOKEN=$(infisical login --client-id $INFISICAL_CLIENT_ID --client-secret $INFISICAL_CLIENT_SECRET --domain $INFISICAL_DOMAIN --silent --plain --method universal-auth)
-      - infisical export --domain $INFISICAL_DOMAIN --env production > .env
+      - docker compose -f compose.slim.yml  down --remove-orphans
       - docker compose -f compose.slim.yml  build
       - docker compose -f compose.slim.yml  up -d
-  env.development:
-    cmds:
-      - infisical export  -e development >.env
-  env.production:
-    cmds:
-      - infisical export  -e production >.env
   install:
     cmds:
       - cd backend && uv sync --all-extras
@@ -60,6 +53,11 @@ tasks:
     cmds:
       - uv run python manage.py makemigrations
       - uv run python manage.py migrate
+    silent: true
+  migrations:
+    dir: backend
+    cmds:
+      - uv run python manage.py makemigrations
     silent: true
   api:
     dir: backend

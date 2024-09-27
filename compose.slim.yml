@@ -32,6 +32,8 @@ services:
 volumes:
   static:
   attachments:
+  caddy_data:
+  caddy_config:
   docs:
   cache_data:
   frontend_data:

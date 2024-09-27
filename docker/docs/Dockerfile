@@ -11,7 +11,8 @@ ENV PYTHONUNBUFFERED=1 \
     PYSETUP_PATH="/code" \
     VENV_PATH="/code/.venv"
 
-
+# prepend venv to path
+ENV PATH="$VENV_PATH/bin:$PATH"
 ###############################################
 # Builder Image
 ###############################################

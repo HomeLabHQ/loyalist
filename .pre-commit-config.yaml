@@ -16,7 +16,7 @@ repos:
         pass_filenames: false
       - id: migration-check
         name: check for missing migrations
-        entry: task db
+        entry: task migrations
         language: system
         pass_filenames: false
       - id: lint
