@@ -18,6 +18,7 @@ help      : Show this message
 
 run_setup_commands(){
   python manage.py migrate
+  python manage.py collectstatic --noinput
 }
 
 case "$1" in
