@@ -23,6 +23,7 @@ run_setup_commands(){
 
 case "$1" in
     prod)
+        run_setup_commands
         exec gunicorn core.asgi:application
     ;;
     bash)
