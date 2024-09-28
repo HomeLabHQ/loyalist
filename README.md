@@ -21,7 +21,7 @@ root
 Test12345
 ```
 
-<a href="https://docs.loyalist.dufran.org/"><img src="https://img.shields.io/badge/doc-mkdocs-02a6f2?style=flat-square&logo=read-the-docs" alt="Documentation">
+<a href="https://loyalist-docs.dufran.org/"><img src="https://img.shields.io/badge/doc-mkdocs-02a6f2?style=flat-square&logo=read-the-docs" alt="Documentation">
 
 <a href="https://loyalist.dufran.org/api/swagger-ui/"><img src="https://img.shields.io/badge/-Swagger-%23Clojure?style=for-the-badge&logo=swagger&logoColor=white" alt="API Docs"></a>
 
