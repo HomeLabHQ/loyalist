@@ -24,6 +24,7 @@ services:
     depends_on:
       - cache
     command: celery worker -l INFO -Q django
+    container_name: ${COMPOSE_PROJECT_NAME}-celery-${ENVIRONMENT}
   db:
     image: postgres:16
     container_name: ${COMPOSE_PROJECT_NAME}-db-${ENVIRONMENT}
@@ -61,6 +62,7 @@ services:
     image: valkey/valkey:bookworm
     volumes:
       - cache_data:/data
+    container_name: ${COMPOSE_PROJECT_NAME}-cache-${ENVIRONMENT}
     depends_on:
       frontend:
         condition: service_completed_successfully

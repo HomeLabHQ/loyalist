@@ -27,18 +27,15 @@ tasks:
     silent: true
   backup.db:
     cmds:
-      - docker exec -t ${COMPOSE_PROJECT_NAME}-db-${ENVIRONMENT} pg_dump -c -U ${POSTGRES_USER} > $HOME/backups/dump_`date +%Y-%m-%d"_"%H`.sql
+      - docker exec -t loyalist-db-${ENVIRONMENT} pg_dump -c -U ${POSTGRES_USER} > $HOME/backups/dump_`date +%Y-%m-%d"_"%H`.sql
   restore.db:
-    - cat  $HOME/backups/{{.CLI_ARGS}} | docker exec -i ${COMPOSE_PROJECT_NAME}-db-${ENVIRONMENT} psql -U ${POSTGRES_USER}
+    - cat  $HOME/backups/{{.CLI_ARGS}} | docker exec -i loyalist-db-${ENVIRONMENT} psql -U ${POSTGRES_USER}
   backup.files:
     cmds:
-      - docker run --rm --volumes-from ${COMPOSE_PROJECT_NAME}-api-${ENVIRONMENT}  -v $HOME/backups:/backup ${COMPOSE_PROJECT_NAME}/backend-${ENVIRONMENT} bash -c "tar cvf /backup/backup_$(date +%Y%m%d%H).tar /code/attachments/";
+      - docker run --rm --volumes-from loyalist-api-${ENVIRONMENT}  -v $HOME/backups:/backup ${COMPOSE_PROJECT_NAME}/backend-${ENVIRONMENT} bash -c "tar cvf /backup/backup_$(date +%Y%m%d%H).tar /code/attachments/";
   restore.files:
     cmds:
-      - docker run --rm --volumes-from ${COMPOSE_PROJECT_NAME}-api-${ENVIRONMENT} -v $HOME/backups:/backup ${COMPOSE_PROJECT_NAME}/backend-${ENVIRONMENT} bash -c "cd /code/attachments/ && tar xvf /backup/{{.CLI_ARGS}} --strip 1"
-  up.docs:
-    cmds:
-      - docker compose -f compose.dev.yml --env-file .env up docs -d
+      - docker run --rm --volumes-from loyalist-api-${ENVIRONMENT} -v $HOME/backups:/backup ${COMPOSE_PROJECT_NAME}/backend-${ENVIRONMENT} bash -c "cd /code/attachments/ && tar xvf /backup/{{.CLI_ARGS}} --strip 1"
   down.dev:
     cmds:
       - docker compose -f compose.dev.yml --env-file .env down --remove-orphans
