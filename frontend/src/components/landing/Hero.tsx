@@ -12,12 +12,12 @@ import {
 } from '@mantine/core';
 import { useNavigate } from 'react-router-dom';
 import { IconBrandGithub, IconCheck } from '@tabler/icons-react';
-import image from '@/assets/loyalty-card.jpg';
+import shopping from '@/assets/shopping.svg';
 
 export function Hero() {
   const navigate = useNavigate();
   return (
-    <Container size="md" p="md">
+    <Container size="lg">
       <Grid>
         <Grid.Col span={{ base: 12, sm: 6 }}>
           <Title>
@@ -68,7 +68,7 @@ export function Hero() {
           </Group>
         </Grid.Col>
         <Grid.Col span={{ base: 12, sm: 6 }}>
-          <Image src={image} />
+          <Image src={shopping} />
         </Grid.Col>
       </Grid>
     </Container>

@@ -17,8 +17,6 @@ services:
     depends_on:
       db:
         condition: service_healthy
-      frontend:
-        condition: service_completed_successfully
   celery:
     <<: *service
     depends_on:
@@ -33,9 +31,6 @@ services:
       - .env
     volumes:
       - postgres_data:/var/lib/postgresql/data/
-    depends_on:
-      frontend:
-        condition: service_completed_successfully
   caddy:
     container_name: ${COMPOSE_PROJECT_NAME}-caddy-${ENVIRONMENT}
     image: caddy:2.8.4
@@ -63,9 +58,6 @@ services:
     volumes:
       - cache_data:/data
     container_name: ${COMPOSE_PROJECT_NAME}-cache-${ENVIRONMENT}
-    depends_on:
-      frontend:
-        condition: service_completed_successfully
   docs:
     build:
       dockerfile: ./docker/docs/Dockerfile

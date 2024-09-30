@@ -14,9 +14,6 @@ services:
     container_name: ${COMPOSE_PROJECT_NAME}-api-${ENVIRONMENT}
     command:
       - prod
-    depends_on:
-      frontend:
-        condition: service_completed_successfully
   celery:
     extends:
       file: compose.yml
