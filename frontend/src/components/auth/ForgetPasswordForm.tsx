@@ -3,6 +3,7 @@ import { Button, Container, Paper, Text, TextInput } from '@mantine/core';
 import { useForm } from '@mantine/form';
 import { notifications } from '@mantine/notifications';
 import { useAuthPasswordForgetCreateMutation } from '@/redux/api';
+import { AppRoute } from '@/constants';
 
 export default function ForgetPasswordForm() {
   const [create] = useAuthPasswordForgetCreateMutation();
@@ -21,7 +22,7 @@ export default function ForgetPasswordForm() {
           message: 'Request sent to your email',
           color: 'green',
         });
-        navigate('/login');
+        navigate(AppRoute.Login);
       })
       .catch((error) => {
         notifications.show({ title: 'Error', message: error.data.detail, color: 'red' });

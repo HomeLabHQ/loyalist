@@ -25,7 +25,7 @@ export const SocialLinks: SocialLink[] = [
   {
     icon: IconMail,
     label: 'Contact',
-    url: 'korol.oleksandr.work@gmail.com',
+    url: 'mailto:korol.oleksandr.work@gmail.com',
   },
 ];
 

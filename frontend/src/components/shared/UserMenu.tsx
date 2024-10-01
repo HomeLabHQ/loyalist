@@ -19,6 +19,7 @@ import {
   useMantineColorScheme,
   useMantineTheme,
 } from '@mantine/core';
+import { AppRoute } from '@/constants';
 import { useAuthProfileRetrieveQuery } from '@/redux/api';
 import { useAppDispatch } from '@/redux/hooks';
 import classes from './UserMenu.module.css';
@@ -81,7 +82,7 @@ export function UserMenu() {
           </ActionIcon>
           <Menu.Dropdown>
             <Menu.Item
-              onClick={() => navigate('/profile')}
+              onClick={() => navigate(AppRoute.Profile)}
               leftSection={
                 <IconSettings style={{ width: rem(16), height: rem(16) }} stroke={1.5} />
               }
@@ -91,7 +92,7 @@ export function UserMenu() {
             <Menu.Item
               onClick={() => {
                 dispatch({ type: 'auth/logout' });
-                navigate('/');
+                navigate(AppRoute.Base);
               }}
               leftSection={<IconLogout style={{ width: rem(16), height: rem(16) }} stroke={1.5} />}
             >

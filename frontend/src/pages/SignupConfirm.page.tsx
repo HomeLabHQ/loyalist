@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { notifications } from '@mantine/notifications';
 import LoginForm from '@/components/auth/LoginForm';
+import { AppRoute } from '@/constants';
 import classes from '@/pages/Login.module.css';
 import { useAuthRegisterConfirmCreateMutation } from '@/redux/api';
 
@@ -17,7 +18,7 @@ export default function SignupConfirmPage() {
       confirm({ signUpConfirmRequest: { token } })
         .unwrap()
         .then(() => {
-          navigate('/home/');
+          navigate(AppRoute.Home);
           notifications.show({ message: 'Confirmation successful', color: 'green' });
         })
         .catch((error) => {

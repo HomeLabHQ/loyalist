@@ -18,6 +18,7 @@ import { Dropzone, IMAGE_MIME_TYPE } from '@mantine/dropzone';
 import { useForm } from '@mantine/form';
 import { useDisclosure } from '@mantine/hooks';
 import PasswordChangeForm from '@/components/auth/PasswordChangeForm';
+import { AppRoute } from '@/constants';
 import {
   PatchedUserRequest,
   useAuthProfilePartialUpdateMutation,
@@ -43,7 +44,7 @@ export default function ProfileForm(props: Readonly<{ user: UserRead }>) {
     })
       .unwrap()
       .then(() => {
-        navigate('/home/');
+        navigate(AppRoute.Home);
       })
       .catch((error) => {
         form.setErrors(error.data);

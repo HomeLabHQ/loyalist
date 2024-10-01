@@ -2,6 +2,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { Button, Container, Paper, Text, TextInput } from '@mantine/core';
 import { useForm } from '@mantine/form';
 import { notifications } from '@mantine/notifications';
+import { AppRoute } from '@/constants';
 import { ResetPasswordRequest, useAuthPasswordResetCreateMutation } from '@/redux/api';
 
 export default function ForgetPasswordForm() {
@@ -26,7 +27,7 @@ export default function ForgetPasswordForm() {
           message: 'Password successfully set',
           color: 'green',
         });
-        navigate('/login');
+        navigate(AppRoute.Login);
       })
       .catch((error) => {
         form.setErrors(error.data);

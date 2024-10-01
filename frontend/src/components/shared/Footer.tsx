@@ -4,7 +4,14 @@ import classes from './Footer.module.css';
 
 export default function Footer() {
   const items = SocialLinks.map((link) => (
-    <Button component="a" href={link.url} leftSection={<link.icon />} size="xs" key={link.label}>
+    <Button
+      component="a"
+      href={link.url}
+      target="_blank"
+      leftSection={<link.icon />}
+      size="xs"
+      key={link.label}
+    >
       {link.label}
     </Button>
   ));

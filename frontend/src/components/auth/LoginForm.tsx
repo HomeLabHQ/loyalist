@@ -14,6 +14,7 @@ import {
 import { useForm } from '@mantine/form';
 import { upperFirst, useToggle } from '@mantine/hooks';
 import { notifications } from '@mantine/notifications';
+import { AppRoute } from '@/constants';
 import {
   useAuthCreateMutation,
   useAuthRegisterCreateMutation,
@@ -43,7 +44,7 @@ export default function LoginForm() {
         .unwrap()
         .then(() => {
           notifications.show({ title: 'Success', message: 'Login successful', color: 'green' });
-          navigate('/home/');
+          navigate(AppRoute.Home);
         })
         .catch((error) => {
           notifications.show({ title: 'Error', message: error.data.detail, color: 'red' });
@@ -61,7 +62,7 @@ export default function LoginForm() {
         .unwrap()
         .then(() => {
           notifications.show({ title: 'Success', message: 'Register successful', color: 'green' });
-          navigate('/');
+          navigate(AppRoute.Home);
         })
         .catch((error) => {
           notifications.show({ title: 'Error', message: error.data.detail, color: 'red' });
@@ -133,7 +134,7 @@ export default function LoginForm() {
               component="button"
               type="button"
               c="dimmed"
-              onClick={() => navigate('/password-forget')}
+              onClick={() => navigate(AppRoute.PasswordReset)}
               size="xs"
             >
               Forget password
