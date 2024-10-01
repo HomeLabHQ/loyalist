@@ -64,9 +64,9 @@ jobs:
       - name: Add files
         run: docker cp /home/runner/work/loyalist/loyalist/. sonar:/usr/src/.
       - name: Run sonar
-        run: docker start -i sonar
+        run: docker start -i sonar-${GITHUB_SHA}
       - name: Docker cleanup
         run: |
-          docker stop sonar
-          docker rm sonar
+          docker stop sonar-${GITHUB_SHA}
+          docker rm sonar-${GITHUB_SHA}
           docker system prune -f
