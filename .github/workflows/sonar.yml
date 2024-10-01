@@ -62,7 +62,7 @@ jobs:
           SONAR_HOST_URL: https://sonarcloud.io
         run: docker create --name sonar-${GITHUB_SHA} -e SONAR_TOKEN=${SONAR_TOKEN} -e SONAR_HOST_URL=${SONAR_HOST_URL} sonarsource/sonar-scanner-cli
       - name: Add files
-        run: docker cp /home/runner/work/loyalist/loyalist/. sonar:/usr/src/.
+        run: docker cp /home/runner/work/loyalist/loyalist/. sonar-${GITHUB_SHA}:/usr/src/.
       - name: Run sonar
         run: docker start -i sonar-${GITHUB_SHA}
       - name: Docker cleanup
