@@ -1,6 +1,6 @@
-import { Group, Button } from '@mantine/core';
-import classes from './Footer.module.css';
+import { Button, Group } from '@mantine/core';
 import { SocialLinks } from '@/settings/constants';
+import classes from './Footer.module.css';
 
 export function Footer() {
   const items = SocialLinks.map((link) => (

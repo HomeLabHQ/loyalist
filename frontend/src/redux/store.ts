@@ -1,5 +1,4 @@
-import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
-// eslint-disable-next-line import/no-cycle
+import { Action, configureStore, ThunkAction } from '@reduxjs/toolkit';
 import { backendApi } from './api';
 import { authSlice } from './authSlice';
 

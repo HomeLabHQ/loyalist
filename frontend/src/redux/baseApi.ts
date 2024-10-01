@@ -1,14 +1,13 @@
 import {
   BaseQueryFn,
-  FetchArgs,
-  FetchBaseQueryError,
   createApi,
+  FetchArgs,
   fetchBaseQuery,
+  FetchBaseQueryError,
 } from '@reduxjs/toolkit/query/react';
-// eslint-disable-next-line import/no-cycle
-import { RootState } from './store';
-import { logout, refreshToken } from './authSlice';
 import { AuthRefreshCreateApiResponse } from './api';
+import { logout, refreshToken } from './authSlice';
+import { RootState } from './store';
 
 const baseUrl = process.env.API_URL;
 

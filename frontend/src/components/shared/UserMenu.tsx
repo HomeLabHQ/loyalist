@@ -1,27 +1,27 @@
-import cx from 'clsx';
 import { useState } from 'react';
 import {
+  IconChevronDown,
+  IconLogout,
+  IconMoonStars,
+  IconSettings,
+  IconSun,
+} from '@tabler/icons-react';
+import cx from 'clsx';
+import { useNavigate } from 'react-router-dom';
+import {
+  ActionIcon,
   Avatar,
-  UnstyledButton,
   Group,
-  Text,
   Menu,
   rem,
-  useMantineTheme,
-  ActionIcon,
+  Text,
+  UnstyledButton,
   useMantineColorScheme,
+  useMantineTheme,
 } from '@mantine/core';
-import {
-  IconLogout,
-  IconSettings,
-  IconChevronDown,
-  IconSun,
-  IconMoonStars,
-} from '@tabler/icons-react';
-import { useNavigate } from 'react-router-dom';
-import classes from './UserMenu.module.css';
 import { useAuthProfileRetrieveQuery } from '@/redux/api';
 import { useAppDispatch } from '@/redux/hooks';
+import classes from './UserMenu.module.css';
 
 export function UserMenu() {
   const theme = useMantineTheme();

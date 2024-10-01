@@ -1,4 +1,4 @@
-import { PasswordInput, Button, Group, Container } from '@mantine/core';
+import { Button, Container, Group, PasswordInput } from '@mantine/core';
 import { useForm } from '@mantine/form';
 import { notifications } from '@mantine/notifications';
 import { ChangePasswordRequest, useAuthPasswordUpdateCreateMutation } from '@/redux/api';

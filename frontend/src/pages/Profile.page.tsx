@@ -1,6 +1,6 @@
 import ProfileForm from '@/components/auth/ProfileForm';
-import MainLayout from './MainLayout';
 import { useAuthProfileRetrieveQuery } from '@/redux/api';
+import MainLayout from './MainLayout';
 
 function ProfilePage() {
   const { data } = useAuthProfileRetrieveQuery();

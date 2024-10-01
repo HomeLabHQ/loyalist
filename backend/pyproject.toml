@@ -55,6 +55,8 @@ exclude = [
 extend-select = ["I"]
 ignore = [
   "ANN",
+  "COM812",
+  "ISC001",
   "D",
   "PT009",
   "B904",

@@ -1,19 +1,19 @@
+import { IconBrandGoogle, IconBrandLinkedin } from '@tabler/icons-react';
+import { useNavigate } from 'react-router-dom';
 import {
-  TextInput,
-  PasswordInput,
-  Checkbox,
   Anchor,
-  Paper,
-  Title,
+  Button,
+  Checkbox,
   Container,
   Group,
-  Button,
+  Paper,
+  PasswordInput,
+  TextInput,
+  Title,
 } from '@mantine/core';
-import { notifications } from '@mantine/notifications';
-import { useNavigate } from 'react-router-dom';
 import { useForm } from '@mantine/form';
-import { useToggle, upperFirst } from '@mantine/hooks';
-import { IconBrandGoogle, IconBrandLinkedin } from '@tabler/icons-react';
+import { upperFirst, useToggle } from '@mantine/hooks';
+import { notifications } from '@mantine/notifications';
 import {
   useAuthCreateMutation,
   useAuthRegisterCreateMutation,

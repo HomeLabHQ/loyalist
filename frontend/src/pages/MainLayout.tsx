@@ -1,10 +1,10 @@
-import { ActionIcon, AppShell, Group, Text } from '@mantine/core';
 import { ReactNode } from 'react';
-import { UserMenu } from '@/components/shared/UserMenu';
-import { Footer } from '@/components/shared/Footer';
+import { ActionIcon, AppShell, Group, Text } from '@mantine/core';
 import image from '@/assets/app-logo.jpg';
-import classes from './MainLayout.module.css';
+import { Footer } from '@/components/shared/Footer';
 import { Navigation } from '@/components/shared/Navigation';
+import { UserMenu } from '@/components/shared/UserMenu';
+import classes from './MainLayout.module.css';
 
 type MainLayoutProps = {
   children: ReactNode;

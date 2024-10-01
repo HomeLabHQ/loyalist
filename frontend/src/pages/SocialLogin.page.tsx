@@ -1,9 +1,9 @@
 import { useEffect } from 'react';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { notifications } from '@mantine/notifications';
-import { useAuthSocialJwtPairCreateMutation } from '@/redux/api';
 import LoginForm from '@/components/auth/LoginForm';
 import classes from '@/pages/Login.module.css';
+import { useAuthSocialJwtPairCreateMutation } from '@/redux/api';
 
 export default function SocialLoginPage() {
   const location = useLocation();

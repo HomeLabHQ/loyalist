@@ -1,4 +1,4 @@
-import { IconBrandLinkedin, IconBrandGithub, IconMail, Icon } from '@tabler/icons-react';
+import { Icon, IconBrandGithub, IconBrandLinkedin, IconMail } from '@tabler/icons-react';
 
 export const IconSize = 20;
 export const DateFormat = 'YYYY-MM-DD';

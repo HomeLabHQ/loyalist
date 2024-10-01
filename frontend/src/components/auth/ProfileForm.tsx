@@ -1,30 +1,30 @@
-import { useForm } from '@mantine/form';
+import { useState } from 'react';
+import { IconLock } from '@tabler/icons-react';
+import { useNavigate } from 'react-router-dom';
 import {
   Button,
   Card,
+  Container,
+  Fieldset,
   Grid,
   Group,
-  TextInput,
-  Text,
-  Fieldset,
-  Modal,
-  Tooltip,
   Image,
-  Container,
+  Modal,
+  Text,
+  TextInput,
+  Tooltip,
 } from '@mantine/core';
-import { useNavigate } from 'react-router-dom';
-import { useDisclosure } from '@mantine/hooks';
-import { IconLock } from '@tabler/icons-react';
 import { Dropzone, IMAGE_MIME_TYPE } from '@mantine/dropzone';
-import { useState } from 'react';
+import { useForm } from '@mantine/form';
+import { useDisclosure } from '@mantine/hooks';
+import PasswordChangeForm from '@/components/auth/PasswordChangeForm';
 import {
   PatchedUserRequest,
-  UserRead,
   useAuthProfilePartialUpdateMutation,
   useFileCleanupCreateMutation,
   useImageUploadCreateMutation,
+  UserRead,
 } from '@/redux/api';
-import PasswordChangeForm from '@/components/auth/PasswordChangeForm';
 
 export default function ProfileForm(props: Readonly<{ user: UserRead }>) {
   const [update] = useAuthProfilePartialUpdateMutation();

@@ -1,9 +1,9 @@
 import { useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { notifications } from '@mantine/notifications';
-import { useAuthRegisterConfirmCreateMutation } from '@/redux/api';
 import LoginForm from '@/components/auth/LoginForm';
 import classes from '@/pages/Login.module.css';
+import { useAuthRegisterConfirmCreateMutation } from '@/redux/api';
 
 export default function SignupConfirmPage() {
   const location = useLocation();

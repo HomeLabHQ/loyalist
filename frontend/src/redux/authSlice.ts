@@ -1,6 +1,4 @@
-/* eslint-disable no-param-reassign */
 import { createSlice } from '@reduxjs/toolkit';
-// eslint-disable-next-line import/no-cycle
 import { backendApi, User } from './api';
 
 // Define a type for the slice state

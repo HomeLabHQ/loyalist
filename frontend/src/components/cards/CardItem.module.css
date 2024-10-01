@@ -1,0 +1,9 @@
+.cardWrapper {
+  border: solid rem(1px) gray;
+  width: 10%;
+}
+
+.blankCardWrapper {
+  border: dotted rem(1px) gray;
+  width: 10%;
+}

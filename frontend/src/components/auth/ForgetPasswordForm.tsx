@@ -1,7 +1,7 @@
-import { Container, Paper, TextInput, Text, Button } from '@mantine/core';
+import { useNavigate } from 'react-router-dom';
+import { Button, Container, Paper, Text, TextInput } from '@mantine/core';
 import { useForm } from '@mantine/form';
 import { notifications } from '@mantine/notifications';
-import { useNavigate } from 'react-router-dom';
 import { useAuthPasswordForgetCreateMutation } from '@/redux/api';
 
 export default function ForgetPasswordForm() {

@@ -1,11 +1,11 @@
-import { createBrowserRouter, RouterProvider, Navigate, useLocation } from 'react-router-dom';
-import { useAppSelector } from '@/redux/hooks';
+import { createBrowserRouter, Navigate, RouterProvider, useLocation } from 'react-router-dom';
+import { HomePage } from '@/pages/Home.page';
+import LandingPage from '@/pages/Landing.page';
 import { LoginPage } from '@/pages/Login.page';
+import ProfilePage from '@/pages/Profile.page';
 import SignupConfirmPage from '@/pages/SignupConfirm.page';
 import SocialLoginPage from '@/pages/SocialLogin.page';
-import LandingPage from '@/pages/Landing.page';
-import { HomePage } from '@/pages/Home.page';
-import ProfilePage from '@/pages/Profile.page';
+import { useAppSelector } from '@/redux/hooks';
 import ForgetPasswordPage from './pages/ForgetPassword.page';
 import ResetPasswordPage from './pages/ResetPassword.page';
 

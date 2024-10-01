@@ -1,11 +1,11 @@
-import { baseApi as api } from './baseApi';
+import { baseApi as api } from "./baseApi";
 export const addTagTypes = [
-  'auth',
-  'file-cleanup',
-  'file-upload',
-  'image-upload',
-  'loyalty-cards',
-  'stores',
+  "auth",
+  "file-cleanup",
+  "file-upload",
+  "image-upload",
+  "loyalty-cards",
+  "stores",
 ] as const;
 const injectedRtkApi = api
   .enhanceEndpoints({
@@ -16,10 +16,10 @@ const injectedRtkApi = api
       authCreate: build.mutation<AuthCreateApiResponse, AuthCreateApiArg>({
         query: (queryArg) => ({
           url: `/api/auth/`,
-          method: 'POST',
+          method: "POST",
           body: queryArg.customTokenObtainPairRequest,
         }),
-        invalidatesTags: ['auth'],
+        invalidatesTags: ["auth"],
       }),
       authPasswordForgetCreate: build.mutation<
         AuthPasswordForgetCreateApiResponse,
@@ -27,10 +27,10 @@ const injectedRtkApi = api
       >({
         query: (queryArg) => ({
           url: `/api/auth/password/forget/`,
-          method: 'POST',
+          method: "POST",
           body: queryArg.forgetPasswordRequest,
         }),
-        invalidatesTags: ['auth'],
+        invalidatesTags: ["auth"],
       }),
       authPasswordResetCreate: build.mutation<
         AuthPasswordResetCreateApiResponse,
@@ -38,10 +38,10 @@ const injectedRtkApi = api
       >({
         query: (queryArg) => ({
           url: `/api/auth/password/reset/`,
-          method: 'POST',
+          method: "POST",
           body: queryArg.resetPasswordRequest,
         }),
-        invalidatesTags: ['auth'],
+        invalidatesTags: ["auth"],
       }),
       authPasswordUpdateCreate: build.mutation<
         AuthPasswordUpdateCreateApiResponse,
@@ -49,22 +49,28 @@ const injectedRtkApi = api
       >({
         query: (queryArg) => ({
           url: `/api/auth/password/update/`,
-          method: 'POST',
+          method: "POST",
           body: queryArg.changePasswordRequest,
         }),
-        invalidatesTags: ['auth'],
+        invalidatesTags: ["auth"],
       }),
-      authProfileRetrieve: build.query<AuthProfileRetrieveApiResponse, AuthProfileRetrieveApiArg>({
+      authProfileRetrieve: build.query<
+        AuthProfileRetrieveApiResponse,
+        AuthProfileRetrieveApiArg
+      >({
         query: () => ({ url: `/api/auth/profile/` }),
-        providesTags: ['auth'],
+        providesTags: ["auth"],
       }),
-      authProfileUpdate: build.mutation<AuthProfileUpdateApiResponse, AuthProfileUpdateApiArg>({
+      authProfileUpdate: build.mutation<
+        AuthProfileUpdateApiResponse,
+        AuthProfileUpdateApiArg
+      >({
         query: (queryArg) => ({
           url: `/api/auth/profile/`,
-          method: 'PUT',
+          method: "PUT",
           body: queryArg.userRequest,
         }),
-        invalidatesTags: ['auth'],
+        invalidatesTags: ["auth"],
       }),
       authProfilePartialUpdate: build.mutation<
         AuthProfilePartialUpdateApiResponse,
@@ -72,26 +78,32 @@ const injectedRtkApi = api
       >({
         query: (queryArg) => ({
           url: `/api/auth/profile/`,
-          method: 'PATCH',
+          method: "PATCH",
           body: queryArg.patchedUserRequest,
         }),
-        invalidatesTags: ['auth'],
+        invalidatesTags: ["auth"],
       }),
-      authRefreshCreate: build.mutation<AuthRefreshCreateApiResponse, AuthRefreshCreateApiArg>({
+      authRefreshCreate: build.mutation<
+        AuthRefreshCreateApiResponse,
+        AuthRefreshCreateApiArg
+      >({
         query: (queryArg) => ({
           url: `/api/auth/refresh/`,
-          method: 'POST',
+          method: "POST",
           body: queryArg.tokenRefreshRequest,
         }),
-        invalidatesTags: ['auth'],
+        invalidatesTags: ["auth"],
       }),
-      authRegisterCreate: build.mutation<AuthRegisterCreateApiResponse, AuthRegisterCreateApiArg>({
+      authRegisterCreate: build.mutation<
+        AuthRegisterCreateApiResponse,
+        AuthRegisterCreateApiArg
+      >({
         query: (queryArg) => ({
           url: `/api/auth/register/`,
-          method: 'POST',
+          method: "POST",
           body: queryArg.signUpRequest,
         }),
-        invalidatesTags: ['auth'],
+        invalidatesTags: ["auth"],
       }),
       authRegisterConfirmCreate: build.mutation<
         AuthRegisterConfirmCreateApiResponse,
@@ -99,17 +111,17 @@ const injectedRtkApi = api
       >({
         query: (queryArg) => ({
           url: `/api/auth/register/confirm/`,
-          method: 'POST',
+          method: "POST",
           body: queryArg.signUpConfirmRequest,
         }),
-        invalidatesTags: ['auth'],
+        invalidatesTags: ["auth"],
       }),
       authSocialLoginsRetrieve: build.query<
         AuthSocialLoginsRetrieveApiResponse,
         AuthSocialLoginsRetrieveApiArg
       >({
         query: () => ({ url: `/api/auth/social-logins/` }),
-        providesTags: ['auth'],
+        providesTags: ["auth"],
       }),
       authSocialJwtPairCreate: build.mutation<
         AuthSocialJwtPairCreateApiResponse,
@@ -117,68 +129,93 @@ const injectedRtkApi = api
       >({
         query: (queryArg) => ({
           url: `/api/auth/social/jwt-pair/`,
-          method: 'POST',
+          method: "POST",
           body: queryArg.oAuth2InputRequest,
         }),
-        invalidatesTags: ['auth'],
+        invalidatesTags: ["auth"],
       }),
-      authVerifyCreate: build.mutation<AuthVerifyCreateApiResponse, AuthVerifyCreateApiArg>({
+      authVerifyCreate: build.mutation<
+        AuthVerifyCreateApiResponse,
+        AuthVerifyCreateApiArg
+      >({
         query: (queryArg) => ({
           url: `/api/auth/verify/`,
-          method: 'POST',
+          method: "POST",
           body: queryArg.tokenVerifyRequest,
         }),
-        invalidatesTags: ['auth'],
+        invalidatesTags: ["auth"],
       }),
-      fileCleanupCreate: build.mutation<FileCleanupCreateApiResponse, FileCleanupCreateApiArg>({
+      fileCleanupCreate: build.mutation<
+        FileCleanupCreateApiResponse,
+        FileCleanupCreateApiArg
+      >({
         query: (queryArg) => ({
           url: `/api/file-cleanup/`,
-          method: 'POST',
+          method: "POST",
           body: queryArg.imageUploadRequest,
         }),
-        invalidatesTags: ['file-cleanup'],
+        invalidatesTags: ["file-cleanup"],
       }),
-      fileUploadCreate: build.mutation<FileUploadCreateApiResponse, FileUploadCreateApiArg>({
+      fileUploadCreate: build.mutation<
+        FileUploadCreateApiResponse,
+        FileUploadCreateApiArg
+      >({
         query: (queryArg) => ({
           url: `/api/file-upload/${queryArg.extension}/`,
-          method: 'POST',
+          method: "POST",
           body: queryArg.body,
         }),
-        invalidatesTags: ['file-upload'],
+        invalidatesTags: ["file-upload"],
       }),
-      imageUploadCreate: build.mutation<ImageUploadCreateApiResponse, ImageUploadCreateApiArg>({
-        query: (queryArg) => ({ url: `/api/image-upload/`, method: 'POST', body: queryArg.body }),
-        invalidatesTags: ['image-upload'],
+      imageUploadCreate: build.mutation<
+        ImageUploadCreateApiResponse,
+        ImageUploadCreateApiArg
+      >({
+        query: (queryArg) => ({
+          url: `/api/image-upload/`,
+          method: "POST",
+          body: queryArg.body,
+        }),
+        invalidatesTags: ["image-upload"],
       }),
-      loyaltyCardsList: build.query<LoyaltyCardsListApiResponse, LoyaltyCardsListApiArg>({
+      loyaltyCardsList: build.query<
+        LoyaltyCardsListApiResponse,
+        LoyaltyCardsListApiArg
+      >({
         query: (queryArg) => ({
           url: `/api/loyalty-cards/`,
           params: { page: queryArg.page, page_size: queryArg.pageSize },
         }),
-        providesTags: ['loyalty-cards'],
+        providesTags: ["loyalty-cards"],
       }),
-      loyaltyCardsCreate: build.mutation<LoyaltyCardsCreateApiResponse, LoyaltyCardsCreateApiArg>({
+      loyaltyCardsCreate: build.mutation<
+        LoyaltyCardsCreateApiResponse,
+        LoyaltyCardsCreateApiArg
+      >({
         query: (queryArg) => ({
           url: `/api/loyalty-cards/`,
-          method: 'POST',
+          method: "POST",
           body: queryArg.loyaltyCardRequest,
         }),
-        invalidatesTags: ['loyalty-cards'],
+        invalidatesTags: ["loyalty-cards"],
       }),
       loyaltyCardsRetrieve: build.query<
         LoyaltyCardsRetrieveApiResponse,
         LoyaltyCardsRetrieveApiArg
       >({
         query: (queryArg) => ({ url: `/api/loyalty-cards/${queryArg.id}/` }),
-        providesTags: ['loyalty-cards'],
+        providesTags: ["loyalty-cards"],
       }),
-      loyaltyCardsUpdate: build.mutation<LoyaltyCardsUpdateApiResponse, LoyaltyCardsUpdateApiArg>({
+      loyaltyCardsUpdate: build.mutation<
+        LoyaltyCardsUpdateApiResponse,
+        LoyaltyCardsUpdateApiArg
+      >({
         query: (queryArg) => ({
           url: `/api/loyalty-cards/${queryArg.id}/`,
-          method: 'PUT',
+          method: "PUT",
           body: queryArg.loyaltyCardRequest,
         }),
-        invalidatesTags: ['loyalty-cards'],
+        invalidatesTags: ["loyalty-cards"],
       }),
       loyaltyCardsPartialUpdate: build.mutation<
         LoyaltyCardsPartialUpdateApiResponse,
@@ -186,28 +223,34 @@ const injectedRtkApi = api
       >({
         query: (queryArg) => ({
           url: `/api/loyalty-cards/${queryArg.id}/`,
-          method: 'PATCH',
+          method: "PATCH",
           body: queryArg.patchedLoyaltyCardRequest,
         }),
-        invalidatesTags: ['loyalty-cards'],
+        invalidatesTags: ["loyalty-cards"],
       }),
       loyaltyCardsDestroy: build.mutation<
         LoyaltyCardsDestroyApiResponse,
         LoyaltyCardsDestroyApiArg
       >({
-        query: (queryArg) => ({ url: `/api/loyalty-cards/${queryArg.id}/`, method: 'DELETE' }),
-        invalidatesTags: ['loyalty-cards'],
+        query: (queryArg) => ({
+          url: `/api/loyalty-cards/${queryArg.id}/`,
+          method: "DELETE",
+        }),
+        invalidatesTags: ["loyalty-cards"],
       }),
       storesList: build.query<StoresListApiResponse, StoresListApiArg>({
         query: (queryArg) => ({
           url: `/api/stores/`,
           params: { page: queryArg.page, page_size: queryArg.pageSize },
         }),
-        providesTags: ['stores'],
+        providesTags: ["stores"],
       }),
-      storesRetrieve: build.query<StoresRetrieveApiResponse, StoresRetrieveApiArg>({
+      storesRetrieve: build.query<
+        StoresRetrieveApiResponse,
+        StoresRetrieveApiArg
+      >({
         query: (queryArg) => ({ url: `/api/stores/${queryArg.id}/` }),
-        providesTags: ['stores'],
+        providesTags: ["stores"],
       }),
     }),
     overrideExisting: false,
@@ -217,11 +260,13 @@ export type AuthCreateApiResponse = /** status 200  */ JwtAuthResponse;
 export type AuthCreateApiArg = {
   customTokenObtainPairRequest: CustomTokenObtainPairRequestWrite;
 };
-export type AuthPasswordForgetCreateApiResponse = /** status 200  */ ForgetPassword;
+export type AuthPasswordForgetCreateApiResponse =
+  /** status 200  */ ForgetPassword;
 export type AuthPasswordForgetCreateApiArg = {
   forgetPasswordRequest: ForgetPasswordRequest;
 };
-export type AuthPasswordResetCreateApiResponse = /** status 200  */ ResetPassword;
+export type AuthPasswordResetCreateApiResponse =
+  /** status 200  */ ResetPassword;
 export type AuthPasswordResetCreateApiArg = {
   resetPasswordRequest: ResetPasswordRequest;
 };
@@ -247,11 +292,13 @@ export type AuthRegisterCreateApiResponse = /** status 201  */ JwtAuthResponse;
 export type AuthRegisterCreateApiArg = {
   signUpRequest: SignUpRequestWrite;
 };
-export type AuthRegisterConfirmCreateApiResponse = /** status 200  */ JwtAuthResponse;
+export type AuthRegisterConfirmCreateApiResponse =
+  /** status 200  */ JwtAuthResponse;
 export type AuthRegisterConfirmCreateApiArg = {
   signUpConfirmRequest: SignUpConfirmRequest;
 };
-export type AuthSocialLoginsRetrieveApiResponse = /** status 200  */ SocialLinks;
+export type AuthSocialLoginsRetrieveApiResponse =
+  /** status 200  */ SocialLinks;
 export type AuthSocialLoginsRetrieveApiArg = void;
 export type AuthSocialJwtPairCreateApiResponse = /** status 200  */ JwtPairRead;
 export type AuthSocialJwtPairCreateApiArg = {
@@ -274,7 +321,8 @@ export type ImageUploadCreateApiResponse = /** status 200  */ ImageUploadRead;
 export type ImageUploadCreateApiArg = {
   body: Blob;
 };
-export type LoyaltyCardsListApiResponse = /** status 200  */ PaginatedBaseLoyaltyCardListRead;
+export type LoyaltyCardsListApiResponse =
+  /** status 200  */ PaginatedBaseLoyaltyCardListRead;
 export type LoyaltyCardsListApiArg = {
   /** A page number within the paginated result set. */
   page?: number;
@@ -285,7 +333,8 @@ export type LoyaltyCardsCreateApiResponse = /** status 201  */ LoyaltyCardRead;
 export type LoyaltyCardsCreateApiArg = {
   loyaltyCardRequest: LoyaltyCardRequest;
 };
-export type LoyaltyCardsRetrieveApiResponse = /** status 200  */ LoyaltyCardRead;
+export type LoyaltyCardsRetrieveApiResponse =
+  /** status 200  */ LoyaltyCardRead;
 export type LoyaltyCardsRetrieveApiArg = {
   id: number;
 };
@@ -294,7 +343,8 @@ export type LoyaltyCardsUpdateApiArg = {
   id: number;
   loyaltyCardRequest: LoyaltyCardRequest;
 };
-export type LoyaltyCardsPartialUpdateApiResponse = /** status 200  */ LoyaltyCardRead;
+export type LoyaltyCardsPartialUpdateApiResponse =
+  /** status 200  */ LoyaltyCardRead;
 export type LoyaltyCardsPartialUpdateApiArg = {
   id: number;
   patchedLoyaltyCardRequest: PatchedLoyaltyCardRequest;
@@ -303,7 +353,8 @@ export type LoyaltyCardsDestroyApiResponse = unknown;
 export type LoyaltyCardsDestroyApiArg = {
   id: number;
 };
-export type StoresListApiResponse = /** status 200  */ PaginatedBaseStoreListRead;
+export type StoresListApiResponse =
+  /** status 200  */ PaginatedBaseStoreListRead;
 export type StoresListApiArg = {
   /** A page number within the paginated result set. */
   page?: number;
@@ -443,7 +494,7 @@ export type PaginatedBaseLoyaltyCardListRead = {
   previous?: string | null;
   results: BaseLoyaltyCardRead[];
 };
-export type FormatEnum = 'CODE_128' | 'CODABAR' | 'QR_CODE';
+export type FormatEnum = "CODE_128" | "CODABAR" | "QR_CODE";
 export type LoyaltyCard = {
   title: string;
   description?: string;
