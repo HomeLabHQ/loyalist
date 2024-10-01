@@ -1,23 +1,24 @@
-import { Link } from 'react-router-dom';
-import { Button, Container, Group, Text, Title } from '@mantine/core';
+import { Button, Container, Image, SimpleGrid, Text, Title } from '@mantine/core';
+import image from '@/assets/404.svg';
 import classes from './NotFound.module.css';
 
-export function NotFound() {
+export default function NotFound() {
   return (
     <Container className={classes.root}>
-      <div className={classes.label}>404</div>
-      <Title className={classes.title}>You have found a secret place.</Title>
-      <Text c="dimmed" size="lg" ta="center" className={classes.description}>
-        Unfortunately, this is only a 404 page. You may have mistyped the address, or the page has
-        been moved to another URL.
-      </Text>
-      <Group justify="center">
-        <Link to="/">
-          <Button variant="subtle" size="md">
-            Take me back to home page
+      <SimpleGrid spacing={{ base: 40, sm: 80 }} cols={{ base: 1, sm: 2 }}>
+        <Image src={image} className={classes.mobileImage} />
+        <div>
+          <Title className={classes.title}>Something is not right...</Title>
+          <Text c="dimmed" size="lg">
+            Page you are trying to open does not exist. You may have mistyped the address, or the
+            page has been moved to another URL. If you think this is an error contact support.
+          </Text>
+          <Button variant="outline" size="md" mt="xl" className={classes.control}>
+            Get back to home page
           </Button>
-        </Link>
-      </Group>
+        </div>
+        <Image src={image} className={classes.desktopImage} />
+      </SimpleGrid>
     </Container>
   );
 }

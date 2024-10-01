@@ -1,4 +1,5 @@
 import { createBrowserRouter, Navigate, RouterProvider, useLocation } from 'react-router-dom';
+import NotFound from '@/components/shared/NotFound';
 import { HomePage } from '@/pages/Home.page';
 import LandingPage from '@/pages/Landing.page';
 import { LoginPage } from '@/pages/Login.page';
@@ -6,6 +7,7 @@ import ProfilePage from '@/pages/Profile.page';
 import SignupConfirmPage from '@/pages/SignupConfirm.page';
 import SocialLoginPage from '@/pages/SocialLogin.page';
 import { useAppSelector } from '@/redux/hooks';
+import { AppRoute } from './constants';
 import ForgetPasswordPage from './pages/ForgetPassword.page';
 import ResetPasswordPage from './pages/ResetPassword.page';
 
@@ -21,20 +23,13 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children }) => {
   }
   return children;
 };
-
-export default ProtectedRoute;
-
 const router = createBrowserRouter([
   {
-    path: '/',
+    path: AppRoute.Base,
     element: <LandingPage />,
   },
   {
-    path: '/profile',
-    element: <ProfilePage />,
-  },
-  {
-    path: '/home',
+    path: AppRoute.Home,
     element: (
       <ProtectedRoute>
         <HomePage />
@@ -42,25 +37,39 @@ const router = createBrowserRouter([
     ),
   },
   {
-    path: '/login',
+    path: AppRoute.Profile,
+    element: <ProfilePage />,
+  },
+  {
+    path: AppRoute.Login,
     element: <LoginPage />,
   },
   {
-    path: '/signup/confirm',
+    path: AppRoute.SignUpConfirm,
     element: <SignupConfirmPage />,
   },
   {
-    path: '/password-reset',
+    path: AppRoute.PasswordReset,
     element: <ResetPasswordPage />,
   },
   {
-    path: '/password-forget',
+    path: AppRoute.PasswordForget,
     element: <ForgetPasswordPage />,
   },
   {
-    path: '/social/:provider',
+    path: AppRoute.SocialLogin,
     element: <SocialLoginPage />,
   },
+  {
+    path: AppRoute.AddCard,
+    element: (
+      <ProtectedRoute>
+        <HomePage />
+      </ProtectedRoute>
+    ),
+  },
+
+  { path: AppRoute.Any, element: <NotFound /> },
 ]);
 
 export function Router() {

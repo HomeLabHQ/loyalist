@@ -1,5 +1,5 @@
 import CardList from '@/components/cards/CardList';
-import MainLayout from './MainLayout';
+import MainLayout from '@/layouts/MainLayout';
 
 export function HomePage() {
   return (

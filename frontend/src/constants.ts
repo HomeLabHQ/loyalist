@@ -1,5 +1,6 @@
 import { Icon, IconBrandGithub, IconBrandLinkedin, IconMail } from '@tabler/icons-react';
 
+
 export const IconSize = 20;
 export const DateFormat = 'YYYY-MM-DD';
 export const DurationFormat = 'H [hours] m [minutes] s [seconds]';
@@ -27,3 +28,16 @@ export const SocialLinks: SocialLink[] = [
     url: 'korol.oleksandr.work@gmail.com',
   },
 ];
+
+export enum AppRoute {
+  Base = '/',
+  Login = '/login',
+  SignUpConfirm = '/signup/confirm',
+  PasswordReset = '/password-reset',
+  PasswordForget = '/password-forget',
+  SocialLogin = '/social/:provider',
+  Home = '/home',
+  Profile = '/profile',
+  Any = '*',
+  AddCard = '/cards/new',
+}

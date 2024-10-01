@@ -1,8 +1,8 @@
 import { Button, Group } from '@mantine/core';
-import { SocialLinks } from '@/settings/constants';
+import { SocialLinks } from '@/constants';
 import classes from './Footer.module.css';
 
-export function Footer() {
+export default function Footer() {
   const items = SocialLinks.map((link) => (
     <Button component="a" href={link.url} leftSection={<link.icon />} size="xs" key={link.label}>
       {link.label}

@@ -1,5 +1,5 @@
 import dayjs from 'dayjs';
-import { DateFormat } from '@/settings/constants';
+import { DateFormat } from '@/constants';
 
 const formatDate = (data?: string | Date): string => dayjs(data).format(DateFormat);
 
