@@ -1,6 +1,5 @@
 import { Icon, IconBrandGithub, IconBrandLinkedin, IconMail } from '@tabler/icons-react';
 
-
 export const IconSize = 20;
 export const DateFormat = 'YYYY-MM-DD';
 export const DurationFormat = 'H [hours] m [minutes] s [seconds]';
@@ -13,8 +12,8 @@ type SocialLink = {
 };
 export const SocialLinks: SocialLink[] = [
   {
-    label: 'LinkedIn',
     icon: IconBrandLinkedin,
+    label: 'LinkedIn',
     url: 'https://www.linkedin.com/in/oleksandr-korol/',
   },
   {
