@@ -71,22 +71,18 @@ class CRUDTestCase(BaseTestCase):
     example usage:
 
     ```python
-    class StoreVewSetTest(CRUDTestCase, TestCase):
-        base_view = "stores:stores"
-        queryset = Store.objects.all()
+    class CardViewSetTest(CRUDTestCase, TestCase):
+        base_view = "cards:loyalty-cards"
+        queryset = LoyaltyCard.objects.all()
         item_count = 100
-        methods: typing.ClassVar = ["list", "retrieve"]
+        methods: typing.ClassVar = ["list", "retrieve", "create", "update", "partial_update", "destroy"]
+        public_methods: typing.ClassVar = []
 
-    def setUp(self) -> None:
-        self.user: User = self.create_and_login()
-        self.fake_data = factory.build(dict, FACTORY_CLASS=StoreFactory)
-        for _ in range(self.item_count):
-            StoreFactory.create(author=self.user)
-
-    def test_another_user_event(self) -> None:
-        self.create_and_login(email="another@mail.com")
-        resp = self.client.get(reverse(f"{self.base_view}-list"))
-        self.assertEqual(resp.status_code, 200)
+        def setUp(self) -> None:
+            self.user: User = self.create_and_login()
+            self.fake_data = factory.build(dict, FACTORY_CLASS=LoyaltyCardFactory)
+            for _ in range(self.item_count):
+                LoyaltyCardFactory.create(author=self.user)
     ```
     """
 
