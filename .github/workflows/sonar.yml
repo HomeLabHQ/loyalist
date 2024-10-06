@@ -36,7 +36,6 @@ jobs:
         with:
           python-version: "3.12"
       - name: Set up uv
-        # Install latest uv version using the installer
         run: curl -LsSf https://astral.sh/uv/install.sh | sh
       - name: Install dependencies
         working-directory: backend
