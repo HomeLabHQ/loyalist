@@ -15,6 +15,12 @@ jobs:
         uses: actions/checkout@v4
       - name: Start postgres
         run: docker run --name db-${GITHUB_SHA} -e POSTGRES_USER=${POSTGRES_USER} -e POSTGRES_PASSWORD=${POSTGRES_PASSWORD} postgres:17-alpine
+        env:
+          REDIS_URL: redis://cache-${GITHUB_SHA}:6378
+          PUBLIC_API_SECRET_KEY: ${{ secrets.PUBLIC_API_SECRET_KEY }}
+          POSTGRES_USER: test_user
+          POSTGRES_PASSWORD: password
+          POSTGRES_DB: db
       - name: Start cache
         run: docker run --name cache-${GITHUB_SHA}  valkey/valkey:alpine3.20
       - name: Set up Python
