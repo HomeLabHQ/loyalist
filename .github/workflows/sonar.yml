@@ -14,9 +14,9 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
       - name: Start postgres
-        run: docker start --name db-${GITHUB_SHA} -e POSTGRES_USER=${POSTGRES_USER} -e POSTGRES_PASSWORD=${POSTGRES_PASSWORD} postgres:17-alpine
+        run: docker run --name db-${GITHUB_SHA} -e POSTGRES_USER=${POSTGRES_USER} -e POSTGRES_PASSWORD=${POSTGRES_PASSWORD} postgres:17-alpine
       - name: Start cache
-        run: docker start --name cache-${GITHUB_SHA}  valkey/valkey:alpine3.20
+        run: docker run --name cache-${GITHUB_SHA}  valkey/valkey:alpine3.20
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
