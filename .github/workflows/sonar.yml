@@ -11,7 +11,7 @@ jobs:
     name: SonarCloud
     runs-on: self-hosted
     services:
-      postgres-${GITHUB_SHA}:
+      postgres:
         image: postgres:alpine3.20
         env:
           POSTGRES_USER: test_user
@@ -22,7 +22,7 @@ jobs:
           --health-interval 10s
           --health-timeout 5s
           --health-retries 5
-      cache-${GITHUB_SHA}:
+      cache:
         image: valkey/valkey:alpine3.20
     steps:
       - name: Checkout
@@ -43,12 +43,12 @@ jobs:
           uv run coverage run manage.py test &&
           uv run coverage xml
         env:
-          REDIS_URL: redis://cache-${GITHUB_SHA}:6379
+          REDIS_URL: redis://cache:6379
           PUBLIC_API_SECRET_KEY: ${{ secrets.PUBLIC_API_SECRET_KEY }}
           POSTGRES_USER: test_user
           POSTGRES_PASSWORD: password
           POSTGRES_DB: db
-          DB_HOST: postgres-${GITHUB_SHA}
+          DB_HOST: postgres
           DB_PORT: 5432
       - name: Replace path
         run: sed -i 's|/home/runner/work/loyalist/loyalist/backend|/usr/src/backend|g' ./backend/coverage.xml
