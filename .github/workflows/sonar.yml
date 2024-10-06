@@ -10,6 +10,9 @@ jobs:
   sonarcloud:
     name: SonarCloud
     runs-on: self-hosted
+    concurrency:
+      group: sonarcloud
+      cancel-in-progress: true
     services:
       postgres:
         image: postgres:alpine3.20
