@@ -23,10 +23,12 @@ jobs:
           --health-timeout 5s
           --health-retries 5
           --network-alias postgres-${GITHUB_SHA}
+          --network host
       cache:
         image: valkey/valkey:alpine3.20
         options: >-
           --network-alias cache-${GITHUB_SHA}
+          --network host
     steps:
       - name: Checkout
         uses: actions/checkout@v4
