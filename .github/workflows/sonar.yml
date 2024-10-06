@@ -10,6 +10,8 @@ jobs:
   sonarcloud:
     name: SonarCloud
     runs-on: self-hosted
+    concurrency:
+      group: sonarcloud
     services:
       postgres:
         image: postgres:alpine3.20
@@ -36,7 +38,6 @@ jobs:
         with:
           python-version: "3.12"
       - name: Set up uv
-        # Install latest uv version using the installer
         run: curl -LsSf https://astral.sh/uv/install.sh | sh
       - name: Install dependencies
         working-directory: backend
