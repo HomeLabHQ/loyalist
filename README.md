@@ -9,7 +9,7 @@
 [![Duplicated Lines (%)](https://sonarcloud.io/api/project_badges/measure?project=HomeLabHQ_loyalist&metric=duplicated_lines_density)](https://sonarcloud.io/summary/new_code?id=HomeLabHQ_loyalist)
 [![Ruff](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v2.json)](https://github.com/astral-sh/ruff)
 
-# [Loyalist](https://img.shields.io/https://loyalist.dufran.org)
+# [Loyalist](https://loyalist.dufran.org)
 
 ## Project description
 
@@ -35,14 +35,14 @@ Test12345
 ## Main technologies
 
 ![python](https://img.shields.io/badge/Python-14354C?style=flat&logo=python&logoColor=white)
-![django](https://img.shields.io/badge/Django-092E20?style=flat&logo=django&logoColor=white)
-![celery](https://img.shields.io/badge/Celery-37814A?style=flat&logo=celery&logoColor=white)
-![typescript](https://img.shields.io/badge/TypeScript-3178C6?style=flat&logo=typescript&logoColor=white)
-![react](https://img.shields.io/badge/React-20232A?style=flat&logo=react&logoColor=61DAFB)
-![react-router](https://img.shields.io/badge/React_Router-CA4245?style=flat&logo=react-router&logoColor=61DAFB)
-![redux](https://img.shields.io/badge/Redux-593D88?style=flat&logo=redux&logoColor=white)
-![vite](https://img.shields.io/badge/Vite-646CFF?style=flat&logo=vite&logoColor=white)
-![mantine](https://img.shields.io/badge/Mantine-47B881?style=flat&logo=mantine&logoColor=white)
+![django](https://img.shields.io/badge/Django-14354C?style=flat&logo=django&logoColor=white)
+![celery](https://img.shields.io/badge/Celery-14354C?style=flat&logo=celery&logoColor=white)
+![typescript](https://img.shields.io/badge/TypeScript-14354C?style=flat&logo=typescript&logoColor=white)
+![react](https://img.shields.io/badge/React-14354C?style=flat&logo=react&logoColor=61DAFB)
+![react-router](https://img.shields.io/badge/React_Router-14354C?style=flat&logo=react-router&logoColor=61DAFB)
+![redux](https://img.shields.io/badge/Redux-14354C?style=flat&logo=redux&logoColor=white)
+![vite](https://img.shields.io/badge/Vite-14354C?style=flat&logo=vite&logoColor=white)
+![mantine](https://img.shields.io/badge/Mantine-14354C?style=flat&logo=mantine&logoColor=white)
 
 ## Prerequisites
 
