@@ -6,8 +6,10 @@ x-service: &service
     - .env
   image: ${COMPOSE_PROJECT_NAME}/backend-${ENVIRONMENT}
   volumes:
+    - logs:/logs
     - static:/code/static/
     - attachments:/code/attachments/
+
 services:
   api:
     <<: *service
@@ -35,6 +37,7 @@ services:
       file: compose.yml
       service: frontend
 volumes:
+  logs:
   static:
   attachments:
   caddy_data:

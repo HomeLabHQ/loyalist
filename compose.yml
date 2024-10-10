@@ -6,6 +6,7 @@ x-service: &service
     - .env
   image: ${COMPOSE_PROJECT_NAME}/backend-${ENVIRONMENT}
   volumes:
+    - logs:/logs
     - static:/code/static/
     - attachments:/code/attachments/
 services:
@@ -84,6 +85,7 @@ services:
     volumes:
       - frontend_data:/frontend/dist
 volumes:
+  logs:
   static:
   attachments:
   caddy_data:
