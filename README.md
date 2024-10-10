@@ -48,7 +48,7 @@ Test12345
 
 For local development you will need:
 
-- Python 3.12.1
+- Python 3.13.0
 - Node 20.11.1
   - Yarn 4.5.0
 
