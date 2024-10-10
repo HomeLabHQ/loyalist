@@ -1,4 +1,3 @@
-
 ![LinkedIn](https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555)
 <br />
 ![TimeSpent](https://wakatime.com/badge/user/b235aad2-892a-4e83-b8c3-a6cc36bc4cf4/project/615a4038-d31a-4c36-a310-7eb745f14bfa.svg)
@@ -51,10 +50,17 @@ For local development you will need:
 - Python 3.13.0
 - Node 20.11.1
   - Yarn 4.5.0
+- go/task
 
-Also strongly recommend using tools like nvm and pyenv for running specific versions of Python and Node for this project
+## Scripts
 
-> NOTE: Additionally install poetry self add poetry-dotenv-plugin to auto load env variables in shell and run command
+This project use `taskfile` to organize some of the most common commands/scripts for local development and production deployment. Commands can be found in `taskfile.yml` file, for example:
+
+```bash
+task up.dev // start compose.dev.yml
+task deploy // used on server to deploy latest changes
+task manage -- //followed by command that will be redirected to django manage.py
+```
 
 ## Current production environment
 
