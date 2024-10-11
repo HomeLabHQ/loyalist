@@ -8,6 +8,7 @@
   "[python]": {
     "editor.defaultFormatter": "charliermarsh.ruff"
   },
+  "typescript.tsdk": "${workspaceFolder}/frontend/yarn/sdks/typescript/lib",
   "eslint.workingDirectories": ["./frontend"],
   "python.defaultInterpreterPath": "${workspaceFolder}/backend/.venv/bin/python",
   "python.analysis.indexing": true,
