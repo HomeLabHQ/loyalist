@@ -87,3 +87,15 @@ tasks:
     cmds:
       - uv run python manage.py createsuperuser --no-input
     silent: true
+  greenmask.dump:
+    cmds:
+      - docker compose -f compose.yml run --rm greenmask dump --config /var/lib/workdir/config.yaml
+  greenmask.list:
+    cmds:
+      - docker compose -f compose.yml run --rm greenmask list-dumps --config /var/lib/workdir/config.yaml
+  greenmask.restore:
+    cmds:
+      - docker compose -f compose.yml run --rm greenmask restore latest --config /var/lib/workdir/config.yaml
+  greenmask.clean:
+    cmds:
+      - docker compose -f compose.yml run --rm greenmask delete --retain-recent 1 --config /var/lib/workdir/config.yaml
