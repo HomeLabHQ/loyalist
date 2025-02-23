@@ -1,55 +1,78 @@
 version: "3"
+env:
+  COMPOSE_PROJECT_NAME: loyalist
 dotenv: [".env"]
 tasks:
   manage:
+    desc: "Run Django management commands"
     dir: backend
     cmds:
-      - uv run manage.py {{.CLI_ARGS}}
+      - uv run python manage.py {{.CLI_ARGS}}
   deploy:
+    desc: "Deploy on production"
     cmds:
       - git pull
       - docker compose -f compose.slim.yml  down --remove-orphans
       - docker compose -f compose.slim.yml  build
       - docker compose -f compose.slim.yml  up -d
-  install:
+
+  getdb:
     cmds:
-      - cd backend && uv sync --all-extras --frozen
-      - cd frontend && yarn install
+      - docker compose exec db hostname -i
+  install:
+    desc: Install Frontend and Backend dependencies
+    deps:
+      - install.be
+      - install.fe
+  install.be:
+    dir: backend
+    cmds:
+      - uv sync --all-extras
+    silent: true
+  install.fe:
+    dir: frontend
+    cmds:
+      - yarn install
     silent: true
   update:
-    cmds:
-      - cd backend && uv lock --upgrade
-      - cd frontend && yarn up
+    desc: "Update dependencies"
+    deps:
+      - update.be
+      - update.fe
     silent: true
-  up.dev:
+  update.be:
+    dir: backend
     cmds:
-      - docker compose -f compose.dev.yml --env-file .env up -d
+      - uv lock --upgrade
+    silent: true
+  update.fe:
+    dir: frontend
+    cmds:
+      - yarn upgrade-interactive
+  up.dev:
+    desc: "Start dev dependencies"
+    cmds:
+      - docker compose -f compose.dev.yml --env-file .env up cache db docs -d
     silent: true
   backup.db:
     cmds:
-      - docker exec -t loyalist-db-${ENVIRONMENT} pg_dump -c -U ${POSTGRES_USER} > $HOME/backups/dump_`date +%Y-%m-%d"_"%H`.sql
+      - docker exec -t ${COMPOSE_PROJECT_NAME}-db-${ENVIRONMENT} pg_dump -c -U ${POSTGRES_USER} > $HOME/backups/dump_`date +%Y-%m-%d"_"%H`.sql
   restore.db:
-    - cat  $HOME/backups/{{.CLI_ARGS}} | docker exec -i loyalist-db-${ENVIRONMENT} psql -U ${POSTGRES_USER}
+    - cat  $HOME/backups/{{.CLI_ARGS}} | docker exec -i ${COMPOSE_PROJECT_NAME}-db-${ENVIRONMENT} psql -U ${POSTGRES_USER}
   backup.files:
     cmds:
-      - docker run --rm --volumes-from loyalist-api-${ENVIRONMENT}  -v $HOME/backups:/backup ${COMPOSE_PROJECT_NAME}/backend-${ENVIRONMENT} bash -c "tar cvf /backup/backup_$(date +%Y%m%d%H).tar /code/attachments/";
+      - docker run --rm --volumes-from ${COMPOSE_PROJECT_NAME}-api-${ENVIRONMENT}  -v $HOME/backups:/backup ${COMPOSE_PROJECT_NAME}/backend-${ENVIRONMENT} bash -c "tar cvf /backup/backup_$(date +%Y%m%d%H).tar /code/attachments/";
   restore.files:
     cmds:
-      - docker run --rm --volumes-from loyalist-api-${ENVIRONMENT} -v $HOME/backups:/backup ${COMPOSE_PROJECT_NAME}/backend-${ENVIRONMENT} bash -c "cd /code/attachments/ && tar xvf /backup/{{.CLI_ARGS}} --strip 1"
+      - docker run --rm --volumes-from ${COMPOSE_PROJECT_NAME}-api-${ENVIRONMENT} -v $HOME/backups:/backup ${COMPOSE_PROJECT_NAME}/backend-${ENVIRONMENT} bash -c "cd /code/attachments/ && tar xvf /backup/{{.CLI_ARGS}} --strip 1"
   down.dev:
     cmds:
       - docker compose -f compose.dev.yml --env-file .env down --remove-orphans
     silent: true
-  shell:
+  local.shell:
     dir: backend
     cmds:
-      - uv run manage.py shell_plus
-    silent: true
-  db:
-    dir: backend
-    cmds:
-      - uv run python manage.py makemigrations
-      - uv run python manage.py migrate
+      - uv run python manage.py shell_plus
     silent: true
   migrations:
     dir: backend
@@ -57,35 +80,56 @@ tasks:
       - uv run python manage.py makemigrations
     silent: true
   api:
+    desc: Generate API specification from BE and generate client for FE
+    cmds:
+      - task api.be
+      - task api.fe
+  api.be:
     dir: backend
     cmds:
-      - uv run manage.py spectacular --color --file ../docs/schema.yml
-      - cd ../frontend && yarn run api
+      - uv run python manage.py spectacular --color --file ../docs/schema.yml
+  api.fe:
+    dir: frontend
+    cmds:
+      - yarn run api
   coverage:
     dir: backend
     cmds:
-      - uv run coverage run manage.py test
-      - uv run coverage report -m
+      - uv run python coverage run manage.py test
+      - uv run python coverage report -m
     silent: true
   erd:
     dir: backend
     cmds:
-      - uv run manage.py graph_models -a  -g  -o ../docs/database/database.dot
-      - mv docs/database/database.dot docs/database/database.md
-      - sed -i '' '1s/^/```dot\n/' docs/database/database.md && echo '```' >> docs/database/database.md
-      - "sed -i '' '/^ *.. Created: .*/d' docs/database/database.md"
+      - uv run python manage.py graph_models -a   -o ../docs/database/database.dot
+      - mv ../docs/database/database.dot ../docs/database/database.md
+      - sed -i '' '1s/^/```graphviz dot erd.png\n/' ../docs/database/database.md && echo '```' >> ../docs/database/database.md
+      - "sed -i '' '/^ *.. Created: .*/d' ../docs/database/database.md"
     silent: true
   lint:
+    desc: Run frontend and backend linters
+    deps:
+      - lint.be
+      - lint.fe
+  lint.be:
     dir: backend
     cmds:
-      - uv run ruff check . --fix
-      - uv run ruff  format
-      - cd ../frontend && yarn run lint
+      - uv run ruff check . --fix && uv run ruff  format
     silent: true
-  init.be:
+  lint.fe:
+    dir: frontend
+    cmds:
+      - yarn run lint
+  dev.init:
+    ignore_error: true
     dir: backend
     cmds:
       - uv run python manage.py createsuperuser --no-input
+    silent: true
+  dev.dump_initial:
+    dir: backend
+    cmds:
+      - uv run python manage.py dumpdata support.Country support.TransportMode support.Incoterm support.ServiceType support.PaymentTerm support.PackagingType support.DocumentType support.Container --indent 2 > support/fixtures/initial_data.json
     silent: true
   greenmask.dump:
     cmds:

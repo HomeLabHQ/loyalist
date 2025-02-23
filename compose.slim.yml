@@ -32,10 +32,6 @@ services:
     extends:
       file: compose.yml
       service: docs
-  frontend:
-    extends:
-      file: compose.yml
-      service: frontend
 volumes:
   logs:
   static:
@@ -44,4 +40,3 @@ volumes:
   caddy_config:
   docs:
   cache_data:
-  frontend_data:
