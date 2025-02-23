@@ -1,6 +1,6 @@
 {$DOCS_URL} {
 	handle {
-		basicauth {
+		basic_auth {
 			root {$CADDY_PASSWORD}
 		}
 		root * /docs
@@ -11,7 +11,7 @@
 	@api path /api/* /admin/*
 	@docs path /api/schema/ /api/swagger-ui/
 	handle @api {
-		basicauth @docs {
+		basic_auth @docs {
 			root {$CADDY_PASSWORD}
 		}
 		reverse_proxy api:8000
