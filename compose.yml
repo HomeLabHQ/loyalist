@@ -47,7 +47,6 @@ services:
       - docs:/docs
       - caddy_data:/data
       - caddy_config:/config
-      - ./docker/caddy/Caddyfile:/etc/caddy/Caddyfile
     depends_on:
       api:
         condition: service_started
