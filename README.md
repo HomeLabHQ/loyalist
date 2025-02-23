@@ -48,8 +48,8 @@ Test12345
 For local development you will need:
 
 - Python 3.13.0
-- Node 20.11.1
-  - Yarn 4.5.0
+- Node 22.13.0
+  - Yarn 4.6.0
 - Go/task
 - Docker
 

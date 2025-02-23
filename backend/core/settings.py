@@ -92,9 +92,7 @@ SIMPLE_JWT = {
     "REFRESH_TOKEN_LIFETIME": timedelta(days=int(os.environ.get("REFRESH_TOKEN_LIFETIME_DAYS", 1))),
 }
 REST_FRAMEWORK = {
-    "DEFAULT_RENDERER_CLASSES": (
-        "rest_framework.renderers.JSONRenderer",
-    ),
+    "DEFAULT_RENDERER_CLASSES": ("rest_framework.renderers.JSONRenderer",),
     "DEFAULT_PAGINATION_CLASS": "core.paginators.ResultSetPagination",
     "PAGE_SIZE": 10,
     "DEFAULT_AUTHENTICATION_CLASSES": ("rest_framework_simplejwt.authentication.JWTAuthentication",),

@@ -17,17 +17,17 @@ dependencies = [
   "psycopg[binary]>=3.2.1",
   "django-lifecycle>=1.2.4",
   "rest-social-auth>=8.4.0",
-  "uvicorn>=0.30.6",
+  "uvicorn>=0.34.0",
 ]
 description = "Add your description here"
 name = "backend"
-requires-python = ">=3.12"
+requires-python = ">=3.13"
 version = "0.1.0"
 
 [project.optional-dependencies]
 dev = [
-  "djlint>=1.35.2",
-  'ruff>=0.6.7',
+  "djlint>=1.36.4",
+  'ruff>=0.9.7',
 ]
 docs = [
   "mkdocs-awesome-pages-plugin>=2.9.3",
@@ -40,12 +40,12 @@ docs = [
 ]
 test = [
   "coverage>=7.6.1",
-  "factory-boy>=3.3.1",
+  "factory-boy>=3.3.3",
 ]
 
 [tool.ruff]
 line-length = 120
-target-version = "py312"
+target-version = "py313"
 # Exclude a variety of commonly ignored directories.
 exclude = [
   "migrations",
@@ -72,8 +72,8 @@ ignore = [
   "S107",
   "S105",
   "N802",
-  "TCH001",
-  "TCH002",
+  "TC001",
+  "TC002",
   "PTH",
   "RUF012",
   "ERA001", # temporary
