@@ -18,7 +18,10 @@ ENV PATH="$VENV_PATH/bin:$PATH"
 ###############################################
 FROM python_base AS builder_base
 RUN apt-get update && \
-    apt-get --no-install-recommends -y install &&\
+    apt-get --no-install-recommends -y install \
+    graphviz=2.42.2-7+deb12u1 \
+    libgraphviz-dev=2.42.2-7+deb12u1 \
+    python-pydotplus-doc=2.0.2-3 && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
@@ -34,6 +37,13 @@ RUN --mount=type=cache,target=/root/.cache/uv \
 # Production Image
 ###############################################
 FROM python_base AS production
+RUN apt-get update && \
+    apt-get --no-install-recommends -y install \
+    graphviz=2.42.2-7+deb12u1 \
+    libgraphviz-dev=2.42.2-7+deb12u1 \
+    python-pydotplus-doc=2.0.2-3 && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
 COPY --from=builder_base $PYSETUP_PATH $PYSETUP_PATH
 WORKDIR $PYSETUP_PATH
 COPY ./docs $PYSETUP_PATH/docs

@@ -2,33 +2,75 @@
   "[javascript]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
-  "[typescriptreact]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
-  },
   "[python]": {
     "editor.defaultFormatter": "charliermarsh.ruff"
   },
-  "typescript.tsdk": "${workspaceFolder}/frontend/yarn/sdks/typescript/lib",
-  "eslint.workingDirectories": ["./frontend"],
-  "python.defaultInterpreterPath": "${workspaceFolder}/backend/.venv/bin/python",
-  "python.analysis.indexing": true,
-  "python.analysis.extraPaths": ["${workspaceFolder}/backend"],
-  "python.autoComplete.extraPaths": ["${workspaceFolder}/backend/.venv/", "${workspaceFolder}/backend"],
-  "python.analysis.include": ["${workspaceFolder}/backend"],
+  "[typescriptreact]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "cSpell.words": [
+    "backlink",
+    "Caddyfile",
+    "createsuperuser",
+    "dotenv",
+    "dumpdata",
+    "FRENDS",
+    "getdb",
+    "greenmask",
+    "healthcheck",
+    "ianvs",
+    "isready",
+    "languagedetector",
+    "LOCODE",
+    "mantinex",
+    "mkdocs",
+    "modelfields",
+    "pghistory",
+    "pgtrigger",
+    "psql",
+    "redbeat",
+    "Taskfile",
+    "unconsolidate",
+    "unlocode",
+    "usermod",
+    "Viewset",
+    "webprod"
+  ],
+  "eslint.workingDirectories": [
+    "./frontend"
+  ],
   "python.analysis.autoImportCompletions": true,
+  "python.analysis.extraPaths": [
+    "${workspaceFolder}/backend",
+    "${workspaceFolder}/backend/.venv/"
+  ],
+  "python.analysis.include": [
+    "./backend"
+  ],
+  "python.analysis.indexing": true,
   "python.analysis.packageIndexDepths": [
     {
-      "name": "",
       "depth": 10,
-      "includeAllSymbols": true
+      "includeAllSymbols": true,
+      "name": ""
     }
   ],
-  "ruff.args": ["--line-length", "120", "--config=${workspaceFolder}/backend/pyproject.toml"],
-  "python.testing.unittestArgs": ["authentication", "core", "cards", "stores"],
-  "python.testing.pytestEnabled": false,
-  "python.testing.unittestEnabled": true,
   "python.analysis.typeCheckingMode": "off",
-  "cSpell.words": [
-    "greenmask"
-  ]
+  "python.autoComplete.extraPaths": [
+    "${workspaceFolder}/backend"
+  ],
+  "python.defaultInterpreterPath": "${workspaceFolder}/backend/.venv/bin/python",
+  "python.testing.autoTestDiscoverOnSaveEnabled": true,
+  "python.testing.cwd": "${workspaceFolder}/backend",
+  "python.testing.pytestEnabled": false,
+  "python.testing.unittestArgs": [
+    "--noinput",
+  ],
+  "python.testing.unittestEnabled": true,
+  "ruff.args": [
+    "--line-length",
+    "120",
+    "--config=${workspaceFolder}/backend/pyproject.toml"
+  ],
+  "typescript.tsdk": "./frontend/node_modules/typescript/lib"
 }
