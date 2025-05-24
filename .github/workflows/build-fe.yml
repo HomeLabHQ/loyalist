@@ -34,3 +34,6 @@ jobs:
           YARN_ENABLE_HARDENED_MODE: 0
       - name: Run linter
         run: yarn run build
+concurrency:
+  group: lint-fe
+  cancel-in-progress: true

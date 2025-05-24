@@ -23,3 +23,6 @@ jobs:
         run: uv run ruff check .
       - name: Run formatter
         run: uv run ruff format --check .
+concurrency:
+  group: lint-be
+  cancel-in-progress: true
