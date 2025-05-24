@@ -13,9 +13,7 @@ jobs:
         uses: docker/setup-qemu-action@v3
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
-      - name: Install Docker compose
-        run: |
-          curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
-          chmod +x /usr/local/bin/docker-compose
+      - name: Set up Docker Compose
+        uses: docker/setup-compose-action@v1
       - name: Run build
         run: docker-compose build
