@@ -1,0 +1,48 @@
+name: Sonarcloud
+on:
+  pull_request:
+    types: [opened, synchronize]
+
+jobs:
+  sonarcloud:
+    runs-on: homelab-arc-runner-set
+    env:
+      DB_HOST: postgres
+      DB_PORT: 5432
+      POSTGRES_DB: test
+      POSTGRES_PASSWORD: YouShallNotPass
+      POSTGRES_USER: appuser
+    container: python:3.13-slim
+    services:
+      postgres:
+        env:
+          DB_HOST: postgres
+          DB_PORT: 5432
+          POSTGRES_DB: test
+          POSTGRES_PASSWORD: YouShallNotPass
+          POSTGRES_USER: appuser
+        image: postgres
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Install Python
+        uses: actions/setup-python@v4
+        with:
+          working-directory: ./backend
+      - name: Install the latest version of uv
+        uses: astral-sh/setup-uv@v6
+      - name: Install dependencies with uv
+        run: uv sync --extras tests
+      - name: Run Tests
+        run: |
+          uv run coverage run manage.py test &&
+          uv run coverage xml
+      - name: SonarQube Scan
+        uses: SonarSource/sonarqube-scan-action@v4.1.0
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
