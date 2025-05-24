@@ -8,33 +8,14 @@
   "[typescriptreact]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
+  "github.copilot.chat.commitMessageGeneration.instructions": [
+    {
+        "file": ".github/copilot-commit-message-instructions.md"
+    }
+  ],
   "cSpell.words": [
-    "backlink",
-    "Caddyfile",
-    "createsuperuser",
-    "dotenv",
-    "dumpdata",
-    "FRENDS",
-    "getdb",
-    "greenmask",
-    "healthcheck",
-    "ianvs",
-    "isready",
-    "languagedetector",
-    "LOCODE",
-    "mantinex",
-    "mkdocs",
-    "modelfields",
-    "pghistory",
-    "pgtrigger",
-    "psql",
-    "redbeat",
-    "Taskfile",
-    "unconsolidate",
-    "unlocode",
-    "usermod",
-    "Viewset",
-    "webprod"
+    
+    "Webshop"
   ],
   "eslint.workingDirectories": [
     "./frontend"
@@ -61,7 +42,8 @@
   ],
   "python.defaultInterpreterPath": "${workspaceFolder}/backend/.venv/bin/python",
   "python.testing.autoTestDiscoverOnSaveEnabled": true,
-  "python.testing.cwd": "${workspaceFolder}/backend",
+  "python.testing.cwd": "${workspaceFolder}/backend", 
+  "python.testing.autoTestDiscoverOnSavePattern": "**/tests*.py",
   "python.testing.pytestEnabled": false,
   "python.testing.unittestArgs": [
     "--noinput",

@@ -1,4 +1,4 @@
-name: Build
+name: Build docker images
 on:
   pull_request:
     types: [opened, synchronize]
@@ -13,5 +13,10 @@ jobs:
         uses: docker/setup-qemu-action@v3
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
+      - name: Set up Docker Compose
+        uses: docker/setup-compose-action@v1
       - name: Run build
         run: docker compose build
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true

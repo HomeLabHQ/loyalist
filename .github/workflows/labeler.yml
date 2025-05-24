@@ -8,3 +8,6 @@ jobs:
     runs-on: homelab-arc-runner-set
     steps:
       - uses: actions/labeler@v4
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
