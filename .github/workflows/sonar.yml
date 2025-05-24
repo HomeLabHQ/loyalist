@@ -52,5 +52,5 @@ jobs:
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 concurrency:
-  group: sonarcloud
+  group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true

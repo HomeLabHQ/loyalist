@@ -42,5 +42,5 @@ jobs:
       - name: Run tests
         run: uv run python manage.py test
 concurrency:
-  group: tests-be
+  group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
