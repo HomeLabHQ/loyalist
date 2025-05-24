@@ -10,12 +10,12 @@ on:
     types: [opened, synchronize]
 
 jobs:
-  tests-be:
+  container-job:
     runs-on: homelab-arc-runner-set
     defaults:
       run:
-        working-directory: ./backend
-
+        working-directory: ./backends
+    container: python:3.13-slim
     services:
       postgres:
         image: postgres
@@ -24,9 +24,6 @@ jobs:
           --health-interval 10s
           --health-timeout 5s
           --health-retries 5
-        ports:
-          - 5432:5432
-
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
