@@ -1,10 +1,4 @@
 name: Run backend tests
-env:
-  DB_HOST: postgres
-  DB_PORT: 5432
-  POSTGRES_DB: test
-  POSTGRES_PASSWORD: YouShallNotPass
-  POSTGRES_USER: appuser
 on:
   pull_request:
     types: [opened, synchronize]
@@ -12,6 +6,12 @@ on:
 jobs:
   container-job:
     runs-on: homelab-arc-runner-set
+    env:
+        DB_HOST: postgres
+        DB_PORT: 5432
+        POSTGRES_DB: test
+        POSTGRES_PASSWORD: YouShallNotPass
+        POSTGRES_USER: appuser
     defaults:
       run:
         working-directory: ./backends
