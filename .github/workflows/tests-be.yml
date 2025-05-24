@@ -1,0 +1,40 @@
+name: Run backend tests
+env:
+  DB_HOST: postgres
+  DB_PORT: 5432
+  POSTGRES_DB: test
+  POSTGRES_PASSWORD: YouShallNotPass
+  POSTGRES_USER: appuser
+on:
+  pull_request:
+    types: [opened, synchronize]
+
+jobs:
+  lint:
+    runs-on: homelab-arc-runner-set
+    defaults:
+      run:
+        working-directory: ./backend
+
+    services:
+      postgres:
+        image: postgres
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+          - 5432:5432
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Install Python 3.11
+        uses: actions/setup-python@v4
+      - name: Install the latest version of uv
+        uses: astral-sh/setup-uv@v6
+      - name: Install dependencies with uv
+        run: uv sync --all-extras
+      - name: Run ruff linter
+        run: python manage.py test
