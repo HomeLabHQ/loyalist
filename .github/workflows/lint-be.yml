@@ -1,0 +1,27 @@
+name: Lint Backend
+
+on:
+  pull_request:
+    types: [opened, synchronize]
+
+jobs:
+  lint:
+    runs-on: homelab-arc-runner-set
+    defaults:
+      run:
+        working-directory: ./backend
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Install Python 3.11
+        uses: actions/setup-python@v4
+        with:
+          python-version: 3.11
+      - name: Install the latest version of uv
+        uses: astral-sh/setup-uv@v6
+      - name: Install dependencies with uv
+        run: uv sync --all-extras
+      - name: Run ruff linter
+        run: uv run ruff check .
+      - name: Run formatter
+        run: uv run format --check .
