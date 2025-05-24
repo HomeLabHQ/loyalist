@@ -4,20 +4,26 @@ on:
     types: [opened, synchronize]
 
 jobs:
-  container-job:
+  tests-be:
     runs-on: homelab-arc-runner-set
     env:
-        DB_HOST: postgres
-        DB_PORT: 5432
-        POSTGRES_DB: test
-        POSTGRES_PASSWORD: YouShallNotPass
-        POSTGRES_USER: appuser
+      DB_HOST: postgres
+      DB_PORT: 5432
+      POSTGRES_DB: test
+      POSTGRES_PASSWORD: YouShallNotPass
+      POSTGRES_USER: appuser
     defaults:
       run:
         working-directory: ./backends
     container: python:3.13-slim
     services:
       postgres:
+        env:
+          DB_HOST: postgres
+          DB_PORT: 5432
+          POSTGRES_DB: test
+          POSTGRES_PASSWORD: YouShallNotPass
+          POSTGRES_USER: appuser
         image: postgres
         options: >-
           --health-cmd pg_isready
