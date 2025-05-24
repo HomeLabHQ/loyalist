@@ -4,7 +4,7 @@ on:
     types: [opened, synchronize]
 jobs:
   docker_build:
-    runs-on: self-hosted
+    runs-on: homelab-arc-runner-set
     steps:
       - uses: actions/checkout@v4
       - name: Make env file

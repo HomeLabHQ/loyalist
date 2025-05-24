@@ -9,7 +9,7 @@ on:
 jobs:
   sonarcloud:
     name: SonarCloud
-    runs-on: self-hosted
+    runs-on: homelab-arc-runner-set
     concurrency:
       group: sonarcloud
     services:
