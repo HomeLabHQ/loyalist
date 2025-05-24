@@ -10,7 +10,7 @@ on:
     types: [opened, synchronize]
 
 jobs:
-  lint:
+  be-tests:
     runs-on: homelab-arc-runner-set
     defaults:
       run:
