@@ -16,4 +16,4 @@ jobs:
       - name: Set up Docker Compose
         uses: docker/setup-compose-action@v1
       - name: Run build
-        run: docker-compose build
+        run: docker compose build
