@@ -39,5 +39,5 @@ jobs:
         uses: astral-sh/setup-uv@v6
       - name: Install dependencies with uv
         run: uv sync --all-extras
-      - name: Run ruff linter
-        run: python manage.py test
+      - name: Run tests
+        run: uv run python manage.py test
