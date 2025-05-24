@@ -14,7 +14,7 @@ jobs:
       POSTGRES_USER: appuser
     defaults:
       run:
-        working-directory: ./backends
+        working-directory: ./backend
     container: python:3.13-slim
     services:
       postgres:
