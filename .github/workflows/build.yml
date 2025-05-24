@@ -5,6 +5,11 @@ on:
 jobs:
   docker_build:
     runs-on: homelab-arc-runner-set
+    container:
+      image: docker:latest
+    services:
+      docker:
+        image: docker:dind
     steps:
       - uses: actions/checkout@v4
       - name: Make env file
