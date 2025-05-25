@@ -50,6 +50,13 @@ jobs:
         uses: amendx/slackbot-release@1.0.1
         with:
           slack_webhook_url: ${{ secrets.SLACK_WEBHOOK_URL }}
+          message: |
+            :tada: *New Release Published* :tada:
+            *Repository:* ${{ github.repository }}
+            *Tag:* ${{ github.ref_name }}
+
+            *Release Notes:*
+            ${{ steps.git-cliff.outputs.content }}
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
