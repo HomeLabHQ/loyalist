@@ -1,3 +1,11 @@
+## [2025.05.25.2](https://github.com/HomeLabHQ/loyalist/compare/v2025.05.25.1..v2025.05.25.2) - 2025-05-25
+
+### ⚙️ Miscellaneous Tasks
+
+- *(config)* Update release workflow to use softprops/action-gh-release in([0719331](https://github.com/HomeLabHQ/loyalist/commit/0719331ef29d9107b2c1dbf742ff52745ea585b0))
+- *(config)* Update release target to 'dev' and add changelog file in([bf8101f](https://github.com/HomeLabHQ/loyalist/commit/bf8101f90ccf0327324c2f790cd0ff5fdb540950))
+
+
 ## [2025.05.25.1] - 2025-05-25
 
 ### ⚙️ Miscellaneous Tasks
