@@ -54,6 +54,7 @@ jobs:
           SLACK_TITLE: "New version released ${{ github.event.release.tag_name }}"
           SLACK_MESSAGE: ${{ steps.git-cliff.outputs.content }}
           SLACK_FOOTER: ""
+          SLACKIFY_MARKDOWN: true
           MSG_MINIMAL: true
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
