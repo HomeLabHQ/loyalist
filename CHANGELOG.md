@@ -1,3 +1,9 @@
+## [2025.05.25.8](https://github.com/HomeLabHQ/loyalist/compare/v2025.05.25.7..v2025.05.25.8) - 2025-05-25
+
+### ⛰️  Features
+
+- *(slack)* Enable markdown formatting for Slack notifications in([e5ae7c9](https://github.com/HomeLabHQ/loyalist/commit/e5ae7c91ab6d6bc7e3a02e2758d5240419476b5c))
+
 ## [2025.05.25.7](https://github.com/HomeLabHQ/loyalist/compare/v2025.05.25.6..v2025.05.25.7) - 2025-05-25
 
 ### ⛰️  Features
