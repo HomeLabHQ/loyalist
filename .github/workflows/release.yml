@@ -1,0 +1,50 @@
+name: Release
+on:
+  release:
+    types: [published]
+jobs:
+  release:
+    permissions:
+      contents: write
+      pull-requests: write
+    runs-on: homelab-arc-runner-set
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - name: Generate a changelog
+        uses: orhun/git-cliff-action@v3
+        with:
+          config: cliff.toml
+          args: --verbose
+        env:
+          OUTPUT: CHANGELOG.md
+          GITHUB_REPO: ${{ github.repository }}
+      - name: Commit changelog
+        run: |
+          git checkout dev
+          git config user.name 'github-actions[bot]'
+          git config user.email 'github-actions[bot]@users.noreply.github.com'
+          set +e
+          git add CHANGELOG.md
+          git commit -m "Update changelog"
+          git push https://${{ secrets.GITHUB_TOKEN }}@github.com/${GITHUB_REPOSITORY}.git dev
+      - name: Generate a changelog
+        uses: orhun/git-cliff-action@v4
+        id: git-cliff
+        with:
+          config: cliff.toml
+          args: -vv --latest --strip header
+        env:
+          OUTPUT: CHANGES.md
+          GITHUB_REPO: ${{ github.repository }}
+      - name: Update release notes
+        uses: svenstaro/upload-release-action@v2
+        with:
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          tag: ${{ github.ref }}
+          body: ${{ steps.git-cliff.outputs.content }}
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
