@@ -1,3 +1,9 @@
+## [2025.05.25.6](https://github.com/HomeLabHQ/loyalist/compare/v2025.05.25.5..v2025.05.25.6) - 2025-05-25
+
+### ⛰️  Features
+
+- *(backend)* Add release notes in([f979373](https://github.com/HomeLabHQ/loyalist/commit/f979373d2d866a395c2b0b1a7f94dd904acdce76))
+
 ## [2025.05.25.4](https://github.com/HomeLabHQ/loyalist/compare/v2025.05.25.3..v2025.05.25.4) - 2025-05-25
 
 ### ⛰️  Features
