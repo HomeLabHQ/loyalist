@@ -1,0 +1,26 @@
+name: Release
+on:
+  pull_request:
+    types: [opened, synchronize]
+jobs:
+  label:
+    permissions:
+      contents: write
+      pull-requests: write
+    runs-on: homelab-arc-runner-set
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - name: Generate a changelog
+        uses: orhun/git-cliff-action@v3
+        with:
+          config: cliff.toml
+          args: --verbose
+        env:
+          OUTPUT: CHANGELOG.md
+          GITHUB_REPO: ${{ github.repository }}
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true

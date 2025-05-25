@@ -1,6 +1,4 @@
 version: "3"
-env:
-  COMPOSE_PROJECT_NAME: loyalist
 dotenv: [".env"]
 tasks:
   manage:
@@ -12,13 +10,10 @@ tasks:
     desc: "Deploy on production"
     cmds:
       - git pull
-      - docker compose -f compose.slim.yml  down --remove-orphans
-      - docker compose -f compose.slim.yml  build
-      - docker compose -f compose.slim.yml  up -d
-
-  getdb:
-    cmds:
-      - docker compose exec db hostname -i
+      - docker compose down
+      - docker compose build
+      - docker compose up -d
+      - docker system prune -f
   install:
     desc: Install Frontend and Backend dependencies
     deps:
@@ -27,7 +22,7 @@ tasks:
   install.be:
     dir: backend
     cmds:
-      - uv sync --all-extras
+      - uv sync --all-groups
     silent: true
   install.fe:
     dir: frontend
@@ -69,7 +64,7 @@ tasks:
     cmds:
       - docker compose -f compose.dev.yml --env-file .env down --remove-orphans
     silent: true
-  local.shell:
+  shell:
     dir: backend
     cmds:
       - uv run python manage.py shell_plus
@@ -95,8 +90,8 @@ tasks:
   coverage:
     dir: backend
     cmds:
-      - uv run python coverage run manage.py test
-      - uv run python coverage report -m
+      - uv run coverage run manage.py test -b
+      - uv run coverage report -m
     silent: true
   erd:
     dir: backend
@@ -105,6 +100,11 @@ tasks:
       - mv ../docs/database/database.dot ../docs/database/database.md
       - sed -i '' '1s/^/```graphviz dot erd.png\n/' ../docs/database/database.md && echo '```' >> ../docs/database/database.md
       - "sed -i '' '/^ *.. Created: .*/d' ../docs/database/database.md"
+    silent: true
+  urls:
+    dir: backend
+    cmds:
+      - uv run python manage.py show_urls --format=pretty-json > ../docs/urls.json
     silent: true
   lint:
     desc: Run frontend and backend linters
@@ -120,26 +120,61 @@ tasks:
     dir: frontend
     cmds:
       - yarn run lint
-  dev.init:
-    ignore_error: true
-    dir: backend
+  release:
+    desc: Create GitHub release using calver and daily index
     cmds:
-      - uv run python manage.py createsuperuser --no-input
+      - |
+        #!/bin/bash
+        set -e
+
+        DATE=$(date +'%Y.%m.%d')
+        PREFIX="v$DATE"
+
+        echo "Looking for existing tags starting with $PREFIX..."
+
+        TAGS=$(gh release list --limit 100 --json tagName -q '.[].tagName' | grep "^$PREFIX\\." || true)
+
+        MAX_INDEX=0
+        for TAG in $TAGS; do
+          SUFFIX="${TAG##$PREFIX.}" # extract after the last dot
+          if [[ "$SUFFIX" =~ ^[0-9]+$ ]] && (( SUFFIX > MAX_INDEX )); then
+            MAX_INDEX=$SUFFIX
+          fi
+        done
+
+        NEW_INDEX=$((MAX_INDEX + 1))
+        NEW_TAG="$PREFIX.$NEW_INDEX"
+
+        echo "Latest tag: $PREFIX.$MAX_INDEX"
+        echo "Creating new tag: $NEW_TAG"
+        gh release create "$NEW_TAG" --generate-notes --target staging
+    silent: false
+  changelog:
+    desc: Generate changelog from git history
+    cmds:
+      - git cliff -o CHANGELOG.md
     silent: true
-  dev.dump_initial:
-    dir: backend
+  release-notes:
+    desc: Generate release notes from git history
     cmds:
-      - uv run python manage.py dumpdata support.Country support.TransportMode support.Incoterm support.ServiceType support.PaymentTerm support.PackagingType support.DocumentType support.Container --indent 2 > support/fixtures/initial_data.json
+      - |
+        #!/bin/bash
+        set -e
+
+        DATE=$(date +'%Y.%m.%d')
+        PREFIX="v$DATE"
+        echo "Looking for existing tags starting with $PREFIX..."
+        TAGS=$(gh release list --limit 100 --json tagName -q '.[].tagName' | grep "^$PREFIX\\." || true)
+        MAX_INDEX=0
+        for TAG in $TAGS; do
+          SUFFIX="${TAG##$PREFIX.}" # extract after the last dot
+          if [[ "$SUFFIX" =~ ^[0-9]+$ ]] && (( SUFFIX > MAX_INDEX )); then
+            MAX_INDEX=$SUFFIX
+          fi
+        done
+
+        NEW_INDEX=$((MAX_INDEX + 1))
+        NEW_TAG="$PREFIX.$NEW_INDEX"
+        echo "Latest tag: $PREFIX.$MAX_INDEX"
+        gh release edit $PREFIX.$MAX_INDEX --notes-file CHANGELOG.md
     silent: true
-  greenmask.dump:
-    cmds:
-      - docker compose -f compose.yml run --rm greenmask dump --config /var/lib/workdir/config.yaml
-  greenmask.list:
-    cmds:
-      - docker compose -f compose.yml run --rm greenmask list-dumps --config /var/lib/workdir/config.yaml
-  greenmask.restore:
-    cmds:
-      - docker compose -f compose.yml run --rm greenmask restore latest --config /var/lib/workdir/config.yaml
-  greenmask.clean:
-    cmds:
-      - docker compose -f compose.yml run --rm greenmask delete --retain-recent 1 --config /var/lib/workdir/config.yaml
