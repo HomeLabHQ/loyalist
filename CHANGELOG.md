@@ -1,3 +1,9 @@
+## [2025.05.25.7](https://github.com/HomeLabHQ/loyalist/compare/v2025.05.25.6..v2025.05.25.7) - 2025-05-25
+
+### ⛰️  Features
+
+- *(backend)* Switch to more flexible notification action in([d625ef8](https://github.com/HomeLabHQ/loyalist/commit/d625ef8d6cb41de4fc31fce8214036e423d5718f))
+
 ## [2025.05.25.6](https://github.com/HomeLabHQ/loyalist/compare/v2025.05.25.5..v2025.05.25.6) - 2025-05-25
 
 ### ⛰️  Features
