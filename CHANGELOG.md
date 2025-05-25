@@ -1,3 +1,9 @@
+## [2025.05.25.4](https://github.com/HomeLabHQ/loyalist/compare/v2025.05.25.3..v2025.05.25.4) - 2025-05-25
+
+### ⛰️  Features
+
+- *(release)* Add Slack notification for releases in([6c81639](https://github.com/HomeLabHQ/loyalist/commit/6c816396bcd3b7b60516fa433662203ac83fca0e))
+
 ## [2025.05.25.3](https://github.com/HomeLabHQ/loyalist/compare/v2025.05.25.2..v2025.05.25.3) - 2025-05-25
 
 ### ⚙️ Miscellaneous Tasks
