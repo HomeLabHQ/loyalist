@@ -46,17 +46,15 @@ jobs:
           body: ${{ steps.git-cliff.outputs.content }}
           repository: ${{ github.repository }}
           token: ${{ secrets.GITHUB_TOKEN }}
-      - name: Notify Slack on Releases
-        uses: amendx/slackbot-release@1.0.1
+      - name: Message with notes
+        uses: slackapi/slack-github-action@v2.1.0
         with:
-          slack_webhook_url: ${{ secrets.SLACK_WEBHOOK_URL }}
-          message: |
-            :tada: *New Release Published* :tada:
-            *Repository:* ${{ github.repository }}
-            *Tag:* ${{ github.ref_name }}
-
-            *Release Notes:*
-            ${{ steps.git-cliff.outputs.content }}
+          webhook: ${{ secrets.SLACK_WEBHOOK_URL }}
+          webhook-type: webhook-trigger
+          payload: |
+            "release_notes": ${{ steps.git-cliff.outputs.content }},
+            "release_repository": "${{ github.repository }}",
+            "release_version": "${{ github.event.release.tag_name }}",
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
