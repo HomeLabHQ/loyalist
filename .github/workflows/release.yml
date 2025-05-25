@@ -35,16 +35,17 @@ jobs:
         id: git-cliff
         with:
           config: cliff.toml
-          args: -vv --latest --strip header
+          args: -vv --latest
         env:
           OUTPUT: CHANGES.md
           GITHUB_REPO: ${{ github.repository }}
       - name: Update release notes
-        uses: svenstaro/upload-release-action@v2
+        uses: softprops/action-gh-release@v2
+        if: github.ref_type == 'tag'
         with:
-          repo_token: ${{ secrets.GITHUB_TOKEN }}
-          tag: ${{ github.ref }}
           body: ${{ steps.git-cliff.outputs.content }}
+          repository: ${{ github.repository }}
+          token: ${{ secrets.GITHUB_TOKEN }}
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
