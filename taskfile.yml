@@ -147,7 +147,7 @@ tasks:
 
         echo "Latest tag: $PREFIX.$MAX_INDEX"
         echo "Creating new tag: $NEW_TAG"
-        gh release create "$NEW_TAG" --generate-notes --target staging
+        gh release create "$NEW_TAG" --generate-notes --target dev
     silent: false
   changelog:
     desc: Generate changelog from git history
