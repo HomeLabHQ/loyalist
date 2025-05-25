@@ -46,15 +46,15 @@ jobs:
           body: ${{ steps.git-cliff.outputs.content }}
           repository: ${{ github.repository }}
           token: ${{ secrets.GITHUB_TOKEN }}
-      - name: Message with notes
-        uses: slackapi/slack-github-action@v2.1.0
-        with:
-          webhook: ${{ secrets.SLACK_WEBHOOK_URL }}
-          webhook-type: webhook-trigger
-          payload: |
-            "release_notes": ${{ steps.git-cliff.outputs.content }},
-            "release_repository": "${{ github.repository }}",
-            "release_version": "${{ github.event.release.tag_name }}",
+      - name: Notify Slack release channel
+        uses: rtCamp/action-slack-notify@v2.3.0
+        env:
+          SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK_URL }}
+          SLACK_COLOR: ${{ job.status }}
+          SLACK_TITLE: "New version released ${{ github.event.release.tag_name }}"
+          SLACK_MESSAGE: ${{ steps.git-cliff.outputs.content }}
+          SLACK_FOOTER: ""
+          MSG_MINIMAL: true
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
