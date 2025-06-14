@@ -1,10 +1,10 @@
-import ProfileForm from '@/components/auth/ProfileForm';
-import MainLayout from '@/layouts/MainLayout';
-import { useAuthProfileRetrieveQuery } from '@/redux/api';
+import ProfileForm from '@/components/auth/ProfileForm'
+import MainLayout from '@/layouts/MainLayout'
+import { useAuthProfileRetrieveQuery } from '@/redux/api'
 
 function ProfilePage() {
-  const { data } = useAuthProfileRetrieveQuery();
-  return <MainLayout>{data && <ProfileForm user={data} />}</MainLayout>;
+  const { data } = useAuthProfileRetrieveQuery()
+  return <MainLayout>{data && <ProfileForm user={data} />}</MainLayout>
 }
 
-export default ProfilePage;
+export default ProfilePage

@@ -1,15 +1,15 @@
-import { Icon, IconBrandGithub, IconBrandLinkedin, IconMail } from '@tabler/icons-react';
+import { type Icon, IconBrandGithub, IconBrandLinkedin, IconMail } from '@tabler/icons-react'
 
-export const IconSize = 20;
-export const DateFormat = 'YYYY-MM-DD';
-export const DurationFormat = 'H [hours] m [minutes] s [seconds]';
-export const defaultPageSize = 8;
-export const defaultColor = '#008000';
+export const IconSize = 20
+export const DateFormat = 'YYYY-MM-DD'
+export const DurationFormat = 'H [hours] m [minutes] s [seconds]'
+export const defaultPageSize = 8
+export const defaultColor = '#008000'
 type SocialLink = {
-  label: string;
-  url: string;
-  icon: Icon;
-};
+  label: string
+  url: string
+  icon: Icon
+}
 export const SocialLinks: SocialLink[] = [
   {
     icon: IconBrandLinkedin,
@@ -26,7 +26,7 @@ export const SocialLinks: SocialLink[] = [
     label: 'Contact',
     url: 'mailto:korol.oleksandr.work@gmail.com',
   },
-];
+]
 
 export enum AppRoute {
   Base = '/',

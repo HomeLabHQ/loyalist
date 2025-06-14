@@ -1,6 +1,12 @@
-import { useState } from 'react';
-import { IconLock } from '@tabler/icons-react';
-import { useNavigate } from 'react-router-dom';
+import PasswordChangeForm from '@/components/auth/PasswordChangeForm'
+import { AppRoute } from '@/constants'
+import {
+  type PatchedUserRequest,
+  type UserRead,
+  useAuthProfilePartialUpdateMutation,
+  useFileCleanupCreateMutation,
+  useImageUploadCreateMutation,
+} from '@/redux/api'
 import {
   Button,
   Card,
@@ -13,67 +19,61 @@ import {
   Text,
   TextInput,
   Tooltip,
-} from '@mantine/core';
-import { Dropzone, IMAGE_MIME_TYPE } from '@mantine/dropzone';
-import { useForm } from '@mantine/form';
-import { useDisclosure } from '@mantine/hooks';
-import PasswordChangeForm from '@/components/auth/PasswordChangeForm';
-import { AppRoute } from '@/constants';
-import {
-  PatchedUserRequest,
-  useAuthProfilePartialUpdateMutation,
-  useFileCleanupCreateMutation,
-  useImageUploadCreateMutation,
-  UserRead,
-} from '@/redux/api';
+} from '@mantine/core'
+import { Dropzone, IMAGE_MIME_TYPE } from '@mantine/dropzone'
+import { useForm } from '@mantine/form'
+import { useDisclosure } from '@mantine/hooks'
+import { IconLock } from '@tabler/icons-react'
+import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 export default function ProfileForm(props: Readonly<{ user: UserRead }>) {
-  const [update] = useAuthProfilePartialUpdateMutation();
-  const [createImage] = useImageUploadCreateMutation();
-  const [cleanup] = useFileCleanupCreateMutation();
-  const [pendingImage, setPendingImage] = useState('');
-  const navigate = useNavigate();
-  const [placeholder, setPlaceholder] = useState(props.user?.avatar?.url);
-  const [opened, { open, close }] = useDisclosure(false);
+  const [update] = useAuthProfilePartialUpdateMutation()
+  const [createImage] = useImageUploadCreateMutation()
+  const [cleanup] = useFileCleanupCreateMutation()
+  const [pendingImage, setPendingImage] = useState('')
+  const navigate = useNavigate()
+  const [placeholder, setPlaceholder] = useState(props.user?.avatar?.url)
+  const [opened, { open, close }] = useDisclosure(false)
   const form = useForm<PatchedUserRequest>({
     initialValues: structuredClone(props.user),
-  });
+  })
   const handleSubmit = (values: PatchedUserRequest) => {
     update({
       patchedUserRequest: values,
     })
       .unwrap()
       .then(() => {
-        navigate(AppRoute.Home);
+        navigate(AppRoute.Home)
       })
       .catch((error) => {
-        form.setErrors(error.data);
-      });
-  };
+        form.setErrors(error.data)
+      })
+  }
 
   return (
-    <Grid justify="center">
+    <Grid justify='center'>
       <Grid.Col span={6}>
-        <Card withBorder shadow="sm" radius="md">
+        <Card withBorder shadow='sm' radius='md'>
           <Text
-            size="xl"
+            size='xl'
             fw={900}
-            variant="gradient"
+            variant='gradient'
             gradient={{ from: 'blue', to: 'cyan', deg: 90 }}
           >
             Profile
           </Text>
           <form
             onSubmit={form.onSubmit((values) => {
-              handleSubmit(values);
+              handleSubmit(values)
             })}
           >
-            <Fieldset legend="Personal information">
+            <Fieldset legend='Personal information'>
               <Grid>
                 <Grid.Col span={7}>
-                  <Container py="md">
-                    <TextInput mb="md" label="First Name" {...form.getInputProps('first_name')} />
-                    <TextInput mb="md" label="Last Name" {...form.getInputProps('last_name')} />
+                  <Container py='md'>
+                    <TextInput mb='md' label='First Name' {...form.getInputProps('first_name')} />
+                    <TextInput mb='md' label='Last Name' {...form.getInputProps('last_name')} />
                     <Tooltip
                       events={{
                         hover: !props.user.has_password,
@@ -83,8 +83,8 @@ export default function ProfileForm(props: Readonly<{ user: UserRead }>) {
                       label="You can't  change your email if you don't have a password(logged via OAuth providers)"
                     >
                       <TextInput
-                        label="Your email"
-                        placeholder="Your email"
+                        label='Your email'
+                        placeholder='Your email'
                         {...form.getInputProps('email')}
                         disabled={!props.user.has_password}
                       />
@@ -101,23 +101,25 @@ export default function ProfileForm(props: Readonly<{ user: UserRead }>) {
                         .unwrap()
                         .then((data) => {
                           if (pendingImage) {
-                            cleanup({ imageUploadRequest: { name: pendingImage } }).unwrap();
+                            cleanup({
+                              imageUploadRequest: { name: pendingImage },
+                            }).unwrap()
                           }
-                          setPendingImage(data.name);
-                          form.setValues({ avatar: data });
-                          setPlaceholder(data.url);
-                        });
+                          setPendingImage(data.name)
+                          form.setValues({ avatar: data })
+                          setPlaceholder(data.url)
+                        })
                     }}
                   >
-                    <Text ta="center">Profile picture</Text>
+                    <Text ta='center'>Profile picture</Text>
                   </Dropzone>
                   {placeholder && <Image src={placeholder} />}
                 </Grid.Col>
               </Grid>
             </Fieldset>
           </form>
-          <Fieldset legend="Security">
-            <Modal opened={opened} onClose={close} title="Password change" centered>
+          <Fieldset legend='Security'>
+            <Modal opened={opened} onClose={close} title='Password change' centered>
               <PasswordChangeForm close={close} />
             </Modal>
             <Button onClick={open}>
@@ -125,16 +127,16 @@ export default function ProfileForm(props: Readonly<{ user: UserRead }>) {
               Change password
             </Button>
           </Fieldset>
-          <Group py="md" justify="end">
-            <Button mb="xs" onClick={() => handleSubmit(form.values)}>
+          <Group py='md' justify='end'>
+            <Button mb='xs' onClick={() => handleSubmit(form.values)}>
               Update Profile
             </Button>
-            <Button mb="xs" color="red" onClick={() => navigate('/home/')}>
+            <Button mb='xs' color='red' onClick={() => navigate('/home/')}>
               Cancel
             </Button>
           </Group>
         </Card>
       </Grid.Col>
     </Grid>
-  );
+  )
 }

@@ -1,6 +1,6 @@
-import dayjs from 'dayjs';
-import { DateFormat } from '@/constants';
+import { DateFormat } from '@/constants'
+import dayjs from 'dayjs'
 
-const formatDate = (data?: string | Date): string => dayjs(data).format(DateFormat);
+const formatDate = (data?: string | Date): string => dayjs(data).format(DateFormat)
 
-export default formatDate;
+export default formatDate

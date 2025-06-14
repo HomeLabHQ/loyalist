@@ -1,20 +1,20 @@
-import { ReactNode, useMemo } from 'react';
-import { AppShell } from '@mantine/core';
-import Footer from '@/components/shared/Footer';
-import Header from '@/components/shared/Header';
+import Footer from '@/components/shared/Footer'
+import Header from '@/components/shared/Header'
+import { AppShell } from '@mantine/core'
+import { type ReactNode, useMemo } from 'react'
 
 type MainLayoutProps = {
-  children: ReactNode;
-};
+  children: ReactNode
+}
 
 export default function MainLayout({ children }: Readonly<MainLayoutProps>) {
-  const header = useMemo(() => <Header />, []);
-  const footer = useMemo(() => <Footer />, []);
+  const header = useMemo(() => <Header />, [])
+  const footer = useMemo(() => <Footer />, [])
   return (
-    <AppShell header={{ height: 60 }} padding="md">
-      <AppShell.Header px="sm">{header}</AppShell.Header>
+    <AppShell header={{ height: 60 }} padding='md'>
+      <AppShell.Header px='sm'>{header}</AppShell.Header>
       <AppShell.Main>{children}</AppShell.Main>
       <AppShell.Footer>{footer}</AppShell.Footer>
     </AppShell>
-  );
+  )
 }

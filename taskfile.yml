@@ -1,126 +1,168 @@
 version: "3"
 dotenv: [".env"]
 tasks:
-  manage:
+  prod.deploy:
+    desc: "Deploy on production"
+    cmds:
+      - git pull
+      - docker compose build
+      - docker compose up -d
+      - docker system prune -f
+  prod.db.backup:
+    desc: "Backup production database using greenmask"
+    cmds:
+      - docker compose -f compose.yml run --rm greenmask dump --config /var/lib/workdir/config.yaml
+  prod.db.backup.list:
+    desc: "List production using greenmask"
+    cmds:
+      - docker compose -f compose.yml run --rm greenmask list-dumps --config /var/lib/workdir/config.yaml
+  prod.db.backup.clean:
+    desc: "Clean up old backups using greenmask"
+    cmds:
+      - docker compose -f compose.yml run --rm greenmask delete --retain-recent 7 --config /var/lib/workdir/config.yaml
+  prod.db.restore.latest:
+    desc: "Restore production database"
+    cmds:
+      - docker compose -f compose.yml run --rm greenmask restore latest --config /var/lib/workdir/config.yaml
+  dev.manage:
     desc: "Run Django management commands"
     dir: backend
     cmds:
       - uv run python manage.py {{.CLI_ARGS}}
-  deploy:
-    desc: "Deploy on production"
-    cmds:
-      - git pull
-      - docker compose down
-      - docker compose build
-      - docker compose up -d
-      - docker system prune -f
-  install:
+  dev.install:
     desc: Install Frontend and Backend dependencies
     deps:
-      - install.be
-      - install.fe
-  install.be:
+      - dev.install.be
+      - dev.install.fe
+  dev.install.be:
     dir: backend
     cmds:
       - uv sync --all-groups
     silent: true
-  install.fe:
+  dev.install.fe:
     dir: frontend
     cmds:
       - yarn install
     silent: true
-  update:
-    desc: "Update dependencies"
+  dev.update:
+    desc: "Update dependencies on local environment"
     deps:
       - update.be
       - update.fe
     silent: true
-  update.be:
+  dev.update.be:
     dir: backend
     cmds:
       - uv lock --upgrade
     silent: true
-  update.fe:
+  dev.update.fe:
     dir: frontend
     cmds:
       - yarn upgrade-interactive
-  up.dev:
+  dev.up:
     desc: "Start dev dependencies"
     cmds:
-      - docker compose -f compose.dev.yml --env-file .env up cache db docs -d
+      - docker compose -f compose.dev.yml up db cache docs greenmask -d
     silent: true
-  backup.db:
+  dev.down:
+    desc: "Stop dev dependencies"
     cmds:
-      - docker exec -t ${COMPOSE_PROJECT_NAME}-db-${ENVIRONMENT} pg_dump -c -U ${POSTGRES_USER} > $HOME/backups/dump_`date +%Y-%m-%d"_"%H`.sql
-  restore.db:
-    - cat  $HOME/backups/{{.CLI_ARGS}} | docker exec -i ${COMPOSE_PROJECT_NAME}-db-${ENVIRONMENT} psql -U ${POSTGRES_USER}
-  backup.files:
-    cmds:
-      - docker run --rm --volumes-from ${COMPOSE_PROJECT_NAME}-api-${ENVIRONMENT}  -v $HOME/backups:/backup ${COMPOSE_PROJECT_NAME}/backend-${ENVIRONMENT} bash -c "tar cvf /backup/backup_$(date +%Y%m%d%H).tar /code/attachments/";
-  restore.files:
-    cmds:
-      - docker run --rm --volumes-from ${COMPOSE_PROJECT_NAME}-api-${ENVIRONMENT} -v $HOME/backups:/backup ${COMPOSE_PROJECT_NAME}/backend-${ENVIRONMENT} bash -c "cd /code/attachments/ && tar xvf /backup/{{.CLI_ARGS}} --strip 1"
-  down.dev:
-    cmds:
-      - docker compose -f compose.dev.yml --env-file .env down --remove-orphans
+      - docker compose -f compose.dev.yml down --remove-orphans
     silent: true
-  shell:
+  dev.shell:
     dir: backend
     cmds:
       - uv run python manage.py shell_plus
     silent: true
-  migrations:
+  dev.migrations:
     dir: backend
     cmds:
       - uv run python manage.py makemigrations
     silent: true
-  api:
+  dev.api:
     desc: Generate API specification from BE and generate client for FE
     cmds:
-      - task api.be
-      - task api.fe
-  api.be:
+      - task dev.api.be
+      - task dev.api.fe
+  dev.api.be:
     dir: backend
     cmds:
       - uv run python manage.py spectacular --color --file ../docs/schema.yml
-  api.fe:
+      - uv run python manage.py show_urls --format=pretty-json > ../docs/urls.json
+  dev.api.fe:
     dir: frontend
     cmds:
       - yarn run api
-  coverage:
+  dev.coverage:
     dir: backend
     cmds:
       - uv run coverage run manage.py test -b
       - uv run coverage report -m
     silent: true
-  erd:
+  dev.erd:
     dir: backend
     cmds:
-      - uv run python manage.py graph_models -a   -o ../docs/database/database.dot
+      - uv run python manage.py graph_models agents authentication delivery items transport shipment support routing -X *Event -g -o ../docs/database/database.dot
       - mv ../docs/database/database.dot ../docs/database/database.md
       - sed -i '' '1s/^/```graphviz dot erd.png\n/' ../docs/database/database.md && echo '```' >> ../docs/database/database.md
       - "sed -i '' '/^ *.. Created: .*/d' ../docs/database/database.md"
     silent: true
-  urls:
-    dir: backend
-    cmds:
-      - uv run python manage.py show_urls --format=pretty-json > ../docs/urls.json
-    silent: true
-  lint:
+  dev.lint:
     desc: Run frontend and backend linters
     deps:
-      - lint.be
-      - lint.fe
-  lint.be:
+      - dev.lint.be
+      - dev.lint.fe
+  dev.lint.be:
     dir: backend
     cmds:
       - uv run ruff check . --fix && uv run ruff  format
     silent: true
-  lint.fe:
+  dev.lint.fe:
     dir: frontend
     cmds:
-      - yarn run lint
-  release:
+      - yarn run lint:fix
+  dev.init:
+    desc: Initialize development environment
+    ignore_error: true
+    dir: backend
+    cmds:
+      - uv run python manage.py createsuperuser --no-input
+      - uv run python manage.py loaddata initial_data.json
+    silent: true
+  dev.dump_initial:
+    desc: Dump initial data for support models
+    dir: backend
+    cmds:
+      - uv run python manage.py dumpdata support.Country support.TransportMode support.Incoterm support.ServiceType support.PaymentTerm support.PackagingType support.DocumentType support.Container support.RejectionReason --indent 4 > support/fixtures/initial_data.json
+    silent: true
+  dev.db.restore:
+    cmds:
+      - docker compose -f compose.dev.yml run --rm greenmask restore latest --config /var/lib/workdir/config.yaml
+  dev.start.api:
+    desc: "Start local api server"
+    cmds:
+      - task dev.build.api
+      - task dev.up.api
+      - task dev.init.api
+  dev.up.api:
+    desc: "Start backend stack for development"
+    cmds:
+      - docker compose -f compose.dev.yml up -d
+    silent: true
+  dev.build.api:
+    desc: "Build an api image for development"
+    cmds:
+      - docker compose -f compose.dev.yml build api
+    silent: true
+  dev.init.api:
+    desc: "Create superuser and load initial data in api container"
+    ignore_error: true
+    cmds:
+      - docker compose -f compose.dev.yml run --rm api python manage.py migrate
+      - docker compose -f compose.dev.yml run --rm api python manage.py createsuperuser --no-input
+      - docker compose -f compose.dev.yml run --rm api python manage.py loaddata initial_data.json
+    silent: true
+  dev.release:
     desc: Create GitHub release using calver and daily index
     cmds:
       - |
@@ -147,34 +189,5 @@ tasks:
 
         echo "Latest tag: $PREFIX.$MAX_INDEX"
         echo "Creating new tag: $NEW_TAG"
-        gh release create "$NEW_TAG" --generate-notes --target dev
+        gh release create "$NEW_TAG" --target stg --generate-notes
     silent: false
-  changelog:
-    desc: Generate changelog from git history
-    cmds:
-      - git cliff -o CHANGELOG.md
-    silent: true
-  release-notes:
-    desc: Generate release notes from git history
-    cmds:
-      - |
-        #!/bin/bash
-        set -e
-
-        DATE=$(date +'%Y.%m.%d')
-        PREFIX="v$DATE"
-        echo "Looking for existing tags starting with $PREFIX..."
-        TAGS=$(gh release list --limit 100 --json tagName -q '.[].tagName' | grep "^$PREFIX\\." || true)
-        MAX_INDEX=0
-        for TAG in $TAGS; do
-          SUFFIX="${TAG##$PREFIX.}" # extract after the last dot
-          if [[ "$SUFFIX" =~ ^[0-9]+$ ]] && (( SUFFIX > MAX_INDEX )); then
-            MAX_INDEX=$SUFFIX
-          fi
-        done
-
-        NEW_INDEX=$((MAX_INDEX + 1))
-        NEW_TAG="$PREFIX.$NEW_INDEX"
-        echo "Latest tag: $PREFIX.$MAX_INDEX"
-        gh release edit $PREFIX.$MAX_INDEX --notes-file CHANGELOG.md
-    silent: true

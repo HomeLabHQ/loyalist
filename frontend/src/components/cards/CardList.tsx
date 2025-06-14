@@ -1,15 +1,17 @@
-import { useState } from 'react';
-import { Center, Pagination, Paper } from '@mantine/core';
-import { useLoyaltyCardsListQuery } from '@/redux/api';
-import { defaultPageSize } from '@/constants';
-import CardItem from './CardItem';
+import { defaultPageSize } from '@/constants'
+import { useLoyaltyCardsListQuery } from '@/redux/api'
+import { Center, Pagination, Paper } from '@mantine/core'
+import { useState } from 'react'
+import CardItem from './CardItem'
 
 function CardList() {
-  const [page, setPage] = useState(1);
-  const { data } = useLoyaltyCardsListQuery({ page, pageSize: defaultPageSize });
+  const [page, setPage] = useState(1)
+  const { data } = useLoyaltyCardsListQuery({ page, pageSize: defaultPageSize })
   return (
-    <Paper p="lg">
-      {data?.results.map((card) => <CardItem key={card.id} card={card} />)}
+    <Paper p='lg'>
+      {data?.results.map((card) => (
+        <CardItem key={card.id} card={card} />
+      ))}
       <CardItem />
       {data && data.count > defaultPageSize ? (
         <Center>
@@ -21,6 +23,6 @@ function CardList() {
         </Center>
       ) : null}
     </Paper>
-  );
+  )
 }
-export default CardList;
+export default CardList

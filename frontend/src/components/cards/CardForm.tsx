@@ -1,3 +1,3 @@
 export default function CardForm() {
-  return <div>CardForm</div>;
+  return <div>CardForm</div>
 }

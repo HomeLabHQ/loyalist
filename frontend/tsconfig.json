@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "types": ["@testing-library/jest-dom", "vitest/globals", "vite/client"],
+    "types": ["node", "vite/client"],
     "target": "ESNext",
     "useDefineForClassFields": true,
     "lib": ["DOM", "DOM.Iterable", "ESNext"],
@@ -17,10 +17,9 @@
     "noEmit": true,
     "jsx": "react-jsx",
     "paths": {
-      "@/*": ["./src/*"],
-      "@test-utils": ["./test-utils"]
+      "@/*": ["./src/*"]
     }
   },
   "exclude": ["node_modules", "**/redux/api.ts"],
-  "include": ["src", "test-utils"]
+  "include": ["src"]
 }

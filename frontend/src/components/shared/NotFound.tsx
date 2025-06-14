@@ -1,6 +1,6 @@
-import { Button, Container, Image, SimpleGrid, Text, Title } from '@mantine/core';
-import image from '@/assets/404.svg';
-import classes from './NotFound.module.css';
+import image from '@/assets/404.svg'
+import { Button, Container, Image, SimpleGrid, Text, Title } from '@mantine/core'
+import classes from './NotFound.module.css'
 
 export default function NotFound() {
   return (
@@ -9,16 +9,16 @@ export default function NotFound() {
         <Image src={image} className={classes.mobileImage} />
         <div>
           <Title className={classes.title}>Something is not right...</Title>
-          <Text c="dimmed" size="lg">
+          <Text c='dimmed' size='lg'>
             Page you are trying to open does not exist. You may have mistyped the address, or the
             page has been moved to another URL. If you think this is an error contact support.
           </Text>
-          <Button variant="outline" size="md" mt="xl" className={classes.control}>
+          <Button variant='outline' size='md' mt='xl' className={classes.control}>
             Get back to home page
           </Button>
         </div>
         <Image src={image} className={classes.desktopImage} />
       </SimpleGrid>
     </Container>
-  );
+  )
 }
