@@ -1,7 +1,7 @@
 {
 	"biome.enabled": true,
 	"biome.requireConfiguration": true,
-	"biome.configurationPath": "${workspaceFolder}/frontend/biome.json",
+	"biome.lsp.bin": "./frontend/node_modules/@biomejs/biome/bin/biome",
 	"typescript.tsdk": "./frontend/node_modules/typescript/lib",
 	"[jsonc]": {
 		"editor.defaultFormatter": "biomejs.biome"
@@ -26,7 +26,10 @@
 			"file": ".github/copilot-commit-message-instructions.md"
 		}
 	],
-	"cSpell.words": ["Webshop"],
+	"cSpell.words": [
+		"languagedetector",
+		"Webshop"
+	],
 	"python.analysis.autoImportCompletions": true,
 	"python.analysis.extraPaths": [
 		"${workspaceFolder}/backend",

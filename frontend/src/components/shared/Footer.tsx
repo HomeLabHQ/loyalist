@@ -1,5 +1,5 @@
-import { SocialLinks } from '@/constants'
 import { Button, Group } from '@mantine/core'
+import { SocialLinks } from '@/constants'
 import classes from './Footer.module.css'
 
 export default function Footer() {

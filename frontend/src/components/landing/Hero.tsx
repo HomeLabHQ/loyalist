@@ -1,7 +1,7 @@
-import shopping from '@/assets/shopping.svg'
-import { Button, Grid, Group, Image, List, Text, ThemeIcon, Title, rem } from '@mantine/core'
+import { Button, Grid, Group, Image, List, rem, Text, ThemeIcon, Title } from '@mantine/core'
 import { IconBrandGithub, IconCheck } from '@tabler/icons-react'
 import { useNavigate } from 'react-router-dom'
+import shopping from '@/assets/shopping.svg'
 import classes from './Hero.module.css'
 
 export function Hero() {

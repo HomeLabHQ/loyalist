@@ -10,7 +10,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 django_stubs_ext.monkeypatch()
 SECRET_KEY = os.environ.get("SECRET_KEY", "DummyKey")
 ENVIRONMENT = os.environ.get("ENVIRONMENT", "dev")
-DEBUG = bool(os.environ.get("DEBUG", True))
+DEBUG = bool(os.environ.get("DEBUG", ""))
 ALLOWED_HOSTS = list(map(str.strip, os.environ.get("ALLOWED_HOSTS", "").split(",")))
 CORS_ORIGIN_WHITELIST = list(os.environ.get("ALLOWED_ORIGINS", "http://localhost:3000,http://localhost").split(","))
 CORS_ALLOWED_ORIGINS = CORS_ORIGIN_WHITELIST
@@ -88,8 +88,8 @@ TEMPLATES = [
     },
 ]
 SIMPLE_JWT = {
-    "ACCESS_TOKEN_LIFETIME": timedelta(hours=int(os.environ.get("ACCESS_TOKEN_LIFETIME", 1))),
-    "REFRESH_TOKEN_LIFETIME": timedelta(days=int(os.environ.get("REFRESH_TOKEN_LIFETIME_DAYS", 1))),
+    "ACCESS_TOKEN_LIFETIME": timedelta(hours=int(os.environ.get("ACCESS_TOKEN_LIFETIME", "1"))),
+    "REFRESH_TOKEN_LIFETIME": timedelta(days=int(os.environ.get("REFRESH_TOKEN_LIFETIME_DAYS", "1"))),
 }
 REST_FRAMEWORK = {
     "DEFAULT_RENDERER_CLASSES": ("rest_framework.renderers.JSONRenderer",),
@@ -219,7 +219,7 @@ DEFAULT_FROM_EMAIL = os.environ.get("DEFAULT_FROM_EMAIL", default="noreply@homel
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
 EMAIL_USE_TLS = True
 EMAIL_HOST = os.environ.get("EMAIL_HOST")
-EMAIL_PORT = os.environ.get("EMAIL_PORT", 25)
+EMAIL_PORT = os.environ.get("EMAIL_PORT", "25")
 EMAIL_HOST_USER = os.environ.get("EMAIL_HOST_USER", default="")
 EMAIL_HOST_PASSWORD = os.environ.get("EMAIL_HOST_PASSWORD", default="")
-EMAIL_USE_SSL = os.environ.get("EMAIL_USE_SSL", False)
+EMAIL_USE_SSL = os.environ.get("EMAIL_USE_SSL", "")

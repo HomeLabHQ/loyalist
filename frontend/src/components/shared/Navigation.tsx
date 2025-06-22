@@ -1,8 +1,8 @@
-import { AppRoute } from '@/constants'
 import { Burger, Container, Group } from '@mantine/core'
 import { useDisclosure } from '@mantine/hooks'
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
+import { AppRoute } from '@/constants'
 import classes from './Navigation.module.css'
 
 const links = [{ link: AppRoute.Home, label: 'Home' }]

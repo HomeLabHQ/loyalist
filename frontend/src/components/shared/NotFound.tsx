@@ -1,5 +1,5 @@
-import image from '@/assets/404.svg'
 import { Button, Container, Image, SimpleGrid, Text, Title } from '@mantine/core'
+import image from '@/assets/404.svg'
 import classes from './NotFound.module.css'
 
 export default function NotFound() {

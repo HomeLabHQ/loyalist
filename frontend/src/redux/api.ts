@@ -184,7 +184,10 @@ const injectedRtkApi = api
       >({
         query: (queryArg) => ({
           url: `/api/loyalty-cards/`,
-          params: { page: queryArg.page, page_size: queryArg.pageSize },
+          params: {
+            page: queryArg.page,
+            page_size: queryArg.pageSize,
+          },
         }),
         providesTags: ["loyalty-cards"],
       }),
@@ -241,7 +244,10 @@ const injectedRtkApi = api
       storesList: build.query<StoresListApiResponse, StoresListApiArg>({
         query: (queryArg) => ({
           url: `/api/stores/`,
-          params: { page: queryArg.page, page_size: queryArg.pageSize },
+          params: {
+            page: queryArg.page,
+            page_size: queryArg.pageSize,
+          },
         }),
         providesTags: ["stores"],
       }),

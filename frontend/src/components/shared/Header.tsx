@@ -1,7 +1,7 @@
+import { ActionIcon, Group, Text } from '@mantine/core'
 import image from '@/assets/app-logo.jpg'
 import { Navigation } from '@/components/shared/Navigation'
 import { UserMenu } from '@/components/shared/UserMenu'
-import { ActionIcon, Group, Text } from '@mantine/core'
 import classes from './Header.module.css'
 
 export default function Header() {

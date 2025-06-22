@@ -1,10 +1,10 @@
+import { notifications } from '@mantine/notifications'
+import { useEffect } from 'react'
+import { useLocation, useNavigate, useParams } from 'react-router-dom'
 import LoginForm from '@/components/auth/LoginForm'
 import { AppRoute } from '@/constants'
 import classes from '@/pages/Login.module.css'
 import { useAuthSocialJwtPairCreateMutation } from '@/redux/api'
-import { notifications } from '@mantine/notifications'
-import { useEffect } from 'react'
-import { useLocation, useNavigate, useParams } from 'react-router-dom'
 
 export default function SocialLoginPage() {
   const location = useLocation()

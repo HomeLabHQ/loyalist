@@ -1,4 +1,4 @@
-site_name: loyalist
+site_name: Loyalist
 docs_dir: docs
 site_dir: doc_site
 site_url: http://0.0.0.0
@@ -52,5 +52,5 @@ extra_javascript:
 plugins:
   - search
   - autorefs
-  - awesome-pages
+  - awesome-nav
   - mkdocstrings

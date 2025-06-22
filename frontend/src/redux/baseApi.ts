@@ -1,8 +1,8 @@
 import {
   type BaseQueryFn,
+  createApi,
   type FetchArgs,
   type FetchBaseQueryError,
-  createApi,
   fetchBaseQuery,
 } from '@reduxjs/toolkit/query/react'
 import type { AuthRefreshCreateApiResponse } from './api'

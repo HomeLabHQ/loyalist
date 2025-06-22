@@ -1,9 +1,9 @@
-import { AppRoute } from '@/constants'
-import { ResetPasswordRequest, useAuthPasswordResetCreateMutation } from '@/redux/api'
 import { Button, Container, Paper, Text, TextInput } from '@mantine/core'
 import { useForm } from '@mantine/form'
 import { notifications } from '@mantine/notifications'
 import { useLocation, useNavigate } from 'react-router-dom'
+import { AppRoute } from '@/constants'
+import { type ResetPasswordRequest, useAuthPasswordResetCreateMutation } from '@/redux/api'
 
 export default function ForgetPasswordForm() {
   const [create] = useAuthPasswordResetCreateMutation()
@@ -31,7 +31,10 @@ export default function ForgetPasswordForm() {
       })
       .catch((error) => {
         form.setErrors(error.data)
-        notifications.show({ message: JSON.stringify(error.data), color: 'red' })
+        notifications.show({
+          message: JSON.stringify(error.data),
+          color: 'red',
+        })
       })
   }
   return (

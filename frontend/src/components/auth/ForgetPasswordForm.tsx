@@ -1,9 +1,9 @@
-import { AppRoute } from '@/constants'
-import { useAuthPasswordForgetCreateMutation } from '@/redux/api'
 import { Button, Container, Paper, Text, TextInput } from '@mantine/core'
 import { useForm } from '@mantine/form'
 import { notifications } from '@mantine/notifications'
 import { useNavigate } from 'react-router-dom'
+import { AppRoute } from '@/constants'
+import { useAuthPasswordForgetCreateMutation } from '@/redux/api'
 
 export default function ForgetPasswordForm() {
   const [create] = useAuthPasswordForgetCreateMutation()

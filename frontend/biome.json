@@ -1,31 +1,31 @@
 {
-  "$schema": "https://biomejs.dev/schemas/1.9.4/schema.json",
+  "$schema": "https://biomejs.dev/schemas/2.0.4/schema.json",
   "vcs": { "enabled": false, "clientKind": "git", "useIgnoreFile": false },
   "files": {
     "ignoreUnknown": false,
-    "ignore": ["node_modules", "dist", "*.css", "**/redux/api.ts"]
+    "includes": ["**/*.tsx", "**/*.ts", "!dist", "!node_modules", "!**/api.ts"]
   },
   "formatter": {
     "enabled": true,
-    "useEditorconfig": true,
     "formatWithErrors": false,
     "indentStyle": "space",
     "indentWidth": 2,
     "lineEnding": "lf",
     "lineWidth": 100,
     "attributePosition": "auto",
-    "bracketSpacing": true
+    "bracketSameLine": false,
+    "bracketSpacing": true,
+    "expand": "auto",
+    "useEditorconfig": true
   },
-  "organizeImports": { "enabled": true },
   "linter": {
     "enabled": true,
     "rules": {
-      "recommended": false,
+      "recommended": true,
       "a11y": {
         "noAccessKey": "error",
         "noAriaUnsupportedElements": "error",
         "noAutofocus": "error",
-        "noBlankTarget": "error",
         "noDistractingElements": "error",
         "noHeaderScope": "error",
         "noInteractiveElementToNoninteractiveRole": "error",
@@ -35,10 +35,12 @@
         "noPositiveTabindex": "error",
         "noRedundantAlt": "error",
         "noRedundantRoles": "error",
+        "noStaticElementInteractions": "error",
         "useAltText": "error",
         "useAnchorContent": "error",
         "useAriaActivedescendantWithTabindex": "error",
         "useAriaPropsForRole": "error",
+        "useAriaPropsSupportedByRole": "error",
         "useButtonType": "error",
         "useFocusableInteractive": "error",
         "useHeadingContent": "error",
@@ -50,21 +52,24 @@
         "useValidAnchor": "error",
         "useValidAriaProps": "error",
         "useValidAriaRole": "error",
-        "useValidAriaValues": "error"
+        "useValidAriaValues": "error",
+        "useValidAutocomplete": "error"
       },
       "complexity": {
+        "noAdjacentSpacesInRegex": "error",
+        "noCommaOperator": "error",
         "noExtraBooleanCast": "error",
-        "noMultipleSpacesInRegularExpressionLiterals": "error",
         "noUselessCatch": "error",
         "noUselessConstructor": "error",
+        "noUselessEscapeInRegex": "error",
         "noUselessTernary": "error",
         "noUselessThisAlias": "error",
         "noUselessTypeConstraint": "error",
-        "noWith": "error",
         "useArrowFunction": "error",
         "useLiteralKeys": "error"
       },
       "correctness": {
+        "noUnusedImports": "error",
         "noChildrenProp": "error",
         "noConstAssign": "error",
         "noConstantCondition": "error",
@@ -88,29 +93,32 @@
         "noUnusedPrivateClassMembers": "error",
         "noUnusedVariables": "error",
         "noVoidElementsWithChildren": "error",
-        "useArrayLiterals": "off",
         "useIsNan": "error",
         "useValidForDirection": "error",
+        "useValidTypeof": "error",
         "useYield": "error"
       },
-      "security": { "noGlobalEval": "warn" },
+      "security": { "noBlankTarget": "error", "noGlobalEval": "warn" },
       "style": {
-        "noCommaOperator": "error",
+        "noCommonJs": "error",
+        "noImplicitBoolean": "off",
         "noNamespace": "error",
         "noParameterAssign": "error",
         "noUselessElse": "error",
-        "noVar": "error",
         "noYodaExpression": "error",
+        "useArrayLiterals": "error",
         "useAsConstAssertion": "error",
         "useBlockStatements": "error",
         "useCollapsedElseIf": "error",
+        "useConsistentCurlyBraces": "error",
         "useConst": "error",
         "useDefaultSwitchClause": "off",
         "useExponentiationOperator": "error",
         "useFragmentSyntax": "error",
+        "noNonNullAssertion": "off",
         "useNamingConvention": {
           "level": "off",
-          "options": { "strictCase": false }
+          "options": { "strictCase": false, "requireAscii": false }
         },
         "useShorthandAssign": "error",
         "useTemplate": "error",
@@ -129,6 +137,7 @@
         "noDoubleEquals": "error",
         "noDuplicateCase": "error",
         "noDuplicateClassMembers": "error",
+        "noDuplicateElseIf": "error",
         "noDuplicateJsxProps": "error",
         "noDuplicateObjectKeys": "error",
         "noDuplicateParameters": "error",
@@ -139,22 +148,31 @@
         "noFunctionAssign": "error",
         "noGlobalAssign": "error",
         "noImportAssign": "error",
+        "noIrregularWhitespace": "error",
         "noMisleadingCharacterClass": "error",
         "noMisleadingInstantiator": "error",
         "noPrototypeBuiltins": "error",
-        "noRedeclare": "off",
+        "noRedeclare": "error",
         "noSelfCompare": "error",
         "noShadowRestrictedNames": "error",
         "noSparseArray": "error",
+        "noTemplateCurlyInString": "error",
         "noUnsafeDeclarationMerging": "error",
         "noUnsafeNegation": "error",
+        "noVar": "error",
+        "noWith": "error",
         "useDefaultSwitchClauseLast": "error",
         "useGetterReturn": "error",
-        "useNamespaceKeyword": "error",
-        "useValidTypeof": "error"
+        "useNamespaceKeyword": "error"
       }
     },
-    "ignore": ["**/node_modules/**", "**/api.ts", "**/*.{mjs,cjs,js,d.ts,d.mts}"]
+    "includes": [
+      "**",
+      "!**/node_modules/**",
+      "!**/redux/api.ts",
+      "!**/*.{mjs,cjs,js,d.ts,d.mts}",
+      "!.storybook/main.ts"
+    ]
   },
   "javascript": {
     "formatter": {
@@ -170,28 +188,24 @@
     },
     "globals": []
   },
+  "html": { "formatter": { "selfCloseVoidElements": "always" } },
   "overrides": [
     {
-      "include": ["**/*.ts", "**/*.tsx", "**/*.mts", "**/*.cts"],
+      "includes": ["**/*.ts", "**/*.tsx", "**/*.mts", "**/*.cts"],
       "linter": {
         "rules": {
-          "complexity": { "noWith": "off" },
+          "complexity": { "noArguments": "error" },
           "correctness": {
             "noConstAssign": "off",
             "noGlobalObjectCalls": "off",
             "noInvalidBuiltinInstantiation": "off",
             "noInvalidConstructorSuper": "off",
-            "noNewSymbol": "off",
             "noSetterReturn": "off",
             "noUndeclaredVariables": "off",
             "noUnreachable": "off",
             "noUnreachableSuper": "off"
           },
-          "style": {
-            "noArguments": "error",
-            "noVar": "error",
-            "useConst": "error"
-          },
+          "style": { "useConst": "error" },
           "suspicious": {
             "noClassAssign": "off",
             "noDuplicateClassMembers": "off",
@@ -201,11 +215,17 @@
             "noImportAssign": "off",
             "noRedeclare": "off",
             "noUnsafeNegation": "off",
+            "noVar": "error",
+            "noWith": "off",
             "useGetterReturn": "off"
           }
         }
-      },
-      "ignore": ["**/node_modules/**", "**/dist/**", "**/redux/api.ts"]
-    }
-  ]
+      }
+    },
+    { "includes": ["*.mdx"], "formatter": { "lineWidth": 70 } }
+  ],
+  "assist": {
+    "enabled": true,
+    "actions": { "source": { "organizeImports": "on" } }
+  }
 }

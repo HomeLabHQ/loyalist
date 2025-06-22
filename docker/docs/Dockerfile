@@ -1,7 +1,7 @@
 ###############################################
 # Base Image
 ###############################################
-FROM python:3.13-slim AS python_base
+FROM python:3.12-slim AS python_base
 
 ENV PYTHONUNBUFFERED=1 \
     UV_COMPILE_BYTECODE=1 \
@@ -31,7 +31,7 @@ COPY --from=ghcr.io/astral-sh/uv:latest /uv /bin/uv
 WORKDIR $PYSETUP_PATH
 COPY ./backend/uv.lock ./backend/pyproject.toml ./
 RUN --mount=type=cache,target=/root/.cache/uv \
-    uv sync --frozen --no-install-project --extra docs
+    uv sync --frozen --no-install-project --group docs
 
 ###############################################
 # Production Image

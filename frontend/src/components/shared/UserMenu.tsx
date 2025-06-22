@@ -1,14 +1,11 @@
-import { AppRoute } from '@/constants'
-import { useAuthProfileRetrieveQuery } from '@/redux/api'
-import { useAppDispatch } from '@/redux/hooks'
 import {
   ActionIcon,
   Avatar,
   Group,
   Menu,
+  rem,
   Text,
   UnstyledButton,
-  rem,
   useMantineColorScheme,
   useMantineTheme,
 } from '@mantine/core'
@@ -22,6 +19,9 @@ import {
 import cx from 'clsx'
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { AppRoute } from '@/constants'
+import { useAuthProfileRetrieveQuery } from '@/redux/api'
+import { useAppDispatch } from '@/redux/hooks'
 import classes from './UserMenu.module.css'
 
 export function UserMenu() {

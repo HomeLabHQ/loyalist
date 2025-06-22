@@ -1,12 +1,3 @@
-import PasswordChangeForm from '@/components/auth/PasswordChangeForm'
-import { AppRoute } from '@/constants'
-import {
-  type PatchedUserRequest,
-  type UserRead,
-  useAuthProfilePartialUpdateMutation,
-  useFileCleanupCreateMutation,
-  useImageUploadCreateMutation,
-} from '@/redux/api'
 import {
   Button,
   Card,
@@ -26,6 +17,15 @@ import { useDisclosure } from '@mantine/hooks'
 import { IconLock } from '@tabler/icons-react'
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import PasswordChangeForm from '@/components/auth/PasswordChangeForm'
+import { AppRoute } from '@/constants'
+import {
+  type PatchedUserRequest,
+  type UserRead,
+  useAuthProfilePartialUpdateMutation,
+  useFileCleanupCreateMutation,
+  useImageUploadCreateMutation,
+} from '@/redux/api'
 
 export default function ProfileForm(props: Readonly<{ user: UserRead }>) {
   const [update] = useAuthProfilePartialUpdateMutation()

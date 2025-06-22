@@ -1,8 +1,8 @@
-import { AppRoute } from '@/constants'
-import { BaseLoyaltyCardRead } from '@/redux/api'
 import { Badge, Box, Button, Card, Group, Text } from '@mantine/core'
 import { IconBarcode } from '@tabler/icons-react'
 import { useNavigate } from 'react-router-dom'
+import { AppRoute } from '@/constants'
+import type { BaseLoyaltyCardRead } from '@/redux/api'
 import classes from './CardItem.module.css'
 
 export default function CardItem(props: Readonly<{ card?: BaseLoyaltyCardRead }>) {
@@ -10,7 +10,7 @@ export default function CardItem(props: Readonly<{ card?: BaseLoyaltyCardRead }>
   return (
     <Box>
       {props.card ? (
-        <Card shadow='sm' padding='lg' radius='md' withBorder>
+        <Card shadow='sm' padding='lg' radius='md'>
           <Card.Section component='a' />
           <Group justify='space-between' mt='md' mb='xs'>
             <Text fw={500}>{props.card?.title}</Text>
@@ -22,7 +22,7 @@ export default function CardItem(props: Readonly<{ card?: BaseLoyaltyCardRead }>
           </Button>
         </Card>
       ) : (
-        <Card withBorder className={classes.blankCardWrapper}>
+        <Card className={classes.blankCardWrapper}>
           <Card.Section component='a' />
           <Group justify='space-between' mt='md' mb='xs'>
             <IconBarcode />

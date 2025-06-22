@@ -1,0 +1,404 @@
+[
+    {
+        "url": "/admin/",
+        "module": "django.contrib.admin.sites.index",
+        "name": "admin:index",
+        "decorators": ""
+    },
+    {
+        "url": "/admin/login/",
+        "module": "django.contrib.admin.sites.login",
+        "name": "admin:login",
+        "decorators": ""
+    },
+    {
+        "url": "/admin/logout/",
+        "module": "django.contrib.admin.sites.logout",
+        "name": "admin:logout",
+        "decorators": ""
+    },
+    {
+        "url": "/admin/password_change/",
+        "module": "django.contrib.admin.sites.password_change",
+        "name": "admin:password_change",
+        "decorators": ""
+    },
+    {
+        "url": "/admin/password_change/done/",
+        "module": "django.contrib.admin.sites.password_change_done",
+        "name": "admin:password_change_done",
+        "decorators": ""
+    },
+    {
+        "url": "/admin/autocomplete/",
+        "module": "django.contrib.admin.sites.autocomplete_view",
+        "name": "admin:autocomplete",
+        "decorators": ""
+    },
+    {
+        "url": "/admin/jsi18n/",
+        "module": "django.contrib.admin.sites.i18n_javascript",
+        "name": "admin:jsi18n",
+        "decorators": ""
+    },
+    {
+        "url": "/admin/r/<int:content_type_id>/<path:object_id>/",
+        "module": "django.contrib.contenttypes.views.shortcut",
+        "name": "admin:view_on_site",
+        "decorators": ""
+    },
+    {
+        "url": "/admin/auth/group/",
+        "module": "django.contrib.admin.options.changelist_view",
+        "name": "admin:auth_group_changelist",
+        "decorators": ""
+    },
+    {
+        "url": "/admin/auth/group/add/",
+        "module": "django.contrib.admin.options.add_view",
+        "name": "admin:auth_group_add",
+        "decorators": ""
+    },
+    {
+        "url": "/admin/auth/group/<path:object_id>/history/",
+        "module": "django.contrib.admin.options.history_view",
+        "name": "admin:auth_group_history",
+        "decorators": ""
+    },
+    {
+        "url": "/admin/auth/group/<path:object_id>/delete/",
+        "module": "django.contrib.admin.options.delete_view",
+        "name": "admin:auth_group_delete",
+        "decorators": ""
+    },
+    {
+        "url": "/admin/auth/group/<path:object_id>/change/",
+        "module": "django.contrib.admin.options.change_view",
+        "name": "admin:auth_group_change",
+        "decorators": ""
+    },
+    {
+        "url": "/admin/auth/group/<path:object_id>/",
+        "module": "django.views.generic.base.RedirectView",
+        "name": "",
+        "decorators": ""
+    },
+    {
+        "url": "/admin/authentication/user/",
+        "module": "django.contrib.admin.options.changelist_view",
+        "name": "admin:authentication_user_changelist",
+        "decorators": ""
+    },
+    {
+        "url": "/admin/authentication/user/add/",
+        "module": "django.contrib.admin.options.add_view",
+        "name": "admin:authentication_user_add",
+        "decorators": ""
+    },
+    {
+        "url": "/admin/authentication/user/<path:object_id>/history/",
+        "module": "django.contrib.admin.options.history_view",
+        "name": "admin:authentication_user_history",
+        "decorators": ""
+    },
+    {
+        "url": "/admin/authentication/user/<path:object_id>/delete/",
+        "module": "django.contrib.admin.options.delete_view",
+        "name": "admin:authentication_user_delete",
+        "decorators": ""
+    },
+    {
+        "url": "/admin/authentication/user/<path:object_id>/change/",
+        "module": "django.contrib.admin.options.change_view",
+        "name": "admin:authentication_user_change",
+        "decorators": ""
+    },
+    {
+        "url": "/admin/authentication/user/<path:object_id>/",
+        "module": "django.views.generic.base.RedirectView",
+        "name": "",
+        "decorators": ""
+    },
+    {
+        "url": "/admin/social_django/usersocialauth/",
+        "module": "django.contrib.admin.options.changelist_view",
+        "name": "admin:social_django_usersocialauth_changelist",
+        "decorators": ""
+    },
+    {
+        "url": "/admin/social_django/usersocialauth/add/",
+        "module": "django.contrib.admin.options.add_view",
+        "name": "admin:social_django_usersocialauth_add",
+        "decorators": ""
+    },
+    {
+        "url": "/admin/social_django/usersocialauth/<path:object_id>/history/",
+        "module": "django.contrib.admin.options.history_view",
+        "name": "admin:social_django_usersocialauth_history",
+        "decorators": ""
+    },
+    {
+        "url": "/admin/social_django/usersocialauth/<path:object_id>/delete/",
+        "module": "django.contrib.admin.options.delete_view",
+        "name": "admin:social_django_usersocialauth_delete",
+        "decorators": ""
+    },
+    {
+        "url": "/admin/social_django/usersocialauth/<path:object_id>/change/",
+        "module": "django.contrib.admin.options.change_view",
+        "name": "admin:social_django_usersocialauth_change",
+        "decorators": ""
+    },
+    {
+        "url": "/admin/social_django/usersocialauth/<path:object_id>/",
+        "module": "django.views.generic.base.RedirectView",
+        "name": "",
+        "decorators": ""
+    },
+    {
+        "url": "/admin/social_django/nonce/",
+        "module": "django.contrib.admin.options.changelist_view",
+        "name": "admin:social_django_nonce_changelist",
+        "decorators": ""
+    },
+    {
+        "url": "/admin/social_django/nonce/add/",
+        "module": "django.contrib.admin.options.add_view",
+        "name": "admin:social_django_nonce_add",
+        "decorators": ""
+    },
+    {
+        "url": "/admin/social_django/nonce/<path:object_id>/history/",
+        "module": "django.contrib.admin.options.history_view",
+        "name": "admin:social_django_nonce_history",
+        "decorators": ""
+    },
+    {
+        "url": "/admin/social_django/nonce/<path:object_id>/delete/",
+        "module": "django.contrib.admin.options.delete_view",
+        "name": "admin:social_django_nonce_delete",
+        "decorators": ""
+    },
+    {
+        "url": "/admin/social_django/nonce/<path:object_id>/change/",
+        "module": "django.contrib.admin.options.change_view",
+        "name": "admin:social_django_nonce_change",
+        "decorators": ""
+    },
+    {
+        "url": "/admin/social_django/nonce/<path:object_id>/",
+        "module": "django.views.generic.base.RedirectView",
+        "name": "",
+        "decorators": ""
+    },
+    {
+        "url": "/admin/social_django/association/",
+        "module": "django.contrib.admin.options.changelist_view",
+        "name": "admin:social_django_association_changelist",
+        "decorators": ""
+    },
+    {
+        "url": "/admin/social_django/association/add/",
+        "module": "django.contrib.admin.options.add_view",
+        "name": "admin:social_django_association_add",
+        "decorators": ""
+    },
+    {
+        "url": "/admin/social_django/association/<path:object_id>/history/",
+        "module": "django.contrib.admin.options.history_view",
+        "name": "admin:social_django_association_history",
+        "decorators": ""
+    },
+    {
+        "url": "/admin/social_django/association/<path:object_id>/delete/",
+        "module": "django.contrib.admin.options.delete_view",
+        "name": "admin:social_django_association_delete",
+        "decorators": ""
+    },
+    {
+        "url": "/admin/social_django/association/<path:object_id>/change/",
+        "module": "django.contrib.admin.options.change_view",
+        "name": "admin:social_django_association_change",
+        "decorators": ""
+    },
+    {
+        "url": "/admin/social_django/association/<path:object_id>/",
+        "module": "django.views.generic.base.RedirectView",
+        "name": "",
+        "decorators": ""
+    },
+    {
+        "url": "/admin/stores/store/",
+        "module": "django.contrib.admin.options.changelist_view",
+        "name": "admin:stores_store_changelist",
+        "decorators": ""
+    },
+    {
+        "url": "/admin/stores/store/add/",
+        "module": "django.contrib.admin.options.add_view",
+        "name": "admin:stores_store_add",
+        "decorators": ""
+    },
+    {
+        "url": "/admin/stores/store/<path:object_id>/history/",
+        "module": "django.contrib.admin.options.history_view",
+        "name": "admin:stores_store_history",
+        "decorators": ""
+    },
+    {
+        "url": "/admin/stores/store/<path:object_id>/delete/",
+        "module": "django.contrib.admin.options.delete_view",
+        "name": "admin:stores_store_delete",
+        "decorators": ""
+    },
+    {
+        "url": "/admin/stores/store/<path:object_id>/change/",
+        "module": "django.contrib.admin.options.change_view",
+        "name": "admin:stores_store_change",
+        "decorators": ""
+    },
+    {
+        "url": "/admin/stores/store/<path:object_id>/",
+        "module": "django.views.generic.base.RedirectView",
+        "name": "",
+        "decorators": ""
+    },
+    {
+        "url": "/admin/<app_label>/",
+        "module": "django.contrib.admin.sites.app_index",
+        "name": "admin:app_list",
+        "decorators": ""
+    },
+    {
+        "url": "/admin/<url>",
+        "module": "django.contrib.admin.sites.catch_all_view",
+        "name": "",
+        "decorators": ""
+    },
+    {
+        "url": "/api/auth/",
+        "module": "authentication.views.ObtainJSONWebToken",
+        "name": "authentication:auth",
+        "decorators": ""
+    },
+    {
+        "url": "/api/auth/refresh/",
+        "module": "authentication.views.RefreshJSONWebToken",
+        "name": "authentication:auth-refresh",
+        "decorators": ""
+    },
+    {
+        "url": "/api/auth/profile/",
+        "module": "authentication.views.ProfileViewSet",
+        "name": "authentication:profile",
+        "decorators": ""
+    },
+    {
+        "url": "/api/auth/register/",
+        "module": "authentication.views.SignUpView",
+        "name": "authentication:auth-register",
+        "decorators": ""
+    },
+    {
+        "url": "/api/auth/password/update/",
+        "module": "authentication.views.UpdatePasswordView",
+        "name": "authentication:password-update",
+        "decorators": ""
+    },
+    {
+        "url": "/api/auth/password/forget/",
+        "module": "authentication.views.ForgetPasswordView",
+        "name": "authentication:password-forget",
+        "decorators": ""
+    },
+    {
+        "url": "/api/auth/password/reset/",
+        "module": "authentication.views.ResetPasswordView",
+        "name": "authentication:password-reset",
+        "decorators": ""
+    },
+    {
+        "url": "/api/auth/register/confirm/",
+        "module": "authentication.views.SignupConfirmView",
+        "name": "authentication:auth-confirm",
+        "decorators": ""
+    },
+    {
+        "url": "/api/auth/verify/",
+        "module": "authentication.views.VerifyJSONWebToken",
+        "name": "authentication:auth-verify",
+        "decorators": ""
+    },
+    {
+        "url": "/api/auth/social-logins/",
+        "module": "authentication.views.SocialLoginsView",
+        "name": "authentication:social-logins",
+        "decorators": ""
+    },
+    {
+        "url": "/api/auth/social/jwt-pair/",
+        "module": "authentication.views.SocialJWTPairUserAuthView",
+        "name": "authentication:social-login",
+        "decorators": ""
+    },
+    {
+        "url": "/api/stores/",
+        "module": "stores.views.StoreViewSet",
+        "name": "stores:stores-list",
+        "decorators": ""
+    },
+    {
+        "url": "/api/stores/<pk>/",
+        "module": "stores.views.StoreViewSet",
+        "name": "stores:stores-detail",
+        "decorators": ""
+    },
+    {
+        "url": "/api/loyalty-cards/",
+        "module": "cards.views.LoyaltyCardViewSet",
+        "name": "cards:loyalty-cards-list",
+        "decorators": ""
+    },
+    {
+        "url": "/api/loyalty-cards/<pk>/",
+        "module": "cards.views.LoyaltyCardViewSet",
+        "name": "cards:loyalty-cards-detail",
+        "decorators": ""
+    },
+    {
+        "url": "/api/image-upload/",
+        "module": "core.views.ImageUploadView",
+        "name": "image-upload",
+        "decorators": ""
+    },
+    {
+        "url": "/api/file-upload/<str:extension>/",
+        "module": "core.views.FileUploadView",
+        "name": "file-upload",
+        "decorators": ""
+    },
+    {
+        "url": "/api/file-cleanup/",
+        "module": "core.views.FileCleanUpView",
+        "name": "file-cleanup",
+        "decorators": ""
+    },
+    {
+        "url": "/api/schema/",
+        "module": "drf_spectacular.views.SpectacularAPIView",
+        "name": "schema",
+        "decorators": ""
+    },
+    {
+        "url": "/api/swagger-ui/",
+        "module": "drf_spectacular.views.SpectacularSwaggerView",
+        "name": "swagger-ui",
+        "decorators": ""
+    },
+    {
+        "url": "/attachments/<path>",
+        "module": "django.views.static.serve",
+        "name": "",
+        "decorators": ""
+    }
+]

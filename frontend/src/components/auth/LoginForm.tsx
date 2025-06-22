@@ -1,4 +1,3 @@
-import { AppRoute } from '@/constants'
 import {
   Anchor,
   Button,
@@ -15,6 +14,7 @@ import { upperFirst, useToggle } from '@mantine/hooks'
 import { notifications } from '@mantine/notifications'
 import { IconBrandGoogle, IconBrandLinkedin } from '@tabler/icons-react'
 import { useNavigate } from 'react-router-dom'
+import { AppRoute } from '@/constants'
 import {
   useAuthCreateMutation,
   useAuthRegisterCreateMutation,

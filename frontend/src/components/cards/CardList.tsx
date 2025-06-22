@@ -1,7 +1,7 @@
-import { defaultPageSize } from '@/constants'
-import { useLoyaltyCardsListQuery } from '@/redux/api'
 import { Center, Pagination, Paper } from '@mantine/core'
 import { useState } from 'react'
+import { defaultPageSize } from '@/constants'
+import { useLoyaltyCardsListQuery } from '@/redux/api'
 import CardItem from './CardItem'
 
 function CardList() {

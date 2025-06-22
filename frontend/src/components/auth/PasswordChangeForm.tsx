@@ -1,12 +1,16 @@
-import { ChangePasswordRequest, useAuthPasswordUpdateCreateMutation } from '@/redux/api'
 import { Button, Container, Group, PasswordInput } from '@mantine/core'
 import { useForm } from '@mantine/form'
 import { notifications } from '@mantine/notifications'
+import { type ChangePasswordRequest, useAuthPasswordUpdateCreateMutation } from '@/redux/api'
 
 export default function PasswordChangeForm(props: Readonly<{ close: () => void }>) {
   const [update] = useAuthPasswordUpdateCreateMutation()
   const form = useForm<ChangePasswordRequest>({
-    initialValues: { new_password: '', confirmed_password: '', old_password: '' },
+    initialValues: {
+      new_password: '',
+      confirmed_password: '',
+      old_password: '',
+    },
   })
   const onFinish = (values: ChangePasswordRequest) => {
     update({ changePasswordRequest: { ...values } })
