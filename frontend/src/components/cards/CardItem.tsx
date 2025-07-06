@@ -10,13 +10,12 @@ export default function CardItem(props: Readonly<{ card?: BaseLoyaltyCardRead }>
   return (
     <Box>
       {props.card ? (
-        <Card shadow='sm' padding='lg' radius='md'>
+        <Card shadow='sm' padding='md' radius='md'>
           <Card.Section component='a' />
           <Group justify='space-between' mt='md' mb='xs'>
             <Text fw={500}>{props.card?.title}</Text>
             <Badge color='pink'>On Sale</Badge>
           </Group>
-
           <Button color='blue' fullWidth mt='md' radius='md'>
             Book classic tour now
           </Button>
