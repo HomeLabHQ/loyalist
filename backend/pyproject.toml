@@ -15,7 +15,7 @@ dependencies = [
   "gunicorn>=23.0.0",
   "pillow>=10.4.0",
   "psycopg[binary]>=3.2.1",
-  "django-lifecycle>=1.2.4",
+  "django-lifecycle>=1.2.7",
   "rest-social-auth>=8.4.0",
   "uvicorn>=0.34.0",
 ]
