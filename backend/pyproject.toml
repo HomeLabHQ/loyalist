@@ -1,6 +1,6 @@
 [project]
 dependencies = [
-  "celery-redbeat>=2.2.0",
+  "celery-redbeat>=2.3.3",
   "celery>=5.4.0",
   "django-cors-headers>=4.4.0",
   "django-extensions>=3.2.3",
